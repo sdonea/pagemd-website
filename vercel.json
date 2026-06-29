@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.pagemd.ai" }],
+      "destination": "https://pagemd.ai/$1",
+      "permanent": true
+    }
+  ]
+}

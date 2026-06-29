@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Terms of Service — PageMD</title>
+<meta name="description" content="PageMD Terms of Service — the rules governing use of our AI-powered clinic paging service."/>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300..900;1,300..900&family=Source+Serif+4:ital,opsz,wght@1,8..60,200..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-violet:      #8B7AE8;
+  --brand-sky:         #6FA5F5;
+  --brand-blue:        #5A89F2;
+  --brand-ink:         #2A3674;
+  --brand-ink-deep:    #1B2350;
+  --bg:      #F7F9FD;
+  --surface: #FFFFFF;
+  --fg:           #1B2350;
+  --fg-muted:     #4F5A8C;
+  --fg-soft:      #8189B5;
+  --line:        #E1E8F4;
+  --fd: 'Mulish', ui-sans-serif, system-ui, sans-serif;
+  --r2: 14px;
+  --sh2: 0 2px 6px rgba(26,35,80,.06), 0 4px 12px rgba(26,35,80,.05);
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --tf: 140ms;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--fd);font-size:15px;line-height:1.7;
+  color:var(--fg);background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--brand-blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:760px;margin:0 auto;padding:0 28px}
+
+/* Nav */
+nav.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:saturate(140%) blur(12px);
+  -webkit-backdrop-filter:saturate(140%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0}
+.logo-lockup{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:30px;height:30px;flex-shrink:0}
+.logo-sub{display:flex;flex-direction:column;gap:1px}
+.wordmark{font-family:var(--fd);font-weight:800;font-size:20px;letter-spacing:-.03em;line-height:1;color:var(--brand-ink)}
+.logo-tagline{font-family:var(--fd);font-style:italic;font-weight:300;font-size:12px;color:var(--fg-soft);line-height:1}
+.nav-back{font-size:14px;font-weight:600;color:var(--fg-muted);transition:color var(--tf) var(--ease)}
+.nav-back:hover{color:var(--fg);text-decoration:none}
+
+/* Page */
+.legal-wrap{padding:56px 0 96px}
+.legal-header{margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.legal-label{
+  display:inline-block;margin-bottom:14px;
+  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--brand-blue);
+}
+.legal-header h1{
+  font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:-.03em;
+  color:var(--brand-ink);line-height:1.2;margin-bottom:10px;
+}
+.legal-header .meta{font-size:13.5px;color:var(--fg-soft)}
+
+/* Prose */
+.legal-body h2{
+  font-size:17px;font-weight:800;letter-spacing:-.02em;
+  color:var(--brand-ink);margin:36px 0 10px;
+}
+.legal-body h2:first-child{margin-top:0}
+.legal-body p{margin-bottom:14px;color:var(--fg-muted)}
+.legal-body p:last-child{margin-bottom:0}
+.legal-body ul,
+.legal-body ol{padding-left:22px;margin-bottom:14px;color:var(--fg-muted)}
+.legal-body li{margin-bottom:6px}
+.legal-body a{color:var(--brand-blue)}
+.legal-body strong{color:var(--fg);font-weight:700}
+
+.notice-box{
+  background:#FBF4DC;border:1px solid #F0D98A;border-radius:var(--r2);
+  padding:18px 20px;margin:20px 0;
+}
+.notice-box p{margin:0;color:#5A4000;font-size:14px}
+
+/* Footer */
+footer.legal-footer{
+  background:var(--brand-ink-deep);
+  padding:36px 0;text-align:center;
+}
+footer.legal-footer p{font-size:13px;color:rgba(255,255,255,.35)}
+footer.legal-footer a{color:rgba(255,255,255,.55);text-decoration:none;margin:0 8px}
+footer.legal-footer a:hover{color:rgba(255,255,255,.85);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- Logo SVG symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="pagemd-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B7AE8"/>
+      <stop offset="50%" stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#B6DDE6"/>
+    </linearGradient>
+  </defs>
+  <symbol id="pagemd-mark" viewBox="0 0 200 200">
+    <rect width="200" height="200" rx="44" fill="url(#pagemd-gradient)"/>
+    <rect x="55" y="58" width="90" height="14" rx="7" fill="rgba(255,255,255,.95)"/>
+    <rect x="55" y="84" width="66" height="11" rx="5.5" fill="rgba(255,255,255,.7)"/>
+    <rect x="55" y="106" width="76" height="11" rx="5.5" fill="rgba(255,255,255,.7)"/>
+    <circle cx="148" cy="140" r="22" fill="rgba(255,255,255,.18)" stroke="rgba(255,255,255,.7)" stroke-width="2.5"/>
+    <path d="M141 140 l5 5 l9-10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </symbol>
+</svg>
+
+<nav class="top">
+  <div class="container" style="max-width:1200px">
+    <div class="nav-inner">
+      <a href="index.html" class="logo-lockup">
+        <svg class="logo-mark" viewBox="0 0 200 200"><use href="#pagemd-mark"/></svg>
+        <div class="logo-sub">
+          <span class="wordmark">PageMD</span>
+          <span class="logo-tagline">Giving nurses their time back.</span>
+        </div>
+      </a>
+      <a href="index.html" class="nav-back">← Back to home</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="legal-wrap">
+      <div class="legal-header">
+        <span class="legal-label">Legal</span>
+        <h1>Terms of Service</h1>
+        <p class="meta">Effective date: June 25, 2025 &nbsp;·&nbsp; Last updated: June 25, 2025</p>
+      </div>
+
+      <div class="legal-body">
+
+        <p>These Terms of Service ("Terms") govern your access to and use of the services provided by <strong>PageMD, Inc.</strong> ("PageMD," "we," "us," or "our"), including the pagemd.ai website and our AI-powered telephone answering and paging platform (collectively, the "Service"). By accessing the Service or clicking "I agree," you ("Clinic," "you," or "your") agree to be bound by these Terms.</p>
+        <p>If you are entering into these Terms on behalf of a medical practice or other entity, you represent that you have authority to bind that entity.</p>
+
+        <div class="notice-box">
+          <p><strong>Not a medical device.</strong> PageMD is an administrative communications tool. It is not a medical device, does not provide medical diagnoses or advice, and is not a substitute for professional clinical judgment. PageMD does not replace your triage protocols — it supports them by ensuring calls are captured and routed. Always maintain independent clinical oversight of all patient communications.</p>
+        </div>
+
+        <h2>1. The Service</h2>
+        <p>PageMD provides AI-assisted inbound call handling for outpatient medical clinics. The Service answers calls on your behalf, conducts structured intake conversations, generates paging summaries, and routes them to designated clinical staff. Features and availability may change over time as the product evolves.</p>
+        <p>During the early-access period, the Service is provided for evaluation and feedback purposes. We will communicate the transition to a paid subscription with reasonable advance notice.</p>
+
+        <h2>2. Eligibility and Account</h2>
+        <ul>
+          <li>You must be a duly licensed healthcare provider or an authorized representative of one to use the Service in a clinical setting.</li>
+          <li>You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account.</li>
+          <li>You agree to provide accurate, current, and complete registration information and to update it as necessary.</li>
+          <li>You must be at least 18 years of age to create an account.</li>
+        </ul>
+
+        <h2>3. HIPAA and Business Associate Agreement</h2>
+        <p>If you are a covered entity or business associate under HIPAA, your use of the Service to process Protected Health Information ("PHI") requires execution of a Business Associate Agreement ("BAA") with PageMD prior to transmitting any PHI through the Service.</p>
+        <p>By entering into a BAA with PageMD, each party agrees to handle PHI only as permitted by HIPAA and the BAA. If a BAA has not been executed, you may not use the Service to process PHI. Please contact <a href="mailto:team@pagemd.ai">team@pagemd.ai</a> to obtain a BAA.</p>
+        <p>You remain solely responsible for ensuring your own HIPAA compliance, including obtaining valid patient authorizations where required, maintaining your Notice of Privacy Practices, and fulfilling all covered-entity obligations.</p>
+
+        <h2>4. Acceptable Use</h2>
+        <p>You agree not to:</p>
+        <ul>
+          <li>Use the Service for any unlawful purpose or in violation of applicable law, including HIPAA and state privacy laws.</li>
+          <li>Use the Service to handle emergency calls requiring immediate dispatch (e.g., 911-level emergencies) — the Service is not designed for emergency response.</li>
+          <li>Misrepresent the nature of the Service to patients (e.g., represent PageMD as a human operator without appropriate disclosure).</li>
+          <li>Attempt to reverse-engineer, decompile, or extract the underlying AI models or software.</li>
+          <li>Interfere with or disrupt the Service or its infrastructure.</li>
+          <li>Use the Service to send spam, unsolicited communications, or engage in any abusive conduct.</li>
+        </ul>
+
+        <h2>5. Patient Consent and Disclosure</h2>
+        <p>You are responsible for obtaining all legally required patient consents for recording and AI-processing of calls, and for providing any required disclosures under applicable federal and state law (including state wiretapping statutes, which may require two-party consent). PageMD will provide call-opening language designed to inform callers that the call is automated and may be recorded, but you are ultimately responsible for compliance with disclosure requirements in your jurisdiction.</p>
+
+        <h2>6. Fees and Payment</h2>
+        <p>During the early-access period, the Service is provided at no charge. Upon general availability, we will publish a pricing schedule and provide at least 30 days' notice before charging any fees. Continued use after that date constitutes your agreement to the applicable fees. All fees are exclusive of applicable taxes.</p>
+
+        <h2>7. Intellectual Property</h2>
+        <p>PageMD and its licensors retain all intellectual property rights in the Service, including the AI models, software, brand, and documentation. These Terms grant you a limited, non-exclusive, non-transferable license to use the Service as described herein. You retain ownership of your clinic's data (call recordings, transcripts, patient information) that you provide to the Service.</p>
+        <p>By using the Service, you grant PageMD a limited license to process your data as necessary to provide and improve the Service, consistent with our <a href="privacy.html">Privacy Policy</a> and any applicable BAA.</p>
+
+        <h2>8. Confidentiality</h2>
+        <p>Each party agrees to keep the other's confidential information (including, without limitation, proprietary technology, pricing, and business plans) confidential and to use it only as necessary to fulfill obligations under these Terms. PHI is governed by the applicable BAA and HIPAA, not this section.</p>
+
+        <h2>9. Disclaimers</h2>
+        <p><strong>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.</strong></p>
+        <p>PageMD does not warrant that the Service will be error-free, uninterrupted, or that AI-generated transcripts and summaries will be accurate in all cases. You are responsible for reviewing AI-generated output and for all clinical decisions made on the basis of information routed by the Service.</p>
+
+        <h2>10. Limitation of Liability</h2>
+        <p><strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW, PAGEMD'S TOTAL LIABILITY TO YOU FOR ANY CLAIMS ARISING FROM OR RELATED TO THE SERVICE SHALL NOT EXCEED THE GREATER OF (A) THE FEES PAID BY YOU TO PAGEMD IN THE THREE MONTHS PRECEDING THE CLAIM OR (B) ONE HUNDRED DOLLARS (USD $100).</strong></p>
+        <p>IN NO EVENT WILL PAGEMD BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFITS, LOSS OF DATA, OR HARM TO PATIENTS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+        <p>Some jurisdictions do not allow certain limitations of liability; in such jurisdictions, the above limitations apply to the greatest extent permitted by law.</p>
+
+        <h2>11. Indemnification</h2>
+        <p>You agree to indemnify, defend, and hold harmless PageMD and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, or expenses (including reasonable attorneys' fees) arising out of or related to: (a) your use of the Service in violation of these Terms; (b) your failure to obtain required patient consents or provide required disclosures; (c) your violation of applicable law, including HIPAA; or (d) your clinical decisions made in reliance on Service output.</p>
+
+        <h2>12. Term and Termination</h2>
+        <p>These Terms remain in effect until terminated. Either party may terminate at any time by providing written notice. PageMD may suspend or terminate your access immediately if you violate these Terms or if continued access poses a risk of harm to patients, third parties, or PageMD. Upon termination, your right to use the Service ceases and we will handle your data in accordance with our Privacy Policy and any applicable BAA.</p>
+
+        <h2>13. Governing Law and Disputes</h2>
+        <p>These Terms are governed by the laws of the State of Delaware, without regard to conflict-of-law principles. Any dispute not resolved by good-faith negotiation within 30 days shall be resolved by binding arbitration under the American Arbitration Association's Commercial Rules, with proceedings in English. Class-action and jury-trial rights are waived to the extent permitted by law. Nothing herein prevents either party from seeking injunctive relief in any court of competent jurisdiction.</p>
+
+        <h2>14. Changes to These Terms</h2>
+        <p>We may update these Terms from time to time. When we do, we will revise the "Last updated" date above. For material changes, we will notify registered clinics by email at least 14 days before the changes take effect. Continued use of the Service after the effective date constitutes acceptance of the revised Terms. If you object to any change, your sole remedy is to stop using the Service.</p>
+
+        <h2>15. General</h2>
+        <ul>
+          <li><strong>Entire agreement.</strong> These Terms, together with our Privacy Policy and any executed BAA, constitute the entire agreement between you and PageMD regarding the Service.</li>
+          <li><strong>Severability.</strong> If any provision of these Terms is found unenforceable, that provision will be modified to the minimum extent necessary, and the remaining provisions will remain in full force.</li>
+          <li><strong>Waiver.</strong> Failure to enforce any right or provision of these Terms is not a waiver of that right or provision.</li>
+          <li><strong>Assignment.</strong> You may not assign these Terms without PageMD's prior written consent. PageMD may assign these Terms in connection with a merger or acquisition.</li>
+          <li><strong>Force majeure.</strong> PageMD is not liable for delays or failures caused by circumstances beyond our reasonable control.</li>
+        </ul>
+
+        <h2>16. Contact Us</h2>
+        <p>Questions about these Terms may be directed to:</p>
+        <p>
+          <strong>PageMD, Inc.</strong><br>
+          Email: <a href="mailto:team@pagemd.ai">team@pagemd.ai</a>
+        </p>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="legal-footer">
+  <p>
+    &copy; <span id="year"></span> PageMD, Inc. All rights reserved.
+    &nbsp;·&nbsp;
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="index.html">Home</a>
+  </p>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,1920 @@
+<!--
+  PageMD Landing Page
+
+  TO ACTIVATE THE SIGNUP FORM:
+  1. Go to https://formspree.io — sign up (free: 50 submissions/month).
+  2. Create a form pointing to team@pagemd.ai. Copy the endpoint URL.
+  3. Replace REPLACE_WITH_FORMSPREE_URL below.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PageMD — AI Phone Answering for Outpatient Clinics</title>
+<meta name="description" content="PageMD answers every inbound clinic call instantly with conversational AI — capturing structured intake and routing prioritized pages to the right provider. Give your nurses their time back."/>
+<link rel="canonical" href="https://pagemd.ai"/>
+<meta name="robots" content="index, follow"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://pagemd.ai"/>
+<meta property="og:site_name" content="PageMD"/>
+<meta property="og:title" content="PageMD — AI Phone Answering for Outpatient Clinics"/>
+<meta property="og:description" content="PageMD answers every inbound clinic call instantly with conversational AI — capturing structured intake and routing prioritized pages to the right provider."/>
+<meta property="og:image" content="https://pagemd.ai/og-image.png"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="PageMD — AI Phone Answering for Outpatient Clinics"/>
+<meta name="twitter:description" content="PageMD answers every inbound clinic call instantly with conversational AI — capturing structured intake and routing prioritized pages to the right provider."/>
+<meta name="twitter:image" content="https://pagemd.ai/og-image.png"/>
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PageMD",
+  "url": "https://pagemd.ai",
+  "logo": "https://pagemd.ai/favicon.ico",
+  "description": "AI phone answering and paging for outpatient clinics. PageMD answers every inbound call instantly, captures structured clinical intake, and routes prioritized pages to the right provider.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "team@pagemd.ai",
+    "contactType": "sales"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "PageMD",
+  "url": "https://pagemd.ai"
+}
+</script>
+
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300..900;1,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --brand-violet:      #8B7AE8;
+  --brand-violet-deep: #6B5BCB;
+  --brand-sky:         #6FA5F5;
+  --brand-blue:        #5A89F2;
+  --brand-blue-deep:   #3D6BD8;
+  --brand-mint:        #B6DDE6;
+  --brand-ink:         #2A3674;
+  --brand-ink-deep:    #1B2350;
+
+  /* Gradients */
+  --gradient-aurora:      linear-gradient(135deg, #8B7AE8 0%, #6FA5F5 45%, #B6DDE6 100%);
+  --gradient-aurora-soft: linear-gradient(135deg, #E5DFFB 0%, #DCEAFD 50%, #E8F4F7 100%);
+  --gradient-sky:         linear-gradient(180deg, #F4F8FE 0%, #E6EFFC 100%);
+  --gradient-ink:         linear-gradient(135deg, #2A3674 0%, #3D6BD8 100%);
+
+  /* Surface */
+  --bg:      #F7F9FD;
+  --bg-alt:  #EEF3FB;
+  --bg-tint: #E5EEFB;
+  --surface: #FFFFFF;
+
+  /* Foreground */
+  --fg:           #1B2350;
+  --fg-muted:     #4F5A8C;
+  --fg-soft:      #6870A3;
+  --fg-on-brand:  #FFFFFF;
+
+  /* Line */
+  --line:        #E1E8F4;
+  --line-soft:   #EEF2F9;
+  --line-strong: #C8D3E8;
+
+  /* Semantic */
+  --ok:      #2BA876;  --ok-bg:   #E4F5EC;
+  --warn:    #E8A53A;  --warn-bg: #FBF1DC;
+  --crit:    #DC4F5A;  --crit-bg: #FBE5E7;
+
+  /* Type */
+  --fd: 'Mulish', ui-sans-serif, system-ui, sans-serif;
+  --fb: 'Mulish', ui-sans-serif, system-ui, sans-serif;
+  --fs: 'Source Serif 4', ui-serif, Georgia, serif;
+  --fm: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Shadows — cool-tinted, never warm */
+  --sh1: 0 1px 2px rgba(26,35,80,.05), 0 1px 1px rgba(26,35,80,.04);
+  --sh2: 0 2px 6px rgba(26,35,80,.06), 0 4px 12px rgba(26,35,80,.05);
+  --sh3: 0 6px 18px rgba(26,35,80,.08), 0 12px 32px rgba(26,35,80,.07);
+  --sh4: 0 16px 40px rgba(26,35,80,.12), 0 30px 60px rgba(26,35,80,.10);
+  --shm: 0 8px 24px rgba(90,137,242,.28);
+
+  /* Motion */
+  --ease:  cubic-bezier(.2,.8,.2,1);
+  --easeb: cubic-bezier(.25,1,.5,1);
+  --tf: 140ms;
+  --tn: 220ms;
+  --ts: 380ms;
+
+  /* Radii */
+  --r1: 8px; --r2: 14px; --r3: 20px; --r4: 28px;
+}
+
+/* ─── Reset ──────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--fb);font-size:16px;line-height:1.65;
+  color:var(--fg);background:var(--bg);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:200px 200px;
+  opacity:.028;
+}
+.skip-link{
+  position:absolute;top:-999px;left:8px;
+  background:var(--brand-blue);color:#fff;
+  padding:8px 16px;border-radius:var(--r2);font-size:14px;font-weight:600;
+  z-index:1000;transition:top .15s;
+}
+.skip-link:focus{top:8px}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+[data-lucide]{width:18px;height:18px;stroke-width:1.75}
+.container{max-width:1200px;margin:0 auto;padding:0 28px}
+
+/* ─── Reveal ─────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.10s}.rv-d2{transition-delay:.20s}
+.rv-d3{transition-delay:.30s}.rv-d4{transition-delay:.40s}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .dot-pulse,.hcard,.badge-blink,
+  .waveform.active span,.avatar-orb.active .orb-core,
+  .avatar-orb.active .orb-ring{animation:none!important}
+}
+
+/* ─── Logo ───────────────────────────────────────────────── */
+.logo-mark   {width:30px;height:30px;flex-shrink:0}
+.logo-mark-lg{width:48px;height:48px;flex-shrink:0}
+.logo-lockup {display:inline-flex;align-items:center;gap:10px}
+.wordmark{
+  font-family:var(--fd);font-weight:800;font-size:20px;
+  letter-spacing:-.03em;line-height:1;color:var(--brand-ink);
+}
+.logo-sub{display:flex;flex-direction:column;gap:1px}
+.logo-tagline{
+  font-family:var(--fs);font-style:italic;font-weight:300;
+  font-size:12px;color:var(--fg-soft);line-height:1;
+}
+
+/* ─── Nav ────────────────────────────────────────────────── */
+nav.top .container{margin:0;max-width:none;padding-left:5vw;padding-right:5vw}
+nav.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:saturate(140%) blur(12px);
+  -webkit-backdrop-filter:saturate(140%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a:not(.btn){
+  font-size:14px;font-weight:600;color:var(--fg-muted);
+  transition:color var(--tf);
+}
+.nav-links a:not(.btn):hover{color:var(--fg)}
+.nav-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--bg-alt);border:1px solid var(--line);
+  padding:4px 11px 4px 8px;border-radius:999px;
+  font-size:12px;font-weight:500;color:var(--fg-soft);cursor:default;
+}
+.dot-pulse{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--brand-blue);flex-shrink:0;
+  box-shadow:0 0 0 0 rgba(90,137,242,.25);
+  animation:dotPulse 2.4s ease-in-out infinite;
+}
+@keyframes dotPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(90,137,242,.25)}
+  60%{box-shadow:0 0 0 5px rgba(90,137,242,0)}
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:var(--r2);
+  font-family:var(--fd);font-weight:700;font-size:13.5px;
+  letter-spacing:-.01em;border:none;cursor:pointer;
+  transition:all var(--tf) var(--ease);
+}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn:focus-visible{outline:2px solid var(--brand-blue);outline-offset:3px}
+.btn-lg{padding:13px 26px;font-size:14.5px}
+
+.btn-mint{
+  background:var(--brand-blue);color:#FFFFFF;
+  box-shadow:var(--shm);
+}
+.btn-mint:hover{background:var(--brand-blue-deep);box-shadow:0 10px 36px rgba(90,137,242,.38)}
+
+.btn-ghost-d,.btn-ghost-l{
+  background:transparent;color:var(--fg-muted);
+  border:1.5px solid var(--line);
+}
+.btn-ghost-d:hover,.btn-ghost-l:hover{color:var(--fg);border-color:var(--line-strong)}
+
+.btn-mint-outline{
+  background:transparent;color:var(--brand-blue);
+  border:1.5px solid rgba(90,137,242,.3);
+}
+.btn-mint-outline:hover{background:rgba(90,137,242,.06);border-color:var(--brand-blue)}
+
+/* ─── Type helpers ───────────────────────────────────────── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--fm);font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brand-blue-deep);margin-bottom:20px;
+}
+.eyebrow::before{
+  content:'';display:block;width:24px;height:1px;
+  background:var(--brand-blue);flex-shrink:0;
+}
+.eyebrow-l{color:var(--brand-blue-deep)}
+.eyebrow-l::before{background:var(--brand-blue)}
+
+.h2{
+  font-family:var(--fd);font-weight:700;
+  font-size:clamp(28px,3.8vw,42px);line-height:1.14;
+  letter-spacing:-.025em;margin-bottom:16px;
+  text-wrap:balance;
+}
+.h2-d{color:var(--brand-ink)}
+.h2-l{color:var(--brand-ink)}
+
+.lead-d{font-size:17px;line-height:1.72;color:var(--fg-muted);max-width:580px}
+.lead-l{font-size:17px;line-height:1.72;color:var(--fg-muted);max-width:580px}
+
+section.blk{padding:112px 0}
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero{
+  background:var(--gradient-sky);position:relative;overflow:hidden;
+  min-height:100svh;display:flex;flex-direction:column;justify-content:flex-start;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--line-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 40%,transparent 100%);
+  opacity:.6;
+}
+.hero-glow-r{
+  position:absolute;right:-160px;top:-140px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,122,232,.05) 0%,transparent 65%);
+  filter:blur(60px);pointer-events:none;
+}
+
+.hero .container{
+  position:relative;z-index:1;
+  padding-top:56px;padding-bottom:48px;
+  margin-left:0;max-width:none;padding-left:5vw;padding-right:0;
+  min-height:calc(100svh - 50px);
+  display:flex;flex-direction:column;
+}
+.hero-inner{
+  display:flex;align-items:stretch;
+  flex:1;
+}
+.hero-copy{
+  max-width:600px;
+  display:flex;flex-direction:column;
+  flex:1;
+}
+
+/* left */
+.hero-label{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--fm);font-size:11.5px;font-weight:500;
+  letter-spacing:.04em;
+  color:var(--fg-soft);margin-bottom:20px;
+}
+.hero-label-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--brand-blue);flex-shrink:0;
+  animation:dotPulse 2.4s ease-in-out infinite;
+}
+
+.hero-h1{
+  font-family:var(--fd);font-weight:800;
+  font-size:clamp(44px,6.5vw,76px);
+  line-height:1.05;letter-spacing:-.03em;
+  color:var(--brand-ink);margin-bottom:18px;
+  text-wrap:balance;
+}
+.hero-h1 .accent{color:var(--brand-blue)}
+
+.hero-lead{margin-bottom:44px}
+
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:0}
+
+/* hero flow diagram */
+.hero-flow{
+  margin-top:auto;margin-bottom:32px;
+  width:100%;
+}
+.flow-stage{
+  position:relative;margin-bottom:20px;
+}
+.flow-track{
+  position:absolute;left:26px;right:26px;top:26px;
+  height:1.5px;background:var(--line);overflow:visible;
+}
+.flow-track-fill{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--brand-violet),var(--brand-blue));
+  transform:scaleX(0);transform-origin:left;
+  animation:trackFill 8.4s linear infinite;
+}
+.flow-track-dot{
+  position:absolute;top:50%;left:0%;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--brand-blue);
+  transform:translateY(-50%) translateX(-50%);
+  box-shadow:0 0 12px rgba(90,137,242,.9);
+  animation:trackDot 8.4s linear infinite;
+  opacity:0;
+}
+@keyframes trackFill{
+  0%   {transform:scaleX(0)}
+  72%  {transform:scaleX(1)}
+  80%  {transform:scaleX(1)}
+  92%  {transform:scaleX(0)}
+  100% {transform:scaleX(0)}
+}
+@keyframes trackDot{
+  0%    {left:0%;opacity:1}
+  72%   {left:100%;opacity:1}
+  80%   {left:100%;opacity:1}
+  80.1% {left:0%;opacity:0}
+  100%  {left:0%;opacity:0}
+}
+@keyframes nodeBump1{
+  0%   {transform:scale(1)}
+  2%   {transform:scale(1.22)}
+  7%   {transform:scale(1)}
+  100% {transform:scale(1)}
+}
+@keyframes nodeBump2{
+  0%,34%  {transform:scale(1)}
+  38%     {transform:scale(1.22)}
+  43%     {transform:scale(1)}
+  100%    {transform:scale(1)}
+}
+@keyframes nodeBump3{
+  0%,70%  {transform:scale(1)}
+  74%     {transform:scale(1.22)}
+  79%     {transform:scale(1)}
+  100%    {transform:scale(1)}
+}
+.flow-row .flow-node:nth-child(1){animation:nodeBump1 8.4s ease-in-out infinite}
+.flow-row .flow-node:nth-child(2){animation:nodeBump2 8.4s ease-in-out infinite}
+.flow-row .flow-node:nth-child(3){animation:nodeBump3 8.4s ease-in-out infinite}
+.flow-row{
+  display:flex;justify-content:space-between;
+  position:relative;z-index:1;
+}
+.flow-node{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.flow-icon{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--line);
+  background:var(--bg);
+  box-shadow:var(--sh2);
+  position:relative;z-index:2;
+}
+.flow-icon [data-lucide]{width:20px;height:20px;stroke-width:1.6;color:var(--brand-ink)}
+.flow-icon.active{
+  background:var(--brand-ink);border-color:var(--brand-ink);
+  box-shadow:0 4px 20px rgba(42,54,116,.28);
+}
+.flow-icon.active [data-lucide]{color:#fff;stroke:#fff}
+.flow-node-label{
+  font-family:var(--fm);font-size:10.5px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--fg-soft);text-align:center;line-height:1.3;white-space:nowrap;
+}
+.flow-node-time{
+  font-family:var(--fm);font-size:13px;font-weight:700;
+  color:var(--brand-blue);letter-spacing:-.02em;margin-top:-4px;
+}
+
+.hero-stats{
+  display:flex;align-items:stretch;
+  padding-top:28px;
+  border-top:1px solid var(--line);
+}
+.hstat{
+  flex:1;display:flex;flex-direction:column;gap:6px;
+  padding-right:clamp(16px,2.5vw,36px);
+  padding-bottom:4px;
+}
+.hstat:not(:first-child){
+  padding-left:clamp(16px,2.5vw,36px);
+  border-left:1px solid var(--line);
+}
+.hstat-n{
+  display:block;
+  font-family:var(--fm);font-size:clamp(36px,4vw,52px);font-weight:700;
+  line-height:1;letter-spacing:-.04em;color:var(--brand-ink);
+}
+.hstat-n .unit{color:var(--brand-blue)}
+.hstat-l{
+  display:block;
+  font-size:13px;color:var(--fg-muted);font-weight:400;line-height:1.4;
+}
+
+/* right — hero phone */
+.hero-visual{display:none}
+.hcard-glow{
+  position:absolute;width:400px;height:400px;
+  background:
+    radial-gradient(ellipse 60% 50% at 38% 58%, rgba(139,122,232,.24) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 50% at 63% 55%, rgba(90,137,242,.22) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 40% at 50% 85%, rgba(182,221,230,.30) 0%, transparent 60%);
+  filter:blur(28px);pointer-events:none;z-index:0;
+  bottom:-55px;left:50%;transform:translateX(-50%);
+}
+@keyframes hcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-phone{
+  position:relative;z-index:2;
+  animation:hcFloat 5s ease-in-out infinite;
+  filter:drop-shadow(0 28px 52px rgba(42,54,116,.24)) drop-shadow(0 8px 18px rgba(42,54,116,.12));
+}
+/* ── Hero phone belt ─────────────────────────────────────── */
+.phone-belt{
+  position:absolute;
+  left:calc(5vw + 624px);right:0;top:0;bottom:0;
+  overflow:hidden;display:flex;align-items:flex-start;padding-top:100px;z-index:0;
+  background:linear-gradient(160deg,#d4e2f8 0%,#ccd9f6 50%,#c8d4f2 100%);
+  border-left:1px solid rgba(42,54,116,.14);
+  box-shadow:-16px 0 48px rgba(42,54,116,.07), -2px 0 8px rgba(42,54,116,.05);
+}
+.phone-track{
+  display:flex;width:max-content;
+  animation:beltScroll 48s linear infinite;
+}
+@keyframes beltScroll{
+  from{transform:translateX(-50%)}
+  to{transform:translateX(0)}
+}
+@media(prefers-reduced-motion:reduce){.phone-track{animation-play-state:paused}}
+.belt-item{
+  flex-shrink:0;width:280px;margin-right:24px;
+  background:linear-gradient(158deg,#22253f 0%,#161829 55%,#0d0f20 100%);
+  border-radius:44px;padding:8px;position:relative;
+  box-shadow:
+    0 28px 56px rgba(42,54,116,.30),
+    0 0 0 1px rgba(255,255,255,.09),
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.45);
+}
+.belt-item::before{
+  content:'';position:absolute;
+  left:-3.5px;top:72px;width:3.5px;height:26px;
+  background:linear-gradient(180deg,#2e3155 0%,#1c1f3a 100%);
+  border-radius:2px 0 0 2px;
+}
+.belt-item::after{
+  content:'';position:absolute;
+  right:-3.5px;top:100px;width:3.5px;height:52px;
+  background:linear-gradient(180deg,#2e3155 0%,#1c1f3a 100%);
+  border-radius:0 2px 2px 0;
+}
+.belt-screen{
+  border-radius:36px;overflow:hidden;display:block;line-height:0;
+}
+.belt-screen img{width:100%;height:auto;display:block;border-radius:36px}
+.hp-frame{
+  width:310px;position:relative;
+  background:linear-gradient(158deg,#22253f 0%,#161829 55%,#0d0f20 100%);
+  border-radius:46px;padding:9px;
+  box-shadow:
+    var(--sh4),
+    0 0 0 1px rgba(255,255,255,.09),
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.45);
+}
+.hp-frame::before{
+  content:'';position:absolute;
+  left:-3.5px;top:78px;width:3.5px;height:28px;
+  background:linear-gradient(180deg,#2e3155 0%,#1c1f3a 100%);
+  border-radius:2px 0 0 2px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.hp-frame::after{
+  content:'';position:absolute;
+  right:-3.5px;top:110px;width:3.5px;height:56px;
+  background:linear-gradient(180deg,#2e3155 0%,#1c1f3a 100%);
+  border-radius:0 2px 2px 0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.hp-screen{
+  background:linear-gradient(175deg,#E8EFFE 0%,#EEF3FC 35%,#E9F2FD 70%,#EDF3FD 100%);
+  border-radius:37px;overflow:hidden;
+  display:flex;flex-direction:column;position:relative;
+  min-height:620px;
+}
+.hp-notch{
+  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  width:118px;height:33px;background:#0d0f20;
+  border-radius:999px;z-index:5;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:11px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.hp-notch::after{
+  content:'';width:9px;height:9px;border-radius:50%;
+  background:#30d158;box-shadow:0 0 6px rgba(48,209,88,.8);
+  animation:diPulse 2.5s ease-in-out infinite;
+}
+@keyframes diPulse{
+  0%,100%{opacity:1;box-shadow:0 0 5px rgba(48,209,88,.75)}
+  50%{opacity:.75;box-shadow:0 0 10px rgba(48,209,88,.6),0 0 20px rgba(48,209,88,.25)}
+}
+.hp-status{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:15px 18px 4px;font-size:10.5px;font-weight:700;
+  color:#2A3674;position:relative;z-index:1;min-height:54px;
+}
+.hp-header{
+  display:flex;align-items:center;gap:8px;padding:8px 12px 9px;
+  border-bottom:1px solid rgba(42,54,116,.10);
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+}
+.hp-back{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.hp-avatar{
+  width:32px;height:32px;border-radius:9px;flex-shrink:0;
+  background:var(--gradient-aurora);
+  display:flex;align-items:center;justify-content:center;
+}
+.hp-contact{font-family:var(--fd);font-size:12.5px;font-weight:700;color:#2A3674;line-height:1.2}
+.hp-sub{font-size:9.5px;color:var(--fg-soft);line-height:1.2;margin-top:1px}
+.hp-messages{padding:12px 10px 8px;flex:1;display:flex;flex-direction:column}
+.hp-msg-time{font-size:9px;color:var(--fg-soft);text-align:center;margin-bottom:10px;font-family:var(--fm);letter-spacing:.04em}
+.hp-bubble{
+  background:#FFFFFF;border-radius:14px 14px 14px 4px;
+  padding:10px 12px;box-shadow:0 2px 14px rgba(42,54,116,.13);
+  align-self:flex-start;width:100%;
+  position:relative;overflow:hidden;
+}
+.hp-bubble::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:var(--gradient-aurora);
+}
+.hp-field{
+  display:grid;grid-template-columns:58px 1fr;gap:3px;
+  padding:4px 0;border-bottom:1px solid rgba(42,54,116,.07);
+}
+.hp-field:last-of-type{border-bottom:none;padding-bottom:2px}
+.hp-field-key{
+  font-family:var(--fm);font-size:8.5px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.07em;color:var(--fg-soft);padding-top:2px;
+}
+.hp-field-val{font-size:11px;color:#1B2350;font-weight:600;line-height:1.3}
+.hp-priority-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:7px;padding-top:7px;border-top:1px solid rgba(42,54,116,.08);
+}
+.hp-priority-tag{
+  font-family:var(--fm);font-size:9.5px;font-weight:600;
+  padding:2px 8px;border-radius:999px;background:var(--ok-bg);color:var(--ok);
+}
+.hp-route-lbl{font-size:9.5px;color:var(--fg-soft);font-family:var(--fm)}
+.hp-reply{
+  align-self:flex-end;margin-top:8px;
+  background:var(--brand-blue-deep);color:#fff;
+  border-radius:14px 14px 4px 14px;
+  padding:9px 12px;font-size:11px;line-height:1.45;
+  max-width:80%;font-weight:500;
+  box-shadow:0 2px 10px rgba(61,107,216,.38);
+}
+.hp-input-bar{
+  padding:6px 10px 12px;background:rgba(255,255,255,.8);
+  border-top:1px solid rgba(42,54,116,.07);
+  display:flex;align-items:center;gap:6px;
+}
+.hp-input-field{
+  flex:1;background:rgba(42,54,116,.06);border-radius:999px;
+  padding:6px 11px;font-size:10.5px;color:var(--fg-soft);font-family:var(--fb);
+}
+.hp-send-btn{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  background:var(--brand-blue);display:flex;align-items:center;justify-content:center;
+}
+.hp-send-btn [data-lucide]{width:12px;height:12px;color:white;stroke-width:2.5}
+
+/* ─── PROBLEM ────────────────────────────────────────────── */
+.problem-sec{background:var(--bg);border-top:1px solid var(--line)}
+.problem-header{margin-bottom:64px}
+.stat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--line);border-radius:var(--r3);overflow:hidden;
+  background:var(--surface);
+}
+.sblock{
+  padding:44px 36px;position:relative;
+  transition:background var(--tn);
+}
+.sblock:not(:last-child){border-right:1px solid var(--line)}
+.sblock:hover{background:var(--bg-alt)}
+.sblock-n{
+  font-family:var(--fm);font-weight:500;
+  font-size:clamp(36px,4vw,52px);line-height:1;
+  letter-spacing:-.04em;color:var(--brand-ink);
+  margin-bottom:12px;
+}
+.sblock.featured{background:var(--bg-tint)}
+.sblock.featured .sblock-n{color:var(--brand-blue-deep)}
+.sblock-title{
+  font-family:var(--fd);font-size:15px;font-weight:700;
+  color:var(--brand-ink);margin-bottom:10px;letter-spacing:-.01em;
+}
+.sblock-desc{font-size:15px;line-height:1.65;color:var(--fg-muted)}
+
+/* ─── HOW IT WORKS ───────────────────────────────────────── */
+.how-sec{background:var(--surface)}
+.steps-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  margin-top:52px;border-top:1px solid var(--line);
+}
+.step-card{
+  padding:44px 52px 44px 0;position:relative;
+  background:transparent;border:none;border-radius:0;
+}
+.step-card:not(:first-child){
+  padding-left:52px;padding-right:0;border-left:1px solid var(--line);
+}
+.step-card:last-child{padding-right:0}
+.step-num{
+  font-family:var(--fm);font-size:52px;font-weight:500;
+  color:var(--brand-ink);letter-spacing:-.05em;line-height:1;
+  margin-bottom:20px;opacity:.11;
+}
+.step-card h3{
+  font-family:var(--fd);font-weight:700;font-size:17.5px;
+  color:var(--brand-ink);margin-bottom:10px;letter-spacing:-.02em;line-height:1.25;
+}
+.step-card p{font-size:15px;color:var(--fg-muted);line-height:1.65}
+
+/* ─── DEMO ───────────────────────────────────────────────── */
+.demo-sec{
+  background:var(--bg-alt);position:relative;overflow:hidden;
+  border-top:1px solid var(--line);
+}
+.demo-sec::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 10% 55%,rgba(90,137,242,.06) 0%,transparent 50%),
+    radial-gradient(ellipse at 90% 45%,rgba(139,122,232,.04) 0%,transparent 50%);
+}
+.demo-sec .container{position:relative;z-index:1}
+.demo-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:40px}
+.demo-tab{
+  padding:8px 18px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--line);
+  color:var(--fg-muted);font-family:var(--fb);font-weight:600;font-size:13.5px;
+  cursor:pointer;transition:all var(--tf) var(--ease);
+}
+.demo-tab:hover{color:var(--fg);border-color:var(--line-strong)}
+.demo-tab.active{
+  background:var(--brand-blue);color:#FFFFFF;border-color:var(--brand-blue);
+  box-shadow:var(--shm);font-weight:700;
+}
+.demo-stage{display:grid;grid-template-columns:320px 1fr;gap:48px;align-items:start}
+
+/* phone */
+.phone-frame{
+  width:320px;
+  background:linear-gradient(180deg,#181a2e 0%,#0d0f22 100%);
+  border-radius:50px;padding:10px;
+  box-shadow:var(--sh4),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.phone-screen{
+  background:linear-gradient(180deg,#DCEAFD 0%,#E5DFFB 50%,#E8F4F7 100%);
+  border-radius:42px;overflow:hidden;height:690px;
+  display:flex;flex-direction:column;position:relative;
+}
+.notch{
+  position:absolute;top:11px;left:50%;transform:translateX(-50%);
+  width:130px;height:36px;background:#0d0f22;
+  border-radius:999px;z-index:5;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.notch::after{
+  content:'';width:10px;height:10px;border-radius:50%;
+  background:#30d158;box-shadow:0 0 6px rgba(48,209,88,.8);
+  animation:diPulse 2.5s ease-in-out infinite;
+}
+.status-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 30px 4px;font-size:13px;font-weight:700;
+  color:#2A3674;position:relative;z-index:1;min-height:60px;
+}
+.status-bar .ind{display:flex;gap:6px;align-items:center}
+.call-screen{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;padding:14px 22px 8px;text-align:center;
+}
+.contact-name{
+  font-family:var(--fd);font-size:21px;font-weight:700;
+  color:#2A3674;letter-spacing:-.02em;margin-top:6px;
+}
+.contact-sub{font-size:13px;color:#4F5A8C;margin-top:4px}
+.call-duration{
+  font-family:var(--fm);font-size:13px;color:#4F5A8C;
+  margin-top:8px;font-variant-numeric:tabular-nums;
+}
+.avatar-orb{
+  width:116px;height:116px;margin:18px 0 14px;
+  position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.orb-core{
+  width:108px;height:108px;border-radius:28px;
+  background:linear-gradient(135deg,#8B7AE8 0%,#6FA5F5 45%,#B6DDE6 100%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 12px 36px rgba(139,122,232,.4),inset 0 -8px 20px rgba(0,0,0,.10),inset 0 6px 20px rgba(255,255,255,.30);
+  transition:transform var(--tn);position:relative;z-index:2;overflow:hidden;
+}
+.orb-core .orb-svg{width:100%;height:100%}
+.avatar-orb.active .orb-core{animation:orbP 1.4s ease-in-out infinite}
+@keyframes orbP{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.orb-ring{
+  position:absolute;inset:0;border-radius:28px;
+  border:2px solid rgba(139,122,232,.5);opacity:0;pointer-events:none;
+}
+.avatar-orb.active .orb-ring{animation:ringE 1.4s ease-out infinite}
+@keyframes ringE{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.4);opacity:0}}
+.speaker-indicator{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  margin-bottom:12px;min-height:46px;justify-content:center;
+}
+.speaker-label{
+  font-size:10.5px;font-weight:700;color:#5A89F2;
+  text-transform:uppercase;letter-spacing:.08em;
+  background:rgba(255,255,255,.7);padding:4px 12px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.7);opacity:0;
+  transition:opacity var(--tn);
+}
+.speaker-label.show{opacity:1}
+.speaker-label.caller{color:#6B5BCB}
+.waveform{display:flex;gap:3px;height:20px;align-items:center}
+.waveform span{display:block;width:3px;height:3px;background:rgba(42,54,116,.3);border-radius:2px}
+.waveform.active span{background:#5A89F2;animation:wv 1s ease-in-out infinite}
+.waveform.active.caller span{background:#8B7AE8}
+.waveform.active span:nth-child(1){animation-delay:0s;--h:8px}
+.waveform.active span:nth-child(2){animation-delay:.1s;--h:14px}
+.waveform.active span:nth-child(3){animation-delay:.2s;--h:18px}
+.waveform.active span:nth-child(4){animation-delay:.3s;--h:12px}
+.waveform.active span:nth-child(5){animation-delay:.4s;--h:18px}
+.waveform.active span:nth-child(6){animation-delay:.3s;--h:10px}
+.waveform.active span:nth-child(7){animation-delay:.2s;--h:16px}
+.waveform.active span:nth-child(8){animation-delay:.1s;--h:12px}
+.waveform.active span:nth-child(9){animation-delay:0s;--h:8px}
+@keyframes wv{0%,100%{height:3px}50%{height:var(--h,14px)}}
+.live-caption{
+  background:rgba(255,255,255,.65);backdrop-filter:blur(12px);
+  border-radius:14px;padding:10px 14px 12px;
+  width:100%;height:130px;flex-shrink:0;display:flex;flex-direction:column;
+  border:1px solid rgba(255,255,255,.7);overflow:hidden;text-align:left;
+}
+.caption-label{
+  font-size:9px;font-weight:700;color:#5A89F2;
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+}
+.caption-label::before{content:'';width:5px;height:5px;border-radius:50%;background:#5A89F2}
+.caption-content{
+  font-size:12.5px;line-height:1.45;color:#2A3674;
+  flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.caption-line{margin-bottom:4px;opacity:.45;animation:capIn .35s ease-out;transition:opacity var(--tn)}
+.caption-line.current{opacity:1;font-weight:500}
+.caption-line .who{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#5A89F2;margin-right:6px}
+.caption-line.caller-line .who{color:#6B5BCB}
+.placeholder{color:var(--fg-soft);font-style:italic;font-weight:400;font-size:12px}
+@keyframes capIn{from{opacity:0;transform:translateY(4px)}to{opacity:.45;transform:none}}
+.call-controls-bar{
+  padding:8px 24px 12px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;justify-items:center;
+}
+.ctrl{display:flex;flex-direction:column;align-items:center;gap:4px}
+.ctrl-icon{
+  width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.55);
+  display:flex;align-items:center;justify-content:center;
+  color:#2A3674;border:1px solid rgba(255,255,255,.7);
+}
+.ctrl-icon [data-lucide]{width:20px;height:20px;stroke-width:1.6}
+.ctrl-label{font-size:9.5px;color:#4F5A8C;font-weight:500;text-transform:lowercase}
+.end-call-row{padding:0 24px 18px;display:flex;justify-content:center}
+.end-call-btn{
+  width:58px;height:58px;border-radius:50%;background:var(--crit);color:white;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(220,79,90,.4);
+  border:none;cursor:pointer;font-family:inherit;
+  transition:transform var(--tf) var(--easeb);
+}
+.end-call-btn:hover{transform:scale(1.08)}
+.end-call-btn.start{background:var(--ok);box-shadow:0 8px 24px rgba(43,168,118,.4)}
+.end-call-btn [data-lucide]{width:22px;height:22px;stroke-width:2;color:white}
+.end-call-btn:not(.start) [data-lucide]{transform:rotate(135deg)}
+.call-hint{text-align:center;font-size:13px;color:var(--fg-muted);margin-top:12px;min-height:20px}
+.call-hint strong{color:var(--fg);font-weight:600}
+
+/* output panel */
+.output-panel{
+  background:var(--surface);
+  border-radius:var(--r3);border:1px solid var(--line);
+  box-shadow:var(--sh3);
+  display:flex;flex-direction:column;overflow:hidden;min-height:690px;
+}
+.output-header{
+  padding:17px 22px;border-bottom:1px solid var(--line);
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.output-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:12px;font-weight:500;
+  color:var(--fg-muted);letter-spacing:.04em;
+}
+.output-pill [data-lucide]{width:14px;height:14px;color:var(--brand-blue)}
+.output-card{padding:24px;flex:1}
+.output-empty{color:var(--fg-soft);font-size:13.5px;text-align:center;padding:56px 16px;font-style:italic;line-height:1.6}
+.field-row{
+  display:flex;gap:12px;padding:12px 0;
+  border-bottom:1px dashed var(--line);animation:fIn .4s ease-out;
+}
+.field-row:last-child{border-bottom:none}
+@keyframes fIn{from{opacity:0;transform:translateX(-5px)}to{opacity:1;transform:none}}
+.field-label{
+  font-family:var(--fm);font-size:11px;font-weight:500;color:var(--fg-soft);
+  text-transform:uppercase;letter-spacing:.07em;flex-shrink:0;min-width:110px;padding-top:2px;
+}
+.field-value{color:var(--fg);font-size:13.5px;font-weight:500}
+.priority-tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:600;font-family:var(--fm)}
+.priority-tag.routine  {background:var(--ok-bg);color:var(--ok)}
+.priority-tag.same-day {background:var(--warn-bg);color:var(--warn)}
+.priority-tag.urgent   {background:var(--crit-bg);color:var(--crit)}
+.priority-tag.standard {background:var(--bg-alt);color:var(--fg-muted)}
+
+/* ─── WHY ────────────────────────────────────────────────── */
+.why-sec{background:var(--surface)}
+.compare-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  background:var(--surface);border-radius:var(--r3);overflow:hidden;
+  box-shadow:var(--sh2);border:1px solid var(--line);
+}
+.compare-table thead{background:var(--bg-alt)}
+.compare-table th{
+  padding:18px 20px;text-align:center;
+  font-family:var(--fm);font-size:12px;font-weight:500;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--fg-soft);
+  border-bottom:1px solid var(--line);
+}
+.compare-table th.feat-col{text-align:left;color:var(--fg-muted)}
+.compare-table th.pgmd-col{
+  color:var(--brand-ink);position:relative;
+}
+.compare-table th.pgmd-col::after{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;background:var(--brand-blue);
+}
+.compare-table td{
+  padding:16px 20px;text-align:center;
+  border-bottom:1px solid var(--line-soft);font-size:14px;
+  transition:background var(--tf);
+}
+.compare-table td.feat-col{text-align:left;font-weight:500;color:var(--fg);background:var(--surface)}
+.compare-table td.pgmd{background:rgba(90,137,242,.04)}
+.compare-table tbody tr:hover td{background:var(--bg)}
+.compare-table tbody tr:hover td.pgmd{background:rgba(90,137,242,.08)}
+.compare-table tbody tr:hover td.feat-col{background:var(--bg)}
+.compare-table tr:last-child td{border-bottom:none}
+.chk [data-lucide]{color:var(--ok);width:19px;height:19px;stroke-width:2.5}
+.ex  [data-lucide]{color:var(--line-strong);width:19px;height:19px;stroke-width:2.5}
+.chk,.ex{display:inline-flex}
+
+/* ─── PRICING ────────────────────────────────────────────── */
+.pricing-sec{background:var(--bg);border-top:1px solid var(--line)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.pcard{
+  background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r3);
+  padding:36px 28px;display:flex;flex-direction:column;
+  transition:transform var(--tn) var(--ease),box-shadow var(--tn) var(--ease);
+}
+.pcard:hover{transform:translateY(-3px);box-shadow:var(--sh3)}
+.pcard.featured{
+  background:var(--gradient-aurora);
+  border-color:transparent;
+  box-shadow:var(--sh4),var(--shm);
+  transform:translateY(-8px);
+}
+.pcard.featured:hover{transform:translateY(-11px);box-shadow:var(--sh4),0 12px 36px rgba(90,137,242,.38)}
+.pname{
+  font-family:var(--fm);font-size:10.5px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.11em;
+  color:var(--fg-soft);margin-bottom:4px;
+}
+.pcard.featured .pname{color:rgba(255,255,255,.72)}
+.ptier{
+  font-family:var(--fd);font-size:20px;font-weight:700;
+  color:var(--brand-ink);margin-bottom:6px;letter-spacing:-.02em;
+}
+.pcard.featured .ptier{color:#FFFFFF}
+.pamt{
+  font-family:var(--fm);font-size:44px;font-weight:500;
+  color:var(--brand-ink);margin-top:20px;letter-spacing:-.04em;line-height:1;
+}
+.pcard.featured .pamt{color:#FFFFFF}
+.pamt span{font-size:13.5px;color:var(--fg-muted);font-weight:400;letter-spacing:0}
+.pcard.featured .pamt span{color:rgba(255,255,255,.65)}
+.pdesc{color:var(--fg-muted);margin-top:12px;font-size:14px;line-height:1.6}
+.pcard.featured .pdesc{color:rgba(255,255,255,.82)}
+.pfeats{
+  list-style:none;margin-top:26px;flex:1;
+  border-top:1px solid var(--line);padding-top:22px;
+  display:flex;flex-direction:column;gap:11px;
+}
+.pcard.featured .pfeats{border-top-color:rgba(255,255,255,.22)}
+.pfeats li{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--fg-muted)}
+.pcard.featured .pfeats li{color:rgba(255,255,255,.88)}
+.pfeat-check{
+  width:17px;height:17px;border-radius:50%;flex-shrink:0;
+  background:rgba(90,137,242,.1);
+  display:flex;align-items:center;justify-content:center;
+}
+.pcard.featured .pfeat-check{background:rgba(255,255,255,.22)}
+.pfeat-check [data-lucide]{width:9px;height:9px;color:var(--brand-blue);stroke-width:3}
+.pcard.featured .pfeat-check [data-lucide]{color:#FFFFFF}
+.pcard .btn{margin-top:24px;justify-content:center;width:100%;font-size:13.5px}
+.pcard.featured .btn{background:#FFFFFF;color:var(--brand-ink);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.pcard.featured .btn:hover{background:var(--bg);box-shadow:0 6px 20px rgba(0,0,0,.16)}
+
+/* ─── CTA / SIGNUP (dark ink gradient) ──────────────────── */
+.cta-sec{
+  background:var(--gradient-ink);
+  position:relative;overflow:hidden;
+}
+.cta-sec::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 15% 50%,rgba(139,122,232,.30) 0%,transparent 55%),
+    radial-gradient(ellipse at 85% 50%,rgba(111,165,245,.22) 0%,transparent 55%);
+}
+.cta-sec .container{
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+  position:relative;z-index:1;
+}
+.cta-h2{
+  font-family:var(--fd);font-weight:800;
+  font-size:clamp(28px,3.8vw,42px);
+  line-height:1.12;letter-spacing:-.03em;
+  color:#FFFFFF;margin-bottom:16px;
+  text-wrap:balance;
+}
+.cta-h2 span{color:rgba(183,221,230,.90)}
+.cta-body{color:rgba(255,255,255,.72);font-size:16px;line-height:1.68}
+form.signup{
+  background:rgba(255,255,255,.09);backdrop-filter:blur(16px);
+  padding:34px 30px;border-radius:var(--r3);
+  box-shadow:0 20px 60px rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.16);
+}
+.field{margin-bottom:13px}
+.field label{
+  display:block;font-family:var(--fm);font-size:11.5px;font-weight:500;
+  letter-spacing:.03em;
+  color:rgba(255,255,255,.70);margin-bottom:7px;
+}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 14px;
+  border:1px solid rgba(255,255,255,.20);border-radius:var(--r2);
+  font-size:14px;font-family:var(--fb);
+  color:#FFFFFF;background:rgba(255,255,255,.10);
+  transition:border-color var(--tf),box-shadow var(--tf);
+  -webkit-appearance:none;
+}
+.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,.38)}
+.field select{color:rgba(255,255,255,.85)}
+.field select option{background:#2A3674;color:#FFFFFF}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:rgba(255,255,255,.50);
+  box-shadow:0 0 0 3px rgba(255,255,255,.08);
+}
+form.signup .btn{width:100%;margin-top:8px;padding:13px;font-size:14.5px;justify-content:center}
+.trust-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.trust-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:12.5px;color:rgba(255,255,255,.60);
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  padding:6px 12px;border-radius:999px;
+}
+.trust-pill [data-lucide]{width:13px;height:13px;color:rgba(183,221,230,.9);stroke-width:2}
+.form-note{font-size:12px;color:rgba(255,255,255,.50);margin-top:11px;text-align:center}
+.form-success{
+  display:none;padding:16px;border-radius:var(--r2);
+  background:rgba(43,168,118,.18);color:rgba(255,255,255,.90);
+  border:1px solid rgba(43,168,118,.35);
+  font-weight:500;text-align:center;
+}
+.form-error{
+  display:none;padding:14px 16px;border-radius:var(--r2);
+  background:rgba(220,79,90,.18);color:rgba(255,255,255,.88);
+  border:1px solid rgba(220,79,90,.30);
+  font-size:13.5px;font-weight:500;text-align:center;margin-top:4px;
+}
+.demo-tab:focus-visible{
+  outline:2px solid var(--brand-blue);outline-offset:2px;
+}
+
+/* ─── Nav pilot pill ──────────────────────────────────────── */
+.nav-pilot-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(90,137,242,.08);border:1px solid rgba(90,137,242,.18);
+  padding:5px 12px 5px 9px;border-radius:999px;
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--brand-blue-deep);flex-shrink:0;
+}
+
+/* ─── Icon chips ──────────────────────────────────────────── */
+.chip-icon{
+  width:48px;height:48px;border-radius:14px;
+  background:var(--gradient-aurora);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(111,165,245,.28);
+  flex-shrink:0;
+}
+.chip-icon [data-lucide]{width:22px;height:22px;color:#fff;stroke-width:1.65}
+.sblock .chip-icon{margin-bottom:22px}
+.step-card .chip-icon{margin-bottom:14px}
+.includes-card .chip-icon{margin-bottom:16px}
+
+/* ─── Compare table enhancements ─────────────────────────── */
+.pgmd-badge-pill{
+  display:inline-flex;align-items:center;gap:4px;margin-top:7px;
+  font-family:var(--fm);font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;
+  background:rgba(90,137,242,.12);color:var(--brand-blue-deep);
+  padding:3px 9px;border-radius:999px;
+  border:1px solid rgba(90,137,242,.20);
+}
+.pgmd-badge-pill [data-lucide]{width:9px;height:9px;stroke-width:3;color:var(--brand-blue)}
+.compare-table th.pgmd-col{background:rgba(90,137,242,.04)}
+
+/* ─── Includes / feature grid (Pricing) ──────────────────── */
+.includes-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  margin-top:52px;
+}
+.includes-card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r3);padding:30px 26px 28px;
+  transition:transform var(--tn) var(--ease),box-shadow var(--tn) var(--ease);
+}
+.includes-card:hover{transform:translateY(-3px);box-shadow:var(--sh3)}
+.includes-card-title{
+  font-family:var(--fd);font-size:16px;font-weight:700;
+  color:var(--brand-ink);margin:0 0 9px;letter-spacing:-.02em;
+}
+.includes-card-desc{font-size:14.5px;color:var(--fg-muted);line-height:1.65}
+
+/* ─── Pricing CTA strip ───────────────────────────────────── */
+.pricing-cta-strip{
+  margin-top:40px;padding:28px 32px;
+  background:var(--bg-tint);border:1px solid var(--line);
+  border-radius:var(--r3);
+  display:flex;align-items:center;justify-content:space-between;gap:32px;
+}
+.pricing-cta-strip p{font-size:15px;color:var(--fg-muted);line-height:1.65;max-width:480px}
+
+/* ─── CTA proof quote ─────────────────────────────────────── */
+.cta-proof{
+  margin-top:40px;padding-top:36px;
+  border-top:1px solid rgba(255,255,255,.10);
+}
+.cta-proof-quote{
+  font-family:var(--fs);font-style:italic;font-weight:300;
+  font-size:17px;line-height:1.72;
+  color:rgba(255,255,255,.76);margin-bottom:16px;
+  text-wrap:balance;
+}
+.cta-proof-attr{
+  display:flex;align-items:center;gap:10px;
+  font-size:12.5px;color:rgba(255,255,255,.40);font-weight:500;
+}
+.cta-proof-attr::before{
+  content:'';display:block;width:20px;height:1px;
+  background:rgba(255,255,255,.22);flex-shrink:0;
+}
+
+/* ─── OUTRO ─────────────────────────────────────────────────*/
+.outro{padding:112px 0;background:var(--surface);text-align:center;position:relative;overflow:hidden}
+.outro::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(90,137,242,.06) 0%,transparent 70%);
+}
+.outro .container{position:relative;z-index:1}
+.outro-metrics{
+  display:flex;justify-content:center;gap:72px;
+  margin:0 auto 60px;padding-bottom:60px;
+  border-bottom:1px solid var(--line);max-width:740px;
+}
+.outro-metric{text-align:center}
+.outro-metric-n{
+  display:block;font-family:var(--fm);font-weight:500;
+  font-size:clamp(34px,3.6vw,50px);line-height:1;
+  letter-spacing:-.04em;color:var(--brand-ink);margin-bottom:8px;
+}
+.outro-metric-n .unit{color:var(--brand-blue)}
+.outro-metric-l{font-size:13px;color:var(--fg-muted);font-weight:400;line-height:1.4}
+.outro-rule{
+  width:40px;height:1.5px;background:var(--brand-blue);
+  margin:0 auto 32px;
+}
+.outro-text{
+  font-family:var(--fs);
+  font-weight:300;font-style:italic;
+  font-size:clamp(26px,4.5vw,50px);line-height:1.2;letter-spacing:-.025em;
+  color:var(--brand-ink);max-width:780px;margin:0 auto;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────*/
+footer{
+  background:var(--brand-ink-deep);
+  padding:64px 0 40px;border-top:none;
+}
+.footer-top{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr;
+  gap:52px;width:100%;margin-bottom:44px;
+}
+.footer-rule{width:100%;height:1px;background:rgba(255,255,255,.10)}
+.footer-col-heading{
+  font-family:var(--fm);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:rgba(255,255,255,.32);margin-bottom:16px;
+}
+.footer-col-links{display:flex;flex-direction:column;gap:10px}
+.footer-col-links a{font-size:13.5px;color:rgba(255,255,255,.48);transition:color var(--tf)}
+.footer-col-links a:hover{color:rgba(255,255,255,.85)}
+footer .wordmark{color:#FFFFFF;font-size:19px}
+footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
+.footer-brand-desc{
+  font-size:13px;color:rgba(255,255,255,.36);line-height:1.65;
+  margin-top:12px;max-width:240px;
+}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:24px;flex-wrap:wrap;gap:12px;
+}
+.footer-copy{font-size:12.5px;color:rgba(255,255,255,.28)}
+.footer-copy a{color:rgba(255,255,255,.40);transition:color var(--tf)}
+.footer-copy a:hover{color:rgba(255,255,255,.72)}
+.footer-legal{display:flex;gap:20px}
+.footer-legal a{font-size:12.5px;color:rgba(255,255,255,.30);transition:color var(--tf)}
+.footer-legal a:hover{color:rgba(255,255,255,.65)}
+
+/* ─── Mobile ─────────────────────────────────────────────── */
+@media(max-width:900px){
+  section.blk{padding:72px 0}
+  .hero .container{padding-top:0;padding-bottom:0}
+  .phone-belt{display:none}
+  .hero-copy{max-width:100%}
+  .hcard-glow,.hcard-shadow{display:none}
+  .nav-links a:not(.btn):not(.nav-pilot-pill){display:none}
+  .nav-pilot-pill{display:none}
+  .stat-grid{grid-template-columns:1fr}
+  .sblock:not(:last-child){border-right:none;border-bottom:1px solid var(--line)}
+  .sblock.featured{border-bottom:1px solid var(--line)}
+  .steps-row{grid-template-columns:1fr;border-top:none;margin-top:32px}
+  .step-card{padding:40px 0 0;border-top:1px solid var(--line)}
+  .step-card:not(:first-child){border-left:none;padding-left:0}
+  .step-card:first-child{border-top:none;padding-top:0}
+  .demo-stage{grid-template-columns:1fr;justify-items:center}
+  .output-panel{width:100%;min-height:0}
+  .pricing-grid{grid-template-columns:1fr}
+  .pcard.featured{transform:none}
+  .pcard.featured:hover{transform:translateY(-3px)}
+  .cta-sec .container{grid-template-columns:1fr;gap:40px}
+  .compare-table th,.compare-table td{padding:12px 10px;font-size:12.5px}
+  .includes-grid{grid-template-columns:1fr}
+  .pricing-cta-strip{flex-direction:column;align-items:flex-start;gap:20px}
+  .outro-metrics{gap:36px}
+  .footer-top{grid-template-columns:1fr;gap:32px}
+  .footer-brand-desc{max-width:none}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%;justify-content:center}
+  .hero .container{min-height:auto}
+  .hero-copy{flex:none}
+  .hero-flow{display:none}
+  .hero-stats{margin-top:36px;padding-top:24px}
+  .nav-pill{display:none}
+  .outro-metrics{flex-direction:column;gap:28px;align-items:center}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- SVG defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#8B7AE8"/>
+      <stop offset="50%" stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#7FCBD8"/>
+    </linearGradient>
+    <linearGradient id="auroraSquare" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#7A6BE0"/>
+      <stop offset="100%" stop-color="#5A89F2"/>
+    </linearGradient>
+    <linearGradient id="auroraDiamond" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#9DD8E0"/>
+    </linearGradient>
+  </defs>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="pagemd-mark" viewBox="0 0 200 200">
+    <rect x="0" y="0" width="200" height="200" rx="44" fill="url(#aurora)"/>
+    <g transform="translate(100 100)">
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraSquare)" opacity="0.92"/>
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraDiamond)" opacity="0.78" transform="rotate(45)"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="container nav-inner">
+    <a href="#" class="logo-lockup">
+      <svg class="logo-mark" viewBox="0 0 200 200"><use href="#pagemd-mark"/></svg>
+      <div class="logo-sub">
+        <span class="wordmark">PageMD</span>
+        <span class="logo-tagline">Giving nurses their time back.</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#how">How it works</a>
+      <a href="#demo">Demo</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#signup" class="btn btn-mint" style="padding:9px 18px;font-size:13px">Get in Touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="main">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="hero-glow-r" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left -->
+      <div class="hero-copy">
+        <h1 class="hero-h1">Stop losing hours to <span class="accent">hold music.</span></h1>
+        <p class="lead-d hero-lead">
+          PageMD answers every call instantly and routes prioritized pages to the right provider, so your staff can focus on patients, not phones.
+        </p>
+        <div class="hero-actions">
+          <a href="#signup" class="btn btn-mint btn-lg">
+            Get in Touch
+            <i data-lucide="arrow-right"></i>
+          </a>
+          <a href="#demo" class="btn btn-ghost-d btn-lg">
+            <i data-lucide="play-circle"></i>
+            Hear it in action
+          </a>
+        </div>
+        <div class="hero-flow" aria-hidden="true">
+          <div class="flow-stage">
+            <div class="flow-track">
+              <div class="flow-track-fill"></div>
+              <div class="flow-track-dot"></div>
+            </div>
+            <div class="flow-row">
+              <div class="flow-node">
+                <div class="flow-icon"><i data-lucide="phone-incoming"></i></div>
+                <div class="flow-node-label">Call<br>received</div>
+                <div class="flow-node-time">0.0s</div>
+              </div>
+              <div class="flow-node">
+                <div class="flow-icon active"><i data-lucide="brain-circuit"></i></div>
+                <div class="flow-node-label">Intake<br>captured</div>
+                <div class="flow-node-time">~45s</div>
+              </div>
+              <div class="flow-node">
+                <div class="flow-icon"><i data-lucide="bell-ring"></i></div>
+                <div class="flow-node-label">Page<br>delivered</div>
+                <div class="flow-node-time">~60s</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hstat">
+            <span class="hstat-n">&lt;1<span class="unit">s</span></span>
+            <span class="hstat-l">to answer, every call</span>
+          </div>
+          <div class="hstat">
+            <span class="hstat-n">100<span class="unit">%</span></span>
+            <span class="hstat-l">call coverage, zero hold queue</span>
+          </div>
+          <div class="hstat">
+            <span class="hstat-n"><span class="unit" style="color:var(--brand-ink)">$</span>54K<span class="unit">+</span></span>
+            <span class="hstat-l">saved per year in a two-nurse clinic</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Phone belt — direct child of hero so position:absolute anchors to the section -->
+  <div class="phone-belt" aria-hidden="true">
+    <div class="phone-track">
+      <!-- Set 1 -->
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-1.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-2.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-3.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-4.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-5.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-6.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-7.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-8.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-9.png" alt=""></div></div>
+      <!-- Set 2 — clone for seamless loop -->
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-1.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-2.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-3.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-4.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-5.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-6.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-7.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-8.png" alt=""></div></div>
+      <div class="belt-item"><div class="belt-screen"><img src="Apple%20Messages%20Templates%20%28Community%29/Transcript%20-%20Keyboard%20Collapsed%20-%20Light%20-%20iPhone-9.png" alt=""></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="blk problem-sec" id="problem">
+  <div class="container">
+    <div class="problem-header rv">
+      <div class="eyebrow">The Bottleneck</div>
+      <h2 class="h2 h2-d">Your nurses didn't go to<br>nursing school to wait on hold.</h2>
+    </div>
+    <div class="stat-grid rv">
+      <div class="sblock">
+        <div class="chip-icon"><i data-lucide="clock"></i></div>
+        <div class="sblock-n">15–25%</div>
+        <div class="sblock-title">of every shift</div>
+        <div class="sblock-desc">spent waiting on hold with operators instead of providing direct patient care.</div>
+      </div>
+      <div class="sblock featured">
+        <div class="chip-icon"><i data-lucide="trending-down"></i></div>
+        <div class="sblock-n">$54,000</div>
+        <div class="sblock-title">wasted per year</div>
+        <div class="sblock-desc">in a typical two-nurse clinic due to phone-intake delays and missed callbacks.</div>
+      </div>
+      <div class="sblock">
+        <div class="chip-icon"><i data-lucide="alert-circle"></i></div>
+        <div class="sblock-n">Daily</div>
+        <div class="sblock-title">compounding delays</div>
+        <div class="sblock-desc">Response gaps worsen as healthcare staffing shortages continue to deepen nationwide.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="blk how-sec" id="how">
+  <div class="container">
+    <div class="eyebrow eyebrow-l rv">How PageMD Works</div>
+    <h2 class="h2 h2-l rv">Replace the operator.<br>Not your workflow.</h2>
+    <p class="lead-l rv" style="margin-bottom:48px">PageMD answers and processes inbound calls through a conversational AI built specifically for clinical communication. No workflow change required.</p>
+    <div class="steps-row">
+      <div class="step-card rv rv-d1">
+        <div class="chip-icon"><i data-lucide="phone-incoming"></i></div>
+        <div class="step-num">01</div>
+        <h3>Instant pickup, every time</h3>
+        <p>PageMD answers calls automatically and runs multiple conversations in parallel, eliminating hold queues and operator delays.</p>
+      </div>
+      <div class="step-card rv rv-d2">
+        <div class="chip-icon"><i data-lucide="brain-circuit"></i></div>
+        <div class="step-num">02</div>
+        <h3>Structured clinical intake</h3>
+        <p>Conversational AI identifies the caller, captures their need, and structures the message, built for the realities of clinical communication.</p>
+      </div>
+      <div class="step-card rv rv-d3">
+        <div class="chip-icon"><i data-lucide="bell-ring"></i></div>
+        <div class="step-num">03</div>
+        <h3>Prioritized message delivery</h3>
+        <p>Structured, prioritized pages route directly to the right provider or staff member, so nothing gets lost in the shuffle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="blk demo-sec" id="demo">
+  <div class="container">
+    <div class="eyebrow rv">See It In Action</div>
+    <h2 class="h2 h2-d rv">Listen in on a PageMD call.</h2>
+    <p class="lead-d rv" style="margin-bottom:40px">Pick a scenario and tap the green button to start the call. Watch the iPhone on the left, and see the structured page get built for your provider in real time on the right.</p>
+    <div class="demo-tabs rv" id="demoTabs">
+      <button class="demo-tab active" data-scenario="refill">Prescription refill</button>
+      <button class="demo-tab" data-scenario="symptom">Symptom triage</button>
+      <button class="demo-tab" data-scenario="appointment">Appointment request</button>
+    </div>
+    <div class="demo-stage rv">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="notch"></div>
+            <div class="status-bar">
+              <span>9:41</span>
+              <span class="ind">
+                <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><rect x="0" y="7" width="2.5" height="4" rx="0.5"/><rect x="3.5" y="5" width="2.5" height="6" rx="0.5"/><rect x="7" y="2.5" width="2.5" height="8.5" rx="0.5"/><rect x="10.5" y="0" width="2.5" height="11" rx="0.5"/></svg>
+                <svg width="22" height="11" viewBox="0 0 22 11"><rect x="0.5" y="0.5" width="19" height="10" rx="2" fill="none" stroke="currentColor" opacity="0.5"/><rect x="2" y="2" width="16" height="7" rx="1" fill="currentColor"/><rect x="20" y="3" width="1.5" height="5" rx="0.5" fill="currentColor" opacity="0.5"/></svg>
+              </span>
+            </div>
+            <div class="call-screen">
+              <div class="contact-name">PageMD</div>
+              <div class="contact-sub">Evansville Family Practice</div>
+              <div class="call-duration" id="callTimer">00:00</div>
+              <div class="avatar-orb" id="avatarOrb">
+                <div class="orb-ring"></div>
+                <div class="orb-core">
+                  <svg class="orb-svg" viewBox="0 0 200 200"><use href="#pagemd-mark"/></svg>
+                </div>
+              </div>
+              <div class="speaker-indicator">
+                <div class="speaker-label" id="speakerLabel">PageMD speaking</div>
+                <div class="waveform" id="waveform">
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="live-caption">
+                <div class="caption-label">Live Transcription</div>
+                <div class="caption-content" id="captionContent">
+                  <span class="placeholder">Tap the green button to start the call</span>
+                </div>
+              </div>
+            </div>
+            <div class="call-controls-bar">
+              <div class="ctrl"><div class="ctrl-icon"><i data-lucide="mic-off"></i></div><div class="ctrl-label">mute</div></div>
+              <div class="ctrl"><div class="ctrl-icon"><i data-lucide="grid-3x3"></i></div><div class="ctrl-label">keypad</div></div>
+              <div class="ctrl"><div class="ctrl-icon"><i data-lucide="volume-2"></i></div><div class="ctrl-label">speaker</div></div>
+            </div>
+            <div class="end-call-row">
+              <button class="end-call-btn start" id="callButton" aria-label="Start call">
+                <i data-lucide="phone"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="call-hint" id="callHint">Tap <strong>green</strong> to start the call</div>
+      </div>
+      <div class="output-panel">
+        <div class="output-header">
+          <div class="output-pill">
+            <i data-lucide="bell-ring"></i>
+            Structured page → Provider
+          </div>
+        </div>
+        <div class="output-card" id="outputCard">
+          <div class="output-empty">As PageMD processes the call, the structured message routed to your provider will populate here.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="blk why-sec" id="why">
+  <div class="container">
+    <div class="eyebrow eyebrow-l rv">Why PageMD</div>
+    <h2 class="h2 h2-l rv">Built for clinical workflows.<br>Not retrofitted into them.</h2>
+    <p class="lead-l rv" style="margin-bottom:48px">General-purpose AI receptionists, voicemail trees, and outsourced answering services were not designed for clinics. PageMD was.</p>
+    <div class="rv">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th class="feat-col">Feature</th>
+            <th>Traditional Paging</th>
+            <th>Generic AI Receptionist</th>
+            <th class="pgmd-col">
+              PageMD
+              <span class="pgmd-badge-pill"><i data-lucide="check-circle"></i>Built for clinics</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feat-col">Handles inbound calls automatically</td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td><span class="chk"><i data-lucide="check"></i></span></td>
+            <td class="pgmd"><span class="chk"><i data-lucide="check"></i></span></td>
+          </tr>
+          <tr>
+            <td class="feat-col">Structures clinical messages</td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td class="pgmd"><span class="chk"><i data-lucide="check"></i></span></td>
+          </tr>
+          <tr>
+            <td class="feat-col">Designed specifically for clinical staff</td>
+            <td><span class="chk"><i data-lucide="check"></i></span></td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td class="pgmd"><span class="chk"><i data-lucide="check"></i></span></td>
+          </tr>
+          <tr>
+            <td class="feat-col">Implemented without workflow change</td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td class="pgmd"><span class="chk"><i data-lucide="check"></i></span></td>
+          </tr>
+          <tr>
+            <td class="feat-col">Zero hold times or queues</td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td><span class="ex"><i data-lucide="x"></i></span></td>
+            <td class="pgmd"><span class="chk"><i data-lucide="check"></i></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="blk pricing-sec" id="pricing">
+  <div class="container">
+    <div class="eyebrow rv">What You Get</div>
+    <h2 class="h2 h2-d rv">Everything your clinic needs.<br>Nothing it doesn't.</h2>
+    <p class="lead-d rv" style="margin-bottom:0">Pricing is scoped to your practice size. Every plan includes the full PageMD feature set: no add-ons, no hidden tiers.</p>
+
+    <div class="includes-grid">
+      <div class="includes-card rv rv-d1">
+        <div class="chip-icon"><i data-lucide="zap"></i></div>
+        <div class="includes-card-title">Instant AI Answering</div>
+        <div class="includes-card-desc">Every inbound call answered in under a second, with no hold queues and no voicemail traps. PageMD runs parallel conversations without skipping a beat.</div>
+      </div>
+      <div class="includes-card rv rv-d2">
+        <div class="chip-icon"><i data-lucide="file-text"></i></div>
+        <div class="includes-card-title">Structured Clinical Intake</div>
+        <div class="includes-card-desc">AI-driven conversations capture the right patient data and format it into a clear clinical summary, ready for your team to act on immediately.</div>
+      </div>
+      <div class="includes-card rv rv-d3">
+        <div class="chip-icon"><i data-lucide="bell-ring"></i></div>
+        <div class="includes-card-title">Direct Provider Delivery</div>
+        <div class="includes-card-desc">Every completed call generates a structured, formatted page sent directly to the right provider or staff member. No message gets buried, forwarded twice, or lost in handoff.</div>
+      </div>
+    </div>
+
+    <div class="pricing-cta-strip rv">
+      <p>Pricing is scoped to your practice and number of providers. </p>
+      <a href="#signup" class="btn btn-mint btn-lg" style="white-space:nowrap">Get Pricing <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / SIGNUP -->
+<section class="blk cta-sec" id="signup">
+  <div class="container">
+    <div class="rv">
+      <h2 class="cta-h2">Ready to give your nurses their time back?</h2>
+      <p class="cta-body" style="max-width:420px">Tell us about your clinic and we'll reach out with pricing and next steps.</p>
+      <div class="trust-pills">
+        <span class="trust-pill"><i data-lucide="shield-check"></i>HIPAA-conscious architecture</span>
+        <span class="trust-pill"><i data-lucide="lock"></i>Encrypted in transit</span>
+      </div>
+      <div class="cta-proof">
+        <p class="cta-proof-quote">"We built PageMD because we watched nurses spend hours a week trapped on hold: time that should have been spent with patients."</p>
+        <span class="cta-proof-attr">PageMD founding team</span>
+      </div>
+    </div>
+    <form class="signup rv rv-d2" action="https://formspree.io/f/mpqnljda" method="POST" id="signupForm">
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" required placeholder="Dr. Jane Smith"/>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="you@clinic.com"/>
+      </div>
+      <div class="field">
+        <label for="clinic">Clinic name</label>
+        <input type="text" id="clinic" name="clinic" required placeholder="Evansville Family Practice"/>
+      </div>
+      <div class="field">
+        <label for="size">Clinic size</label>
+        <select id="size" name="size" required>
+          <option value="">Select…</option>
+          <option value="1-2">1–2 providers</option>
+          <option value="3-5">3–5 providers</option>
+          <option value="5+">5+ providers</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Anything we should know? (optional)</label>
+        <textarea id="message" name="message" rows="3" placeholder="Biggest call-handling pain point, timing, etc."></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="New PageMD inquiry"/>
+      <button type="submit" class="btn btn-mint">Get in Touch <i data-lucide="arrow-right"></i></button>
+      <p class="form-note">We'll only use your info to follow up about PageMD. No spam, ever.</p>
+      <div class="form-success" id="formSuccess">Request received. We will be in touch shortly.</div>
+      <div class="form-error" id="formError"></div>
+    </form>
+  </div>
+</section>
+
+<!-- OUTRO -->
+<section class="outro">
+  <div class="container rv">
+    <div class="outro-metrics">
+      <div class="outro-metric">
+        <span class="outro-metric-n">&lt;1<span class="unit">s</span></span>
+        <span class="outro-metric-l">to answer every call</span>
+      </div>
+      <div class="outro-metric">
+        <span class="outro-metric-n">100<span class="unit">%</span></span>
+        <span class="outro-metric-l">call coverage, zero hold</span>
+      </div>
+      <div class="outro-metric">
+        <span class="outro-metric-n"><span class="unit" style="color:var(--brand-ink);font-size:.58em;vertical-align:.1em">$</span>54K<span class="unit">+</span></span>
+        <span class="outro-metric-l">saved per clinic per year</span>
+      </div>
+    </div>
+    <div class="outro-rule"></div>
+    <p class="outro-text">Because your time belongs with patients.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="logo-lockup">
+          <svg class="logo-mark" viewBox="0 0 200 200"><use href="#pagemd-mark"/></svg>
+          <div class="logo-sub">
+            <span class="wordmark">PageMD</span>
+            <span class="logo-tagline">Giving nurses their time back.</span>
+          </div>
+        </a>
+        <p class="footer-brand-desc">AI phone answering and clinical paging for outpatient clinics. Answer every call instantly. Deliver every page accurately.</p>
+      </div>
+      <div>
+        <div class="footer-col-heading">Navigate</div>
+        <div class="footer-col-links">
+          <a href="#problem">The Problem</a>
+          <a href="#how">How It Works</a>
+          <a href="#demo">Live Demo</a>
+          <a href="#pricing">What's Included</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-heading">Get In Touch</div>
+        <div class="footer-col-links">
+          <a href="#signup">Get in Touch</a>
+          <a href="mailto:team@pagemd.ai">team@pagemd.ai</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-rule"></div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="year"></span> PageMD. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+if (window.lucide) lucide.createIcons();
+
+
+/* Scroll reveal */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.rv').forEach(el => revObs.observe(el));
+
+/* ── Demo ── */
+const SCENARIOS = {
+  refill: {
+    turns: [
+      { speaker:'ai',    text:"Hello, this is PageMD calling for Evansville Family Practice. How can I help you today?" },
+      { speaker:'caller',text:"Hi, I'm calling about a prescription refill. I'm running low on my blood pressure medication." },
+      { speaker:'ai',    text:"Of course. May I have your full name and date of birth, please?", capture:{'Type':'Prescription Refill'} },
+      { speaker:'caller',text:"Margaret Wilson, June 12th, 1958." },
+      { speaker:'ai',    text:"Thank you, Margaret. Which medication needs refilled?", capture:{'Patient':'Margaret Wilson  ·  DOB 06/12/1958'} },
+      { speaker:'caller',text:"Lisinopril, 20 milligrams." },
+      { speaker:'ai',    text:"Got it. About how many days do you have left?", capture:{'Medication':'Lisinopril 20 mg'} },
+      { speaker:'caller',text:"Three days." },
+      { speaker:'ai',    text:"Understood. Is your pharmacy still Walgreens on Main Street?", capture:{'Supply remaining':'3 days'} },
+      { speaker:'caller',text:"Yes, that's right." },
+      { speaker:'ai',    text:"Perfect. I have everything I need. Dr. Chen will review and approve the refill during today's clinical sign-off, and you'll get a confirmation when it's sent. Anything else?", capture:{'Pharmacy':'Walgreens · Main St.'} },
+      { speaker:'caller',text:"No, that's all. Thank you." },
+      { speaker:'ai',    text:"You're welcome, Margaret. Have a great day.", capture:{'Priority':{value:'Routine',tag:'routine'},'Routed to':'Dr. Chen'} }
+    ]
+  },
+  symptom: {
+    turns: [
+      { speaker:'ai',    text:"Hello, this is PageMD for Evansville Family Practice. How can I help you today?" },
+      { speaker:'caller',text:"Hi, my son has had a fever for two days and now he's saying his ear really hurts." },
+      { speaker:'ai',    text:"I'm sorry to hear that. May I have your son's full name and date of birth?", capture:{'Type':'Symptom Triage'} },
+      { speaker:'caller',text:"Liam Carter, March 5th, 2019." },
+      { speaker:'ai',    text:"Thank you. How high has the fever been, and any other symptoms: vomiting, rash, trouble breathing?", capture:{'Patient':'Liam Carter  ·  DOB 03/05/2019'} },
+      { speaker:'caller',text:"About 102. No rash or vomiting. Just the ear pain and being really tired." },
+      { speaker:'ai',    text:"Has Liam had any recent illnesses or ear infections?", capture:{'Chief complaint':'Fever (102°F) × 2 days, new R-ear pain'} },
+      { speaker:'caller',text:"He had one back in January." },
+      { speaker:'ai',    text:"Understood. This is consistent with a possible ear infection. I'm flagging it as same-day. A nurse will call you back within 30 minutes. Is this the best number to reach you?", capture:{'History':'Otitis media (January)','Other':'Fatigue. No rash, vomiting, or breathing difficulty.'} },
+      { speaker:'caller',text:"Yes, this number is fine." },
+      { speaker:'ai',    text:"Thank you. Hang tight, you'll hear from us shortly.", capture:{'Priority':{value:'Same-day callback',tag:'same-day'},'Routed to':'Triage nurse'} }
+    ]
+  },
+  appointment: {
+    turns: [
+      { speaker:'ai',    text:"Hello, this is PageMD for Evansville Family Practice. How can I help you today?" },
+      { speaker:'caller',text:"Hi, I need to schedule a follow-up. I had a physical last month and Dr. Patel wanted to recheck my labs." },
+      { speaker:'ai',    text:"Of course. May I have your name and date of birth?", capture:{'Type':'Appointment Request'} },
+      { speaker:'caller',text:"James Rodriguez, August 4th, 1972." },
+      { speaker:'ai',    text:"Thank you, James. Did Dr. Patel mention a timeframe: four weeks, six weeks?", capture:{'Patient':'James Rodriguez  ·  DOB 08/04/1972'} },
+      { speaker:'caller',text:"Six weeks, I think." },
+      { speaker:'ai',    text:"Got it. Do you prefer mornings or afternoons?", capture:{'Reason':'Lab recheck (6-wk follow-up)','Provider':'Dr. Patel'} },
+      { speaker:'caller',text:"Mornings, ideally." },
+      { speaker:'ai',    text:"Understood. I'll route this to scheduling. You'll receive a text within an hour with available morning slots. Sound good?", capture:{'Preference':'Morning · within 2 weeks'} },
+      { speaker:'caller',text:"Yes, perfect." },
+      { speaker:'ai',    text:"Thanks, James. Talk soon.", capture:{'Priority':{value:'Standard',tag:'standard'},'Routed to':'Scheduling'} }
+    ]
+  }
+};
+
+let activeScenario='refill',isPlaying=false,playToken=0,timerInt=null,elapsed=0,curAudio=null;
+const callBtn=document.getElementById('callButton'),callTimer=document.getElementById('callTimer'),
+  avatarOrb=document.getElementById('avatarOrb'),speakerLabel=document.getElementById('speakerLabel'),
+  waveform=document.getElementById('waveform'),captionContent=document.getElementById('captionContent'),
+  outputCard=document.getElementById('outputCard'),callHint=document.getElementById('callHint');
+
+document.querySelectorAll('.demo-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.demo-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    activeScenario=tab.dataset.scenario;
+    resetDemo();preloadAudio(activeScenario);
+  });
+});
+
+function startTimer(){elapsed=0;callTimer.textContent='00:00';timerInt=setInterval(()=>{elapsed++;const m=String(Math.floor(elapsed/60)).padStart(2,'0'),s=String(elapsed%60).padStart(2,'0');callTimer.textContent=m+':'+s;},1000)}
+function stopTimer(){clearInterval(timerInt);timerInt=null}
+function setSpeaker(sp){
+  if(!sp){speakerLabel.classList.remove('show');avatarOrb.classList.remove('active');waveform.classList.remove('active','caller');return}
+  speakerLabel.classList.add('show');
+  if(sp==='ai'){speakerLabel.textContent='PageMD speaking';speakerLabel.classList.remove('caller');avatarOrb.classList.add('active');waveform.classList.add('active');waveform.classList.remove('caller')}
+  else{speakerLabel.textContent='Caller speaking';speakerLabel.classList.add('caller');avatarOrb.classList.remove('active');waveform.classList.add('active','caller')}
+}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showCaption(sp,text){
+  const prev=captionContent.querySelector('.caption-line.current');if(prev)prev.classList.remove('current');
+  const ph=captionContent.querySelector('.placeholder');if(ph)ph.remove();
+  const lines=captionContent.querySelectorAll('.caption-line');if(lines.length>=3)lines[0].remove();
+  const ln=document.createElement('div');
+  ln.className='caption-line current '+(sp==='caller'?'caller-line':'');
+  ln.innerHTML='<span class="who">'+(sp==='ai'?'PageMD':'Caller')+'</span>'+esc(text);
+  captionContent.appendChild(ln);
+}
+function renderField(label,value){
+  const row=document.createElement('div');row.className='field-row';
+  let vh;
+  if(value&&typeof value==='object'&&value.tag)vh='<span class="priority-tag '+value.tag+'">'+esc(value.value)+'</span>';
+  else vh=esc(String(value));
+  row.innerHTML='<div class="field-label">'+esc(label)+'</div><div class="field-value">'+vh+'</div>';
+  outputCard.appendChild(row);
+}
+function sleep(ms,tok){return new Promise((res,rej)=>setTimeout(()=>tok!==playToken?rej('c'):res(),ms))}
+function audioPath(sid,i,sp){return'audio/'+sid+'/'+String(i).padStart(2,'0')+'_'+sp+'.mp3'}
+
+const ttsV={ai:null,caller_refill:null,caller_symptom:null,caller_appointment:null};
+function pickVoices(){
+  if(!('speechSynthesis'in window))return;
+  const all=window.speechSynthesis.getVoices();if(!all.length)return;
+  const en=all.filter(v=>v.lang&&v.lang.toLowerCase().startsWith('en'));
+  const pool=en.length?en:all;const taken=new Set();
+  const find=(names,pred)=>{for(const n of names){const v=pool.find(x=>!taken.has(x)&&x.name.toLowerCase().includes(n.toLowerCase()));if(v){taken.add(v);return v}}if(pred){const v=pool.find(x=>!taken.has(x)&&pred(x));if(v){taken.add(v);return v}}const v=pool.find(x=>!taken.has(x))||pool[0];if(v)taken.add(v);return v};
+  ttsV.ai=find(['Samantha','Karen','Moira','Aria','Jenny','Google US English'],v=>/female|woman/i.test(v.name));
+  ttsV.caller_refill=find(['Moira','Tessa','Susan','Sonia','Karen'],v=>/female|woman/i.test(v.name));
+  ttsV.caller_symptom=find(['Allison','Ava','Zira','Victoria'],v=>/female|woman/i.test(v.name));
+  ttsV.caller_appointment=find(['Daniel','Alex','Fred','Tom','David'],v=>/male|man/i.test(v.name));
+}
+if('speechSynthesis'in window){pickVoices();window.speechSynthesis.onvoiceschanged=pickVoices}
+function speakLine(text,sp,sid,tok){
+  return new Promise((res,rej)=>{
+    if(!('speechSynthesis'in window)){setTimeout(()=>tok!==playToken?rej('c'):res(),Math.min(4500,1500+text.length*32));return}
+    const u=new SpeechSynthesisUtterance(text);const vk=sp==='ai'?'ai':'caller_'+sid;
+    if(ttsV[vk])u.voice=ttsV[vk];u.rate=sp==='ai'?1.0:1.05;u.pitch=1.0;u.volume=1.0;
+    let done=false;const fin=(fc)=>{if(done)return;done=true;(fc||tok!==playToken)?rej('c'):res()};
+    u.onend=()=>fin(false);u.onerror=()=>fin(false);window.speechSynthesis.speak(u);
+  });
+}
+function playAudio(audio,opts,tok){
+  return new Promise((res,rej)=>{
+    let done=false;
+    const fin=()=>{if(done)return;done=true;tok!==playToken?rej('c'):res()};
+    const fb=()=>{if(done)return;done=true;speakLine(opts.text,opts.sp,opts.sid,tok).then(res,rej)};
+    audio.addEventListener('ended',fin);audio.addEventListener('pause',fin);audio.addEventListener('error',fb);
+    const p=audio.play();if(p&&typeof p.catch==='function')p.catch(fb);
+  });
+}
+function preloadAudio(sid){const sc=SCENARIOS[sid];if(!sc)return;sc.turns.forEach((t,i)=>{const a=new Audio(audioPath(sid,i,t.speaker));a.preload='auto'})}
+function resetDemo(){
+  playToken++;isPlaying=false;stopTimer();
+  if(curAudio){try{curAudio.pause()}catch(e){}curAudio=null}
+  if('speechSynthesis'in window){try{window.speechSynthesis.cancel()}catch(e){}}
+  callTimer.textContent='00:00';captionContent.innerHTML='<span class="placeholder">Tap the green button to start the call</span>';
+  setSpeaker(null);outputCard.innerHTML='<div class="output-empty">As PageMD processes the call, the structured message routed to your provider will populate here.</div>';
+  callBtn.classList.add('start');callBtn.setAttribute('aria-label','Start call');
+  callHint.innerHTML='Tap <strong>green</strong> to start the call';
+  if(window.lucide)lucide.createIcons();
+}
+async function playScenario(){
+  if(isPlaying)return;playToken++;const tok=playToken;isPlaying=true;
+  callBtn.classList.remove('start');callBtn.setAttribute('aria-label','End call');
+  callHint.innerHTML='Call in progress…';captionContent.innerHTML='';outputCard.innerHTML='';startTimer();
+  const sc=SCENARIOS[activeScenario];
+  try{
+    for(let i=0;i<sc.turns.length;i++){
+      const t=sc.turns[i];await sleep(i===0?600:350,tok);setSpeaker(t.speaker);showCaption(t.speaker,t.text);
+      if(t.capture)for(const[l,v]of Object.entries(t.capture))renderField(l,v);
+      curAudio=new Audio(audioPath(activeScenario,i,t.speaker));
+      await playAudio(curAudio,{text:t.text,sp:t.speaker,sid:activeScenario},tok);curAudio=null;
+    }
+    setSpeaker(null);stopTimer();callBtn.classList.add('start');callBtn.setAttribute('aria-label','Replay call');
+    callHint.innerHTML='Call complete · <strong>page sent to provider</strong>';isPlaying=false;
+    if(window.lucide)lucide.createIcons();
+  }catch(e){stopTimer();setSpeaker(null);curAudio=null}
+}
+preloadAudio(activeScenario);
+callBtn.addEventListener('click',()=>isPlaying?resetDemo():playScenario());
+
+/* Signup form */
+const form=document.getElementById('signupForm');
+const formErr=document.getElementById('formError');
+function showFormErr(msg){formErr.textContent=msg;formErr.style.display='block'}
+form.addEventListener('submit',async function(e){
+  e.preventDefault();formErr.style.display='none';
+  if(form.action.includes('REPLACE_WITH_FORMSPREE_URL')){showFormErr('Form not yet configured. See the comment at the top of index.html for setup instructions.');return}
+  try{
+    const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+    if(res.ok){form.style.display='none';document.getElementById('formSuccess').style.display='block'}
+    else showFormErr('Something went wrong. Please try again or email team@pagemd.ai directly.');
+  }catch(err){showFormErr('Network error. Please try again or email team@pagemd.ai directly.')}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.vercel
+.gstack/
+.DS_Store
+.agents/
+.claude/
+.playwright-mcp/
+deviceframes.mp4
+Screenshot*.png
+Apple\ Messages\ Templates\ (Community)/
