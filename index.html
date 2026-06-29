@@ -473,9 +473,9 @@ section.blk{padding:112px 0}
   position:absolute;
   left:calc(5vw + 624px);right:0;top:0;bottom:0;
   overflow:hidden;display:flex;align-items:flex-start;padding-top:100px;z-index:0;
-  background:linear-gradient(160deg,#d4e2f8 0%,#ccd9f6 50%,#c8d4f2 100%);
-  border-left:1px solid rgba(42,54,116,.14);
-  box-shadow:-16px 0 48px rgba(42,54,116,.07), -2px 0 8px rgba(42,54,116,.05);
+  background:var(--gradient-ink);
+  border-left:1px solid rgba(42,54,116,.20);
+  box-shadow:-16px 0 48px rgba(42,54,116,.18), -2px 0 8px rgba(42,54,116,.10);
 }
 .phone-track{
   display:flex;width:max-content;
@@ -487,9 +487,9 @@ section.blk{padding:112px 0}
 }
 @media(prefers-reduced-motion:reduce){.phone-track{animation-play-state:paused}}
 .belt-item{
-  flex-shrink:0;width:280px;margin-right:24px;
+  flex-shrink:0;width:350px;margin-right:30px;
   background:linear-gradient(158deg,#22253f 0%,#161829 55%,#0d0f20 100%);
-  border-radius:44px;padding:8px;position:relative;
+  border-radius:55px;padding:10px;position:relative;
   box-shadow:
     0 28px 56px rgba(42,54,116,.30),
     0 0 0 1px rgba(255,255,255,.09),
@@ -498,20 +498,20 @@ section.blk{padding:112px 0}
 }
 .belt-item::before{
   content:'';position:absolute;
-  left:-3.5px;top:72px;width:3.5px;height:26px;
+  left:-4px;top:90px;width:4px;height:33px;
   background:linear-gradient(180deg,#2e3155 0%,#1c1f3a 100%);
   border-radius:2px 0 0 2px;
 }
 .belt-item::after{
   content:'';position:absolute;
-  right:-3.5px;top:100px;width:3.5px;height:52px;
+  right:-4px;top:125px;width:4px;height:65px;
   background:linear-gradient(180deg,#2e3155 0%,#1c1f3a 100%);
   border-radius:0 2px 2px 0;
 }
 .belt-screen{
-  border-radius:36px;overflow:hidden;display:block;line-height:0;
+  border-radius:45px;overflow:hidden;display:block;line-height:0;
 }
-.belt-screen img{width:100%;height:auto;display:block;border-radius:36px}
+.belt-screen img{width:100%;height:auto;display:block;border-radius:45px}
 .hp-frame{
   width:310px;position:relative;
   background:linear-gradient(158deg,#22253f 0%,#161829 55%,#0d0f20 100%);
