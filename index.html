@@ -304,7 +304,8 @@ section.blk{padding:112px 0}
 .hero-copy{
   max-width:600px;
   display:flex;flex-direction:column;
-  flex:1;
+  flex:1;justify-content:center;gap:0;
+  margin-left:-24px;
 }
 
 /* left */
@@ -322,20 +323,22 @@ section.blk{padding:112px 0}
 
 .hero-h1{
   font-family:var(--fd);font-weight:800;
-  font-size:clamp(44px,6.5vw,76px);
+  font-size:clamp(36px,4.2vw,56px);
   line-height:1.05;letter-spacing:-.03em;
   color:var(--brand-ink);margin-bottom:18px;
   text-wrap:balance;
 }
 .hero-h1 .accent{color:var(--brand-blue)}
+.hero-h1 em.hero-serif{font-family:var(--fs);font-style:italic;font-weight:400}
 
-.hero-lead{margin-bottom:44px}
+.hero-lead{margin-bottom:18px}
 
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:0}
+.hero-body{margin-bottom:48px}
 
 /* hero flow diagram */
 .hero-flow{
-  margin-top:auto;margin-bottom:32px;
+  margin-bottom:0;
   width:100%;
 }
 .flow-stage{
@@ -1309,7 +1312,8 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 
       <!-- Left -->
       <div class="hero-copy">
-        <h1 class="hero-h1">Stop losing hours to <span class="accent">hold music.</span></h1>
+        <div class="hero-body">
+        <h1 class="hero-h1">Your staff spend hours a day on hold. <span class="accent">PageMD gives those <em class="hero-serif">hours back.</em></span></h1>
         <p class="lead-d hero-lead">
           PageMD answers every call instantly and routes prioritized pages to the right provider, so your staff can focus on patients, not phones.
         </p>
@@ -1322,6 +1326,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
             <i data-lucide="play-circle"></i>
             Hear it in action
           </a>
+        </div>
         </div>
         <div class="hero-flow" aria-hidden="true">
           <div class="flow-stage">
