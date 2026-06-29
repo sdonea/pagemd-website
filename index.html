@@ -322,9 +322,9 @@ section.blk{padding:112px 0}
 }
 
 .hero-h1{
-  font-family:var(--fd);font-weight:800;
+  font-family:var(--fd);font-weight:900;
   font-size:clamp(36px,4.2vw,56px);
-  line-height:1.05;letter-spacing:-.03em;
+  line-height:1.05;letter-spacing:-.035em;
   color:var(--brand-ink);margin-bottom:18px;
   text-wrap:balance;
 }
@@ -646,14 +646,17 @@ section.blk{padding:112px 0}
   transition:background var(--tn);
 }
 .sblock:not(:last-child){border-right:1px solid var(--line)}
-.sblock:hover{background:var(--bg-alt)}
+.sblock:hover{background:var(--bg-alt);box-shadow:inset 0 0 0 1.5px rgba(90,137,242,.15)}
 .sblock-n{
   font-family:var(--fm);font-weight:500;
   font-size:clamp(36px,4vw,52px);line-height:1;
   letter-spacing:-.04em;color:var(--brand-ink);
   margin-bottom:12px;
 }
-.sblock.featured{background:var(--bg-tint)}
+.sblock.featured{
+  background:linear-gradient(145deg,var(--bg-tint) 0%,rgba(90,137,242,.08) 100%);
+  box-shadow:inset 0 0 0 1.5px rgba(90,137,242,.20),var(--sh1);
+}
 .sblock.featured .sblock-n{color:var(--brand-blue-deep)}
 .sblock-title{
   font-family:var(--fd);font-size:15px;font-weight:700;
@@ -685,6 +688,14 @@ section.blk{padding:112px 0}
   color:var(--brand-ink);margin-bottom:10px;letter-spacing:-.02em;line-height:1.25;
 }
 .step-card p{font-size:15px;color:var(--fg-muted);line-height:1.65}
+.step-card:not(:first-child)::before{
+  content:'';position:absolute;
+  left:23px;top:66px;
+  width:9px;height:9px;
+  border-top:1.5px solid var(--line-strong);
+  border-right:1.5px solid var(--line-strong);
+  transform:rotate(45deg);opacity:.55;
+}
 
 /* ─── DEMO ───────────────────────────────────────────────── */
 .demo-sec{
@@ -918,7 +929,11 @@ section.blk{padding:112px 0}
   transition:background var(--tf);
 }
 .compare-table td.feat-col{text-align:left;font-weight:500;color:var(--fg);background:var(--surface)}
-.compare-table td.pgmd{background:rgba(90,137,242,.04)}
+.compare-table td.pgmd{
+  background:rgba(90,137,242,.055);
+  border-left:1.5px solid rgba(90,137,242,.13);
+  border-right:1.5px solid rgba(90,137,242,.13);
+}
 .compare-table tbody tr:hover td{background:var(--bg)}
 .compare-table tbody tr:hover td.pgmd{background:rgba(90,137,242,.08)}
 .compare-table tbody tr:hover td.feat-col{background:var(--bg)}
@@ -1081,7 +1096,7 @@ form.signup .btn{width:100%;margin-top:8px;padding:13px;font-size:14.5px;justify
 }
 .chip-icon [data-lucide]{width:22px;height:22px;color:#fff;stroke-width:1.65}
 .sblock .chip-icon{margin-bottom:22px}
-.step-card .chip-icon{margin-bottom:14px}
+.step-card .chip-icon{margin-bottom:14px;border-radius:50%}
 .includes-card .chip-icon{margin-bottom:16px}
 
 /* ─── Compare table enhancements ─────────────────────────── */
@@ -1106,7 +1121,7 @@ form.signup .btn{width:100%;margin-top:8px;padding:13px;font-size:14.5px;justify
   border-radius:var(--r3);padding:30px 26px 28px;
   transition:transform var(--tn) var(--ease),box-shadow var(--tn) var(--ease);
 }
-.includes-card:hover{transform:translateY(-3px);box-shadow:var(--sh3)}
+.includes-card:hover{transform:translateY(-3px);box-shadow:var(--sh3);border-color:rgba(90,137,242,.28)}
 .includes-card-title{
   font-family:var(--fd);font-size:16px;font-weight:700;
   color:var(--brand-ink);margin:0 0 9px;letter-spacing:-.02em;
@@ -1224,6 +1239,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
   .step-card{padding:40px 0 0;border-top:1px solid var(--line)}
   .step-card:not(:first-child){border-left:none;padding-left:0}
   .step-card:first-child{border-top:none;padding-top:0}
+  .step-card:not(:first-child)::before{display:none}
   .demo-stage{grid-template-columns:1fr;justify-items:center}
   .output-panel{width:100%;min-height:0}
   .pricing-grid{grid-template-columns:1fr}
@@ -1294,6 +1310,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
       </div>
     </a>
     <div class="nav-links">
+      <span class="nav-pilot-pill"><span class="dot-pulse"></span>Now in pilot</span>
       <a href="#problem">Problem</a>
       <a href="#how">How it works</a>
       <a href="#demo">Demo</a>
@@ -1551,8 +1568,10 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
             <th>Traditional Paging</th>
             <th>Generic AI Receptionist</th>
             <th class="pgmd-col">
-              PageMD
-              <span class="pgmd-badge-pill"><i data-lucide="check-circle"></i>Built for clinics</span>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+                <span style="font-size:16px;font-weight:700;letter-spacing:-.01em">PageMD</span>
+                <span class="pgmd-badge-pill"><i data-lucide="check-circle"></i>Built for clinics</span>
+              </div>
             </th>
           </tr>
         </thead>
@@ -1643,7 +1662,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
     <form class="signup rv rv-d2" action="https://formspree.io/f/mpqnljda" method="POST" id="signupForm">
       <div class="field">
         <label for="name">Your name</label>
-        <input type="text" id="name" name="name" required placeholder="Dr. Jane Smith"/>
+        <input type="text" id="name" name="name" required placeholder="Dr. Priya Nair"/>
       </div>
       <div class="field">
         <label for="email">Email</label>
@@ -1678,20 +1697,6 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 <!-- OUTRO -->
 <section class="outro">
   <div class="container rv">
-    <div class="outro-metrics">
-      <div class="outro-metric">
-        <span class="outro-metric-n">&lt;1<span class="unit">s</span></span>
-        <span class="outro-metric-l">to answer every call</span>
-      </div>
-      <div class="outro-metric">
-        <span class="outro-metric-n">100<span class="unit">%</span></span>
-        <span class="outro-metric-l">call coverage, zero hold</span>
-      </div>
-      <div class="outro-metric">
-        <span class="outro-metric-n"><span class="unit" style="color:var(--brand-ink);font-size:.58em;vertical-align:.1em">$</span>54K<span class="unit">+</span></span>
-        <span class="outro-metric-l">saved per clinic per year</span>
-      </div>
-    </div>
     <div class="outro-rule"></div>
     <p class="outro-text">Because your time belongs with patients.</p>
   </div>
