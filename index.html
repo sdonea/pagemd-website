@@ -272,7 +272,7 @@ section.blk{padding:112px 0}
 /* ─── HERO ───────────────────────────────────────────────── */
 .hero{
   background:var(--gradient-sky);position:relative;overflow:hidden;
-  min-height:100svh;display:flex;flex-direction:column;justify-content:flex-start;
+  display:flex;flex-direction:column;align-items:stretch;
 }
 .hero-grid-bg{
   position:absolute;inset:0;pointer-events:none;
@@ -280,40 +280,42 @@ section.blk{padding:112px 0}
     linear-gradient(var(--line-soft) 1px,transparent 1px),
     linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
   background-size:56px 56px;
-  mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 40%,transparent 100%);
-  opacity:.6;
+  mask-image:radial-gradient(ellipse 90% 60% at 50% 30%,black 40%,transparent 100%);
+  opacity:.5;
 }
 .hero-glow-r{
-  position:absolute;right:-160px;top:-140px;
-  width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(139,122,232,.05) 0%,transparent 65%);
-  filter:blur(60px);pointer-events:none;
+  position:absolute;left:50%;top:-80px;transform:translateX(-50%);
+  width:900px;height:600px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(111,165,245,.07) 0%,rgba(139,122,232,.04) 40%,transparent 70%);
+  filter:blur(48px);pointer-events:none;
 }
 
 .hero .container{
   position:relative;z-index:1;
-  padding-top:56px;padding-bottom:48px;
-  margin-left:0;max-width:none;padding-left:5vw;padding-right:0;
-  min-height:calc(100svh - 50px);
-  display:flex;flex-direction:column;
+  padding-top:52px;padding-bottom:32px;
+  max-width:1200px;margin:0 auto;
+  padding-left:28px;padding-right:28px;
+  display:block;
 }
 .hero-inner{
-  display:flex;align-items:stretch;
-  flex:1;
+  display:block;
 }
 .hero-copy{
-  max-width:600px;
+  max-width:1100px;
   display:flex;flex-direction:column;
-  flex:1;justify-content:center;gap:0;
-  margin-left:-24px;
+  align-items:center;gap:0;
+  margin:0 auto;
+  text-align:center;
 }
 
-/* left */
+/* centered label */
 .hero-label{
   display:inline-flex;align-items:center;gap:9px;
-  font-family:var(--fm);font-size:11.5px;font-weight:500;
-  letter-spacing:.04em;
-  color:var(--fg-soft);margin-bottom:20px;
+  font-family:var(--fm);font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--fg-soft);margin-bottom:24px;
+  background:rgba(90,137,242,.06);border:1px solid rgba(90,137,242,.15);
+  padding:5px 14px 5px 10px;border-radius:999px;
 }
 .hero-label-dot{
   width:7px;height:7px;border-radius:50%;
@@ -323,23 +325,22 @@ section.blk{padding:112px 0}
 
 .hero-h1{
   font-family:var(--fd);font-weight:900;
-  font-size:clamp(36px,4.2vw,56px);
-  line-height:1.05;letter-spacing:-.035em;
-  color:var(--brand-ink);margin-bottom:18px;
-  text-wrap:balance;
+  font-size:clamp(32px,4.2vw,58px);
+  line-height:1.08;letter-spacing:-.03em;
+  color:var(--brand-ink);margin-bottom:22px;
+  text-align:center;
 }
 .hero-h1 .accent{color:var(--brand-blue)}
 .hero-h1 em.hero-serif{font-family:var(--fs);font-style:italic;font-weight:400}
 
-.hero-lead{margin-bottom:18px}
+.hero-lead{margin-bottom:28px;text-align:center;margin-left:auto;margin-right:auto}
 
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:0}
-.hero-body{margin-bottom:48px}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:0;justify-content:center}
+.hero-body{margin-bottom:28px}
 
-/* hero flow diagram */
+/* hero flow diagram — hidden in centered layout */
 .hero-flow{
-  margin-bottom:0;
-  width:100%;
+  display:none;
 }
 .flow-stage{
   position:relative;margin-bottom:20px;
@@ -430,14 +431,15 @@ section.blk{padding:112px 0}
 }
 
 .hero-stats{
-  display:flex;align-items:stretch;
+  display:flex;align-items:stretch;justify-content:center;
   padding-top:28px;
   border-top:1px solid var(--line);
+  max-width:680px;width:100%;
 }
 .hstat{
   flex:1;display:flex;flex-direction:column;gap:6px;
   padding-right:clamp(16px,2.5vw,36px);
-  padding-bottom:4px;
+  padding-bottom:4px;text-align:center;
 }
 .hstat:not(:first-child){
   padding-left:clamp(16px,2.5vw,36px);
@@ -471,22 +473,32 @@ section.blk{padding:112px 0}
   animation:hcFloat 5s ease-in-out infinite;
   filter:drop-shadow(0 28px 52px rgba(42,54,116,.24)) drop-shadow(0 8px 18px rgba(42,54,116,.12));
 }
-/* ── Hero phone belt ─────────────────────────────────────── */
+/* ── Phone showcase (centered, below copy) ───────────────── */
 .phone-belt{
-  position:absolute;
-  left:calc(5vw + 624px);right:0;top:0;bottom:0;
-  overflow:hidden;display:flex;align-items:flex-start;padding-top:100px;z-index:0;
-  background:var(--gradient-ink);
-  border-left:1px solid rgba(42,54,116,.20);
-  box-shadow:-16px 0 48px rgba(42,54,116,.18), -2px 0 8px rgba(42,54,116,.10);
+  position:relative;
+  left:auto;right:auto;top:auto;bottom:auto;
+  overflow:hidden;display:flex;align-items:flex-start;padding-top:0;z-index:1;
+  background:transparent;
+  border-left:none;
+  box-shadow:none;
+  height:400px;
+  /* bottom fade via mask */
+  -webkit-mask-image:linear-gradient(to bottom,black 40%,transparent 100%);
+  mask-image:linear-gradient(to bottom,black 40%,transparent 100%);
+}
+/* left/right edge fade as overlay */
+.phone-belt::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:10;
+  background:
+    linear-gradient(to right,var(--bg) 0%,transparent 7%,transparent 93%,var(--bg) 100%);
 }
 .phone-track{
   display:flex;width:max-content;
-  animation:beltScroll 48s linear infinite;
+  animation:beltScroll 52s linear infinite;
 }
 @keyframes beltScroll{
-  from{transform:translateX(-50%)}
-  to{transform:translateX(0)}
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
 }
 @media(prefers-reduced-motion:reduce){.phone-track{animation-play-state:paused}}
 .belt-item{
@@ -1226,8 +1238,8 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 /* ─── Mobile ─────────────────────────────────────────────── */
 @media(max-width:900px){
   section.blk{padding:72px 0}
-  .hero .container{padding-top:0;padding-bottom:0}
-  .phone-belt{display:none}
+  .hero .container{padding-top:64px;padding-bottom:40px}
+  .phone-belt{height:280px}
   .hero-copy{max-width:100%}
   .hcard-glow,.hcard-shadow{display:none}
   .nav-links a:not(.btn):not(.nav-pilot-pill){display:none}
@@ -1257,9 +1269,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 @media(max-width:480px){
   .hero-actions{flex-direction:column}
   .hero-actions .btn{width:100%;justify-content:center}
-  .hero .container{min-height:auto}
   .hero-copy{flex:none}
-  .hero-flow{display:none}
   .hero-stats{margin-top:36px;padding-top:24px}
   .nav-pill{display:none}
   .outro-metrics{flex-direction:column;gap:28px;align-items:center}
@@ -1327,10 +1337,9 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
   <div class="container">
     <div class="hero-inner">
 
-      <!-- Left -->
       <div class="hero-copy">
         <div class="hero-body">
-        <h1 class="hero-h1">Your staff spend hours a day on hold. <span class="accent">PageMD gives those <em class="hero-serif">hours back.</em></span></h1>
+        <h1 class="hero-h1">Your staff spend hours a day on hold.<br><span class="accent">PageMD gives those <em class="hero-serif">hours back.</em></span></h1>
         <p class="lead-d hero-lead">
           PageMD answers every call instantly and routes prioritized pages to the right provider, so your staff can focus on patients, not phones.
         </p>
