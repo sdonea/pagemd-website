@@ -959,6 +959,7 @@ section.blk{padding:112px 0}
 .chk [data-lucide]{color:var(--ok);width:19px;height:19px;stroke-width:2.5}
 .ex  [data-lucide]{color:var(--line-strong);width:19px;height:19px;stroke-width:2.5}
 .chk,.ex{display:inline-flex}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
 /* ─── PRICING ────────────────────────────────────────────── */
 .pricing-sec{background:var(--bg);border-top:1px solid var(--line)}
@@ -1259,11 +1260,14 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
   .step-card:first-child{border-top:none;padding-top:0}
   .step-card:not(:first-child)::before{display:none}
   .demo-stage{grid-template-columns:1fr;justify-items:center}
+  .phone-frame{width:100%;max-width:320px}
   .output-panel{width:100%;min-height:0}
   .pricing-grid{grid-template-columns:1fr}
   .pcard.featured{transform:none}
   .pcard.featured:hover{transform:translateY(-3px)}
   .cta-sec .container{grid-template-columns:1fr;gap:40px}
+  .table-scroll{margin:0 -20px;padding:0 20px}
+  .compare-table{min-width:560px}
   .compare-table th,.compare-table td{padding:12px 10px;font-size:12.5px}
   .includes-grid{grid-template-columns:1fr}
   .pricing-cta-strip{flex-direction:column;align-items:flex-start;gap:20px}
@@ -1272,11 +1276,22 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
   .footer-brand-desc{max-width:none}
   .footer-bottom{flex-direction:column;align-items:flex-start}
 }
+@media(max-width:640px){
+  .container{padding:0 20px}
+  nav.top .container{padding-left:20px;padding-right:20px}
+  .logo-tagline{display:none}
+  .nav-links a.btn{padding:10px 16px!important;font-size:13px!important;min-height:40px}
+  .nav-inner{padding:11px 0}
+}
 @media(max-width:480px){
   .hero-actions{flex-direction:column}
   .hero-actions .btn{width:100%;justify-content:center}
   .hero-copy{flex:none}
-  .hero-stats{margin-top:36px;padding-top:24px}
+  .hero-stats{flex-direction:column;align-items:stretch;gap:14px;margin-top:32px;padding-top:24px}
+  .hstat{flex-direction:row;align-items:baseline;justify-content:space-between;gap:16px;text-align:left;padding:0!important;border:none!important}
+  .hstat:not(:first-child){border-top:1px solid var(--line);padding-top:14px!important}
+  .hstat-n{font-size:32px}
+  .hstat-l{text-align:right}
   .nav-pill{display:none}
   .outro-metrics{flex-direction:column;gap:28px;align-items:center}
 }
@@ -1575,7 +1590,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
     <div class="eyebrow eyebrow-l rv">Why PageMD</div>
     <h2 class="h2 h2-l rv">Built for clinical workflows.<br>Not retrofitted into them.</h2>
     <p class="lead-l rv" style="margin-bottom:48px">General-purpose AI receptionists, voicemail trees, and outsourced answering services were not designed for clinics. PageMD was.</p>
-    <div class="rv">
+    <div class="rv table-scroll">
       <table class="compare-table">
         <thead>
           <tr>
