@@ -277,28 +277,17 @@ section.blk{padding:112px 0}
 
 /* ─── HERO ───────────────────────────────────────────────── */
 .hero{
-  background:var(--gradient-sky);position:relative;overflow:hidden;
+  background:var(--bg);position:relative;overflow:hidden;isolation:isolate;
   display:flex;flex-direction:column;align-items:stretch;
 }
-.hero-grid-bg{
-  position:absolute;inset:0;pointer-events:none;
-  background-image:
-    linear-gradient(var(--line-soft) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
-  background-size:56px 56px;
-  mask-image:radial-gradient(ellipse 90% 60% at 50% 30%,black 40%,transparent 100%);
-  opacity:.5;
-}
-.hero-glow-r{
-  position:absolute;left:50%;top:-80px;transform:translateX(-50%);
-  width:900px;height:600px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(111,165,245,.07) 0%,rgba(139,122,232,.04) 40%,transparent 70%);
-  filter:blur(48px);pointer-events:none;
+.hero-colorflow-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  border:0;pointer-events:none;z-index:0;
 }
 
 .hero .container{
   position:relative;z-index:1;
-  padding-top:52px;padding-bottom:32px;
+  padding-top:52px;padding-bottom:80px;
   max-width:1200px;margin:0 auto;
   padding-left:28px;padding-right:28px;
   display:block;
@@ -331,17 +320,18 @@ section.blk{padding:112px 0}
 
 .hero-h1{
   font-family:var(--fd);font-weight:900;
-  font-size:clamp(32px,4.2vw,58px);
-  line-height:1.08;letter-spacing:-.03em;
-  color:var(--brand-ink);margin-bottom:22px;
+  font-size:clamp(36px,4.6vw,62px);
+  line-height:1.06;letter-spacing:-.03em;
+  color:var(--brand-ink);margin-bottom:28px;
   text-align:center;
 }
 .hero-h1 .accent{color:var(--brand-blue)}
 .hero-h1 em.hero-serif{font-family:var(--fs);font-style:italic;font-weight:400}
 
-.hero-lead{margin-bottom:28px;text-align:center;margin-left:auto;margin-right:auto}
+.hero-lead{margin-bottom:36px;text-align:center;margin-left:auto;margin-right:auto;font-size:19.5px;max-width:660px;line-height:1.65}
 
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:0;justify-content:center}
+.hero-actions{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:0;justify-content:center}
+.hero-actions .btn-lg{padding:16px 32px;font-size:16.5px}
 .hero-body{margin-bottom:28px}
 
 /* hero flow diagram — hidden in centered layout */
@@ -436,32 +426,6 @@ section.blk{padding:112px 0}
   color:var(--brand-blue);letter-spacing:-.02em;margin-top:-4px;
 }
 
-.hero-stats{
-  display:flex;align-items:stretch;justify-content:center;
-  padding-top:28px;
-  border-top:1px solid var(--line);
-  max-width:680px;width:100%;
-}
-.hstat{
-  flex:1;display:flex;flex-direction:column;gap:6px;
-  padding-right:clamp(16px,2.5vw,36px);
-  padding-bottom:4px;text-align:center;
-}
-.hstat:not(:first-child){
-  padding-left:clamp(16px,2.5vw,36px);
-  border-left:1px solid var(--line);
-}
-.hstat-n{
-  display:block;
-  font-family:var(--fm);font-size:clamp(36px,4vw,52px);font-weight:700;
-  line-height:1;letter-spacing:-.04em;color:var(--brand-ink);
-}
-.hstat-n .unit{color:var(--brand-blue)}
-.hstat-l{
-  display:block;
-  font-size:13px;color:var(--fg-muted);font-weight:400;line-height:1.4;
-}
-
 /* right — hero phone */
 .hero-visual{display:none}
 .hcard-glow{
@@ -483,20 +447,11 @@ section.blk{padding:112px 0}
 .phone-belt{
   position:relative;
   left:auto;right:auto;top:auto;bottom:auto;
-  overflow:hidden;display:flex;align-items:flex-start;padding-top:0;z-index:1;
+  overflow:hidden;display:flex;align-items:flex-start;padding-top:0;z-index:2;
   background:transparent;
   border-left:none;
   box-shadow:none;
   height:400px;
-  /* bottom fade via mask */
-  -webkit-mask-image:linear-gradient(to bottom,black 40%,transparent 100%);
-  mask-image:linear-gradient(to bottom,black 40%,transparent 100%);
-}
-/* left/right edge fade as overlay */
-.phone-belt::after{
-  content:'';position:absolute;inset:0;pointer-events:none;z-index:10;
-  background:
-    linear-gradient(to right,var(--bg) 0%,transparent 7%,transparent 93%,var(--bg) 100%);
 }
 .phone-track{
   display:flex;width:max-content;
@@ -508,7 +463,7 @@ section.blk{padding:112px 0}
 }
 @media(prefers-reduced-motion:reduce){.phone-track{animation-play-state:paused}}
 .belt-item{
-  flex-shrink:0;width:350px;margin-right:30px;
+  flex-shrink:0;width:350px;margin-right:40.5px;
   background:linear-gradient(158deg,#22253f 0%,#161829 55%,#0d0f20 100%);
   border-radius:55px;padding:10px;position:relative;
   box-shadow:
@@ -1245,7 +1200,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 /* ─── Mobile ─────────────────────────────────────────────── */
 @media(max-width:900px){
   section.blk{padding:72px 0}
-  .hero .container{padding-top:64px;padding-bottom:40px}
+  .hero .container{padding-top:64px;padding-bottom:64px}
   .phone-belt{height:280px}
   .hero-copy{max-width:100%}
   .hcard-glow,.hcard-shadow{display:none}
@@ -1287,11 +1242,6 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
   .hero-actions{flex-direction:column}
   .hero-actions .btn{width:100%;justify-content:center}
   .hero-copy{flex:none}
-  .hero-stats{flex-direction:column;align-items:stretch;gap:14px;margin-top:32px;padding-top:24px}
-  .hstat{flex-direction:row;align-items:baseline;justify-content:space-between;gap:16px;text-align:left;padding:0!important;border:none!important}
-  .hstat:not(:first-child){border-top:1px solid var(--line);padding-top:14px!important}
-  .hstat-n{font-size:32px}
-  .hstat-l{text-align:right}
   .nav-pill{display:none}
   .outro-metrics{flex-direction:column;gap:28px;align-items:center}
 }
@@ -1353,8 +1303,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 
 <!-- HERO -->
 <section class="hero" id="main">
-  <div class="hero-grid-bg" aria-hidden="true"></div>
-  <div class="hero-glow-r" aria-hidden="true"></div>
+  <iframe class="hero-colorflow-bg" src="https://colorflow-embed.b-cdn.net/embed.html#e=yAScJPRY" aria-hidden="true" tabindex="-1" title=""></iframe>
   <div class="container">
     <div class="hero-inner">
 
@@ -1398,21 +1347,6 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
                 <div class="flow-node-time">~60s</div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="hero-stats">
-          <div class="hstat">
-            <span class="hstat-n">&lt;1<span class="unit">s</span></span>
-            <span class="hstat-l">to answer, every call</span>
-          </div>
-          <div class="hstat">
-            <span class="hstat-n">100<span class="unit">%</span></span>
-            <span class="hstat-l">call coverage, zero hold queue</span>
-          </div>
-          <div class="hstat">
-            <span class="hstat-n"><span class="unit" style="color:var(--brand-ink)">$</span>54K<span class="unit">+</span></span>
-            <span class="hstat-l">saved per year in a two-nurse clinic</span>
           </div>
         </div>
       </div>

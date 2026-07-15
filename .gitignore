@@ -7,3 +7,6 @@
 deviceframes.mp4
 Screenshot*.png
 Apple\ Messages\ Templates\ (Community)/
+
+# ShipStudio metadata
+.shipstudio/

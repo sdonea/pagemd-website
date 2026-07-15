@@ -1,0 +1,23 @@
+{
+  "id": "c0a08ef9",
+  "phase": "discarded",
+  "pageUrl": "/Users/sebastiandonea/Desktop/pagemd_website%20test%20redesign/index.html",
+  "sourceFile": "index.html",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 1,
+  "paramValues": {
+    "corner": "round",
+    "border": true
+  },
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 12,
+  "activeOwner": "e111eda6",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [],
+  "updatedAt": "2026-06-29T14:35:29.841Z"
+}
