@@ -806,9 +806,24 @@ section.blk{padding:112px 0}
   background:rgba(255,255,255,.55);
   display:flex;align-items:center;justify-content:center;
   color:#2A3674;border:1px solid rgba(255,255,255,.7);
+  cursor:pointer;font-family:inherit;padding:0;
+  transition:transform .15s var(--easeb),background .18s,color .18s,border-color .18s,box-shadow .18s;
 }
-.ctrl-icon [data-lucide]{width:20px;height:20px;stroke-width:1.6}
-.ctrl-label{font-size:9.5px;color:#4F5A8C;font-weight:500;text-transform:lowercase}
+.ctrl-icon:hover{background:rgba(255,255,255,.85);transform:scale(1.06)}
+.ctrl-icon:active{transform:scale(.9)}
+.ctrl-icon:focus-visible{outline:2px solid #5A89F2;outline-offset:2px}
+.ctrl-icon [data-lucide]{width:20px;height:20px;stroke-width:1.6;pointer-events:none}
+.ctrl.active .ctrl-icon{
+  background:#2A3674;border-color:#2A3674;color:#fff;
+  box-shadow:0 4px 14px rgba(42,54,116,.35);
+}
+#ctrlMute.active .ctrl-icon{
+  background:var(--crit);border-color:var(--crit);color:#fff;
+  box-shadow:0 4px 14px rgba(220,79,90,.4);
+}
+.ctrl-label{font-size:9.5px;color:#4F5A8C;font-weight:500;text-transform:lowercase;transition:color .18s,font-weight .18s}
+.ctrl.active .ctrl-label{color:#2A3674;font-weight:700}
+#ctrlMute.active .ctrl-label{color:var(--crit)}
 .end-call-row{padding:0 24px 18px;display:flex;justify-content:center}
 .end-call-btn{
   width:58px;height:58px;border-radius:50%;background:var(--crit);color:white;
@@ -1433,9 +1448,9 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
     <h2 class="h2 h2-d rv">Listen in on a PageMD call.</h2>
     <p class="lead-d rv" style="margin-bottom:40px">Pick a scenario and tap the green button to start the call. Watch the iPhone on the left, and see the structured page get built for your provider in real time on the right.</p>
     <div class="demo-tabs rv" id="demoTabs">
-      <button class="demo-tab active" data-scenario="refill">Prescription refill</button>
-      <button class="demo-tab" data-scenario="symptom">Symptom triage</button>
-      <button class="demo-tab" data-scenario="appointment">Appointment request</button>
+      <button class="demo-tab active" data-scenario="nurse">Nurse callback</button>
+      <button class="demo-tab" data-scenario="physician">Physician-to-physician</button>
+      <button class="demo-tab" data-scenario="pharmacist">Pharmacist verification</button>
     </div>
     <div class="demo-stage rv">
       <div>
@@ -1474,9 +1489,9 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
               </div>
             </div>
             <div class="call-controls-bar">
-              <div class="ctrl"><div class="ctrl-icon"><i data-lucide="mic-off"></i></div><div class="ctrl-label">mute</div></div>
-              <div class="ctrl"><div class="ctrl-icon"><i data-lucide="grid-3x3"></i></div><div class="ctrl-label">keypad</div></div>
-              <div class="ctrl"><div class="ctrl-icon"><i data-lucide="volume-2"></i></div><div class="ctrl-label">speaker</div></div>
+              <div class="ctrl" id="ctrlMute"><button class="ctrl-icon" type="button" aria-pressed="false" aria-label="Mute"><i data-lucide="mic"></i></button><div class="ctrl-label">mute</div></div>
+              <div class="ctrl" id="ctrlKeypad"><button class="ctrl-icon" type="button" aria-pressed="false" aria-label="Keypad"><i data-lucide="grid-3x3"></i></button><div class="ctrl-label">keypad</div></div>
+              <div class="ctrl" id="ctrlSpeaker"><button class="ctrl-icon" type="button" aria-pressed="false" aria-label="Speaker"><i data-lucide="volume-2"></i></button><div class="ctrl-label">speaker</div></div>
             </div>
             <div class="end-call-row">
               <button class="end-call-btn start" id="callButton" aria-label="Start call">
@@ -1705,60 +1720,81 @@ document.querySelectorAll('.rv').forEach(el => revObs.observe(el));
 
 /* ── Demo ── */
 const SCENARIOS = {
-  refill: {
+  nurse: {
     turns: [
-      { speaker:'ai',    text:"Hello, this is PageMD calling for Evansville Family Practice. How can I help you today?" },
-      { speaker:'caller',text:"Hi, I'm calling about a prescription refill. I'm running low on my blood pressure medication." },
-      { speaker:'ai',    text:"Of course. May I have your full name and date of birth, please?", capture:{'Type':'Prescription Refill'} },
-      { speaker:'caller',text:"Margaret Wilson, June 12th, 1958." },
-      { speaker:'ai',    text:"Thank you, Margaret. Which medication needs refilled?", capture:{'Patient':'Margaret Wilson  ·  DOB 06/12/1958'} },
-      { speaker:'caller',text:"Lisinopril, 20 milligrams." },
-      { speaker:'ai',    text:"Got it. About how many days do you have left?", capture:{'Medication':'Lisinopril 20 mg'} },
-      { speaker:'caller',text:"Three days." },
-      { speaker:'ai',    text:"Understood. Is your pharmacy still Walgreens on Main Street?", capture:{'Supply remaining':'3 days'} },
-      { speaker:'caller',text:"Yes, that's right." },
-      { speaker:'ai',    text:"Perfect. I have everything I need. Dr. Chen will review and approve the refill during today's clinical sign-off, and you'll get a confirmation when it's sent. Anything else?", capture:{'Pharmacy':'Walgreens · Main St.'} },
-      { speaker:'caller',text:"No, that's all. Thank you." },
-      { speaker:'ai',    text:"You're welcome, Margaret. Have a great day.", capture:{'Priority':{value:'Routine',tag:'routine'},'Routed to':'Dr. Chen'} }
+      { speaker:'ai',    text:"PageMD paging for Riverside Family Medicine. This call is handled by an AI assistant and is recorded. Who am I speaking with?" },
+      { speaker:'caller',text:"This is Maria Lopez, I'm a nurse at Deaconess Midtown." },
+      { speaker:'ai',    text:"Thanks, Maria. Who are you trying to reach?", capture:{'Caller':'Maria Lopez  ·  Nurse, Deaconess Midtown'} },
+      { speaker:'caller',text:"Dr. Patel." },
+      { speaker:'ai',    text:"Got it. Which patient is this regarding?", capture:{'For':'Dr. Patel'} },
+      { speaker:'caller',text:"James Carter." },
+      { speaker:'ai',    text:"And what would you like me to pass along to Dr. Patel?", capture:{'Patient':'James Carter'} },
+      { speaker:'caller',text:"Post-op day two, his incision site is draining and he's running a temp of 101.4. Wound care wants direction before the next dressing change." },
+      { speaker:'ai',    text:"Understood. What's the best callback number?", capture:{'Message':'Post-op day 2, incision site draining, temp 101.4. Wound care requesting direction before next dressing change.'} },
+      { speaker:'caller',text:"Just use the number I'm calling from." },
+      { speaker:'ai',    text:"Let me read that back: Maria Lopez, nurse at Deaconess Midtown, regarding patient James Carter, for Dr. Patel. Post-op day two, incision site draining, temp 101.4, wound care wants direction before the next dressing change. Is that correct?", capture:{'Call Back':'812-555-0143'} },
+      { speaker:'caller',text:"Yes." },
+      { speaker:'ai',    text:"Sending to Dr. Patel now. You can hang up.", capture:{'Priority':{value:'Urgent',tag:'urgent'},'Routed to':'Dr. Patel'} }
     ]
   },
-  symptom: {
+  physician: {
     turns: [
-      { speaker:'ai',    text:"Hello, this is PageMD for Evansville Family Practice. How can I help you today?" },
-      { speaker:'caller',text:"Hi, my son has had a fever for two days and now he's saying his ear really hurts." },
-      { speaker:'ai',    text:"I'm sorry to hear that. May I have your son's full name and date of birth?", capture:{'Type':'Symptom Triage'} },
-      { speaker:'caller',text:"Liam Carter, March 5th, 2019." },
-      { speaker:'ai',    text:"Thank you. How high has the fever been, and any other symptoms: vomiting, rash, trouble breathing?", capture:{'Patient':'Liam Carter  ·  DOB 03/05/2019'} },
-      { speaker:'caller',text:"About 102. No rash or vomiting. Just the ear pain and being really tired." },
-      { speaker:'ai',    text:"Has Liam had any recent illnesses or ear infections?", capture:{'Chief complaint':'Fever (102°F) × 2 days, new R-ear pain'} },
-      { speaker:'caller',text:"He had one back in January." },
-      { speaker:'ai',    text:"Understood. This is consistent with a possible ear infection. I'm flagging it as same-day. A nurse will call you back within 30 minutes. Is this the best number to reach you?", capture:{'History':'Otitis media (January)','Other':'Fatigue. No rash, vomiting, or breathing difficulty.'} },
-      { speaker:'caller',text:"Yes, this number is fine." },
-      { speaker:'ai',    text:"Thank you. Hang tight, you'll hear from us shortly.", capture:{'Priority':{value:'Same-day callback',tag:'same-day'},'Routed to':'Triage nurse'} }
+      { speaker:'ai',    text:"PageMD paging for Riverside Family Medicine. This call is handled by an AI assistant and is recorded. Who am I speaking with?" },
+      { speaker:'caller',text:"Dr. Alan Reyes, cardiology at St. Vincent." },
+      { speaker:'ai',    text:"Thanks, Dr. Reyes. Who are you trying to reach?", capture:{'Caller':'Dr. Alan Reyes  ·  Physician, Cardiology, St. Vincent'} },
+      { speaker:'caller',text:"Dr. Nguyen." },
+      { speaker:'ai',    text:"Which patient is this regarding?", capture:{'For':'Dr. Nguyen'} },
+      { speaker:'caller',text:"Susan Whitfield." },
+      { speaker:'ai',    text:"What would you like me to pass along to Dr. Nguyen?", capture:{'Patient':'Susan Whitfield'} },
+      { speaker:'caller',text:"I saw her for the consult this morning. Echo shows reduced EF, I'm starting her on a beta blocker and want to coordinate before her follow-up next week. Full note is in the chart." },
+      { speaker:'ai',    text:"Understood. What's the best callback number?", capture:{'Message':'Consult completed this AM. Echo shows reduced EF. Starting beta blocker. Wants to coordinate before follow-up next week. Full note in chart.'} },
+      { speaker:'caller',text:"My direct line, same one I'm on now." },
+      { speaker:'ai',    text:"Reading back: Dr. Alan Reyes, cardiology at St. Vincent, regarding patient Susan Whitfield, for Dr. Nguyen. Saw her for consult this morning, echo shows reduced EF, starting a beta blocker, wants to coordinate before follow-up next week, full note in the chart. Correct?", capture:{'Call Back':'812-555-0288'} },
+      { speaker:'caller',text:"That's it." },
+      { speaker:'ai',    text:"Sending to Dr. Nguyen now. You can hang up.", capture:{'Priority':{value:'Same-day',tag:'same-day'},'Routed to':'Dr. Nguyen'} }
     ]
   },
-  appointment: {
+  pharmacist: {
     turns: [
-      { speaker:'ai',    text:"Hello, this is PageMD for Evansville Family Practice. How can I help you today?" },
-      { speaker:'caller',text:"Hi, I need to schedule a follow-up. I had a physical last month and Dr. Patel wanted to recheck my labs." },
-      { speaker:'ai',    text:"Of course. May I have your name and date of birth?", capture:{'Type':'Appointment Request'} },
-      { speaker:'caller',text:"James Rodriguez, August 4th, 1972." },
-      { speaker:'ai',    text:"Thank you, James. Did Dr. Patel mention a timeframe: four weeks, six weeks?", capture:{'Patient':'James Rodriguez  ·  DOB 08/04/1972'} },
-      { speaker:'caller',text:"Six weeks, I think." },
-      { speaker:'ai',    text:"Got it. Do you prefer mornings or afternoons?", capture:{'Reason':'Lab recheck (6-wk follow-up)','Provider':'Dr. Patel'} },
-      { speaker:'caller',text:"Mornings, ideally." },
-      { speaker:'ai',    text:"Understood. I'll route this to scheduling. You'll receive a text within an hour with available morning slots. Sound good?", capture:{'Preference':'Morning · within 2 weeks'} },
-      { speaker:'caller',text:"Yes, perfect." },
-      { speaker:'ai',    text:"Thanks, James. Talk soon.", capture:{'Priority':{value:'Standard',tag:'standard'},'Routed to':'Scheduling'} }
+      { speaker:'ai',    text:"PageMD paging for Riverside Family Medicine. This call is handled by an AI assistant and is recorded. Who am I speaking with?" },
+      { speaker:'caller',text:"Hi, this is Dana Kim, pharmacist at Walgreens on Green River Road." },
+      { speaker:'ai',    text:"Thanks, Dana. Who are you trying to reach?", capture:{'Caller':'Dana Kim  ·  Pharmacist, Walgreens Green River Rd'} },
+      { speaker:'caller',text:"Whoever's covering for Dr. Ellis." },
+      { speaker:'ai',    text:"Got it, I'll route that to the covering provider. Which patient is this regarding?", capture:{'For':'Covering for Dr. Ellis'} },
+      { speaker:'caller',text:"Robert Hayes." },
+      { speaker:'ai',    text:"What would you like me to pass along?", capture:{'Patient':'Robert Hayes'} },
+      { speaker:'caller',text:"The metformin script came through at 1000 milligrams twice daily, but his chart lists an eGFR that doesn't match that dose. I need confirmation or a revised script before I fill it." },
+      { speaker:'ai',    text:"Understood. What's the best callback number?", capture:{'Message':'Metformin script received at 1000mg BID. Chart eGFR does not match dose. Requesting confirmation or revised script before filling.'} },
+      { speaker:'caller',text:"The pharmacy line, we're open until nine." },
+      { speaker:'ai',    text:"Reading back: Dana Kim, pharmacist at Walgreens on Green River Road, regarding patient Robert Hayes, for the provider covering Dr. Ellis. Metformin script came through at 1000mg twice daily, chart eGFR doesn't match that dose, needs confirmation or a revised script before filling, pharmacy open until nine. Correct?", capture:{'Call Back':'812-555-0371  ·  Pharmacy, open until 9pm'} },
+      { speaker:'caller',text:"Yep." },
+      { speaker:'ai',    text:"Sending now. You can hang up.", capture:{'Priority':{value:'Urgent',tag:'urgent'},'Routed to':'Covering provider'} }
     ]
   }
 };
 
-let activeScenario='refill',isPlaying=false,playToken=0,timerInt=null,elapsed=0,curAudio=null;
+let activeScenario='nurse',isPlaying=false,playToken=0,timerInt=null,elapsed=0,curAudio=null;
 const callBtn=document.getElementById('callButton'),callTimer=document.getElementById('callTimer'),
   avatarOrb=document.getElementById('avatarOrb'),speakerLabel=document.getElementById('speakerLabel'),
   waveform=document.getElementById('waveform'),captionContent=document.getElementById('captionContent'),
   outputCard=document.getElementById('outputCard'),callHint=document.getElementById('callHint');
+
+let isMuted=false;
+const ctrlMute=document.getElementById('ctrlMute'),ctrlKeypad=document.getElementById('ctrlKeypad'),ctrlSpeaker=document.getElementById('ctrlSpeaker');
+function toggleCtrl(el){
+  const on=!el.classList.contains('active');
+  el.classList.toggle('active',on);
+  el.querySelector('.ctrl-icon').setAttribute('aria-pressed',on?'true':'false');
+  return on;
+}
+if(ctrlMute)ctrlMute.querySelector('.ctrl-icon').addEventListener('click',()=>{
+  isMuted=toggleCtrl(ctrlMute);
+  ctrlMute.querySelector('[data-lucide]').setAttribute('data-lucide',isMuted?'mic-off':'mic');
+  if(window.lucide)lucide.createIcons();
+  if(curAudio)curAudio.muted=isMuted;
+});
+if(ctrlKeypad)ctrlKeypad.querySelector('.ctrl-icon').addEventListener('click',()=>toggleCtrl(ctrlKeypad));
+if(ctrlSpeaker)ctrlSpeaker.querySelector('.ctrl-icon').addEventListener('click',()=>toggleCtrl(ctrlSpeaker));
 
 document.querySelectorAll('.demo-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
@@ -1849,7 +1885,7 @@ async function playScenario(){
     for(let i=0;i<sc.turns.length;i++){
       const t=sc.turns[i];await sleep(i===0?600:350,tok);setSpeaker(t.speaker);showCaption(t.speaker,t.text);
       if(t.capture)for(const[l,v]of Object.entries(t.capture))renderField(l,v);
-      curAudio=new Audio(audioPath(activeScenario,i,t.speaker));
+      curAudio=new Audio(audioPath(activeScenario,i,t.speaker));curAudio.muted=isMuted;
       await playAudio(curAudio,{text:t.text,sp:t.speaker,sid:activeScenario},tok);curAudio=null;
     }
     setSpeaker(null);stopTimer();callBtn.classList.add('start');callBtn.setAttribute('aria-label','Replay call');
