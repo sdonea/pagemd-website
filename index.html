@@ -282,7 +282,7 @@ section.blk{padding:112px 0}
 .hero .container{
   position:relative;z-index:1;
   padding-top:52px;padding-bottom:80px;
-  max-width:1200px;margin:0 auto;
+  max-width:1500px;margin:0 auto;
   padding-left:28px;padding-right:28px;
   display:block;
 }
@@ -290,7 +290,7 @@ section.blk{padding:112px 0}
   display:block;
 }
 .hero-copy{
-  max-width:1100px;
+  max-width:1440px;
   display:flex;flex-direction:column;
   align-items:center;gap:0;
   margin:0 auto;
@@ -314,7 +314,7 @@ section.blk{padding:112px 0}
 
 .hero-h1{
   font-family:var(--fd);font-weight:900;
-  font-size:clamp(36px,4.6vw,62px);
+  font-size:clamp(36px,4.4vw,56px);
   line-height:1.06;letter-spacing:-.03em;
   color:var(--brand-ink);margin-bottom:28px;
   text-align:center;
@@ -1201,6 +1201,9 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 .footer-legal a:hover{color:rgba(255,255,255,.65)}
 
 /* ─── Mobile ─────────────────────────────────────────────── */
+@media(max-width:1430px){
+  .hero-h1{font-size:clamp(24px,3.4vw,34px)}
+}
 @media(max-width:900px){
   section.blk{padding:72px 0}
   .hero .container{padding-top:64px;padding-bottom:64px}
@@ -1312,7 +1315,7 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 
       <div class="hero-copy">
         <div class="hero-body">
-        <h1 class="hero-h1">Your voicemail is the first thing callers meet.<br><span class="accent">PageMD answers on the <em class="hero-serif">first ring.</em></span></h1>
+        <h1 class="hero-h1">Your answering service is the first thing callers meet.<br><span class="accent">PageMD answers on the <em class="hero-serif">first ring.</em></span></h1>
         <p class="lead-d hero-lead">
           Pharmacists, hospitals, and referring providers call your line all day. PageMD answers every one instantly, collects a complete message, and pages the right provider in about sixty seconds.
         </p>
