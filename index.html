@@ -862,9 +862,7 @@ section.blk{padding:112px 0}
 .priority-tag.standard {background:var(--bg-alt);color:var(--fg-muted)}
 
 /* ─── WHY ────────────────────────────────────────────────── */
-.why-sec{background:var(--surface);position:relative;overflow:hidden}
-.why-canvas-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
-.why-sec .container{position:relative;z-index:1}
+.why-sec{background:var(--surface)}
 .compare-table{
   width:100%;border-collapse:separate;border-spacing:0;
   background:var(--surface);border-radius:var(--r3);overflow:hidden;
@@ -1511,7 +1509,6 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 
 <!-- WHY -->
 <section class="blk why-sec" id="why">
-  <div class="why-canvas-bg" id="whyCanvasBg" aria-hidden="true"></div>
   <div class="container">
     <div class="eyebrow eyebrow-l rv">Why PageMD</div>
     <h2 class="h2 h2-l rv">Built for clinical workflows.<br>Not retrofitted into them.</h2>
@@ -2176,179 +2173,6 @@ mountChromaticWaves(document.getElementById('demoCanvasBg'), {
   bgColor: '#EDF2FA',
   cellSize: 29,
   colors: ['#C9DAF9'],
-});
-
-/* Text Wave background (why section) — ported from Originkit's CharacterBg React component to vanilla JS */
-function paletteAt(colors, p) {
-  if (colors.length === 0) return 'rgb(255,255,255)';
-  if (colors.length === 1) return colors[0];
-  const scaled = Math.max(0, Math.min(1, p)) * (colors.length - 1);
-  const i = Math.floor(scaled);
-  const f = scaled - i;
-  const a = parseColorToRgba(colors[i]);
-  const b = parseColorToRgba(colors[Math.min(i + 1, colors.length - 1)]);
-  const r = Math.round(a.r * 255 + (b.r * 255 - a.r * 255) * f);
-  const g = Math.round(a.g * 255 + (b.g * 255 - a.g * 255) * f);
-  const bl = Math.round(a.b * 255 + (b.b * 255 - a.b * 255) * f);
-  return `rgb(${r}, ${g}, ${bl})`;
-}
-
-function mountTextWave(container, opts = {}) {
-  if (!container) return;
-  const {
-    speed = 61,
-    reverse = true,
-    gap = 10,
-    backgroundColor = '#000000',
-    font = { fontFamily: 'Inter', fontWeight: 400, fontSize: 14, lineHeight: 1, letterSpacing: 0 },
-    gridText = 'Text Wave',
-    colors = { paletteCount: 1, color1: '#FFFFFF' },
-  } = opts;
-
-  const instanceId = `text-wave-${Math.random().toString(36).slice(2)}`;
-
-  const palette = (() => {
-    const entries = [];
-    const count = Math.max(1, Math.min(5, colors.paletteCount || 1));
-    for (let i = 1; i <= count; i++) {
-      const v = colors[`color${i}`];
-      if (typeof v === 'string' && v.trim().length > 0) entries.push(v.trim());
-    }
-    return entries.length ? entries : ['#FFFFFF'];
-  })();
-
-  const parsedFontSize = parseFloat(String(font.fontSize));
-  const tileSize = Math.max(isNaN(parsedFontSize) ? 14 : parsedFontSize, 10) + (gap || 0);
-
-  container.style.overflow = 'hidden';
-  container.style.position = container.style.position || 'absolute';
-  container.style.backgroundColor = backgroundColor;
-  container.style.fontFamily = font.fontFamily || 'Inter';
-  container.style.fontWeight = String(font.fontWeight ?? 400);
-  container.style.fontSize = typeof font.fontSize === 'number' ? `${font.fontSize}px` : font.fontSize;
-  container.style.lineHeight = typeof font.lineHeight === 'number' ? `${font.lineHeight}px` : font.lineHeight;
-  container.style.letterSpacing = typeof font.letterSpacing === 'number' ? `${font.letterSpacing}px` : font.letterSpacing;
-
-  const styleEl = document.createElement('style');
-  styleEl.textContent = `
-@property --t { syntax: "<integer>"; initial-value: 0; inherits: true }
-@property --speed-factor { syntax: "<number>"; initial-value: 1; inherits: true }
-div.${instanceId}-c {
-  position: relative; width: fit-content; height: fit-content;
-  margin: 0 auto; top: 50%; left: 50%; transform: translate(-50%, -50%);
-}
-div.${instanceId}-l {
-  position: absolute;
-  --offset-x: calc(var(--x) - 0.5);
-  --abs-x: calc(max(var(--offset-x), -1 * var(--offset-x)));
-  --offset-y: calc(var(--y) - 0.5);
-  --abs-y: calc(max(var(--offset-y), -1 * var(--offset-y)));
-  --l: calc(sin(var(--abs-x) / cos(sin(var(--abs-y) * 2 + 60) * 2.5) * 3 - (var(--t) * var(--speed-factor)) / 350));
-  color: var(--base-color);
-  opacity: max(var(--l), 0.05);
-  text-align: center; display: flex; justify-content: center; align-items: center;
-}`;
-  container.appendChild(styleEl);
-
-  const main = document.createElement('div');
-  main.className = `${instanceId}-c`;
-  main.style.pointerEvents = 'none';
-  main.style.setProperty('--t', '0');
-  container.appendChild(main);
-
-  const MAX_TILES = 700;
-  let cols = 0, rows = 0;
-
-  function rebuild() {
-    const width = container.clientWidth || window.innerWidth;
-    const height = container.clientHeight || window.innerHeight;
-
-    let effTileSize = tileSize;
-    const naturalN = Math.max(1, Math.ceil(width / tileSize)) * Math.max(1, Math.ceil(height / tileSize));
-    if (naturalN > MAX_TILES) effTileSize = tileSize * Math.sqrt(naturalN / MAX_TILES);
-
-    const rawCols = Math.max(1, Math.ceil(width / effTileSize));
-    cols = rawCols + (rawCols % 2 === 1 ? 1 : 0);
-    rows = Math.max(1, Math.ceil(height / effTileSize));
-    const n = cols * rows;
-
-    main.style.width = `${cols * effTileSize}px`;
-    main.style.height = `${rows * effTileSize}px`;
-    main.innerHTML = '';
-
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < n; i++) {
-      const x = (i % cols) * effTileSize;
-      const y = Math.floor(i / cols) * effTileSize;
-      const xRatio = ((i + 1) % cols) / (cols + 1);
-      const yRatio = (rows - Math.floor(i / cols)) / rows;
-      const col = i % cols;
-      const t = cols > 1 ? col / (cols - 1) : 0;
-      const baseColor = paletteAt(palette, t);
-      const textContent = gridText[i % Math.max(1, gridText.length)];
-
-      const el = document.createElement('div');
-      el.className = `${instanceId}-l`;
-      el.style.width = `${effTileSize}px`;
-      el.style.height = `${effTileSize}px`;
-      el.style.setProperty('--x', String(xRatio));
-      el.style.setProperty('--y', String(yRatio));
-      el.style.setProperty('--base-color', baseColor);
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-      el.textContent = textContent;
-      frag.appendChild(el);
-    }
-    main.appendChild(frag);
-  }
-
-  rebuild();
-  if (typeof window.ResizeObserver !== 'undefined') {
-    new ResizeObserver(rebuild).observe(container);
-  } else {
-    window.addEventListener('resize', rebuild);
-  }
-
-  let isInView = false;
-  let rafId = null;
-  let time = 0;
-  let lastFrameTime = 0;
-  const frameInterval = 1e3 / 30;
-
-  function loop(timestamp) {
-    if (!isInView) { rafId = null; return; }
-    if (!lastFrameTime || timestamp - lastFrameTime >= frameInterval) {
-      const direction = reverse ? -1 : 1;
-      time = (time + 10 * direction) % 864e5;
-      main.style.setProperty('--t', String(time));
-      main.style.setProperty('--speed-factor', String(speed / 25));
-      lastFrameTime = timestamp;
-    }
-    rafId = requestAnimationFrame(loop);
-  }
-
-  if (typeof window.IntersectionObserver !== 'undefined') {
-    new IntersectionObserver(([entry]) => {
-      isInView = entry.isIntersecting;
-      if (isInView && rafId == null) {
-        lastFrameTime = 0;
-        rafId = requestAnimationFrame(loop);
-      }
-    }, { threshold: 0 }).observe(container);
-  } else {
-    isInView = true;
-    rafId = requestAnimationFrame(loop);
-  }
-}
-
-mountTextWave(document.getElementById('whyCanvasBg'), {
-  gridText: 'PageMD',
-  font: { fontFamily: 'Inter', fontSize: '10px', fontWeight: 400, lineHeight: '0px', letterSpacing: '2px' },
-  colors: { color1: '#275EC4', paletteCount: 1 },
-  backgroundColor: '#FEFEFE',
-  speed: 50,
-  gap: 3,
-  reverse: false,
 });
 </script>
 </body>
