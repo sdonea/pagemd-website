@@ -1,10 +1,7 @@
 <!--
   PageMD Landing Page
 
-  TO ACTIVATE THE SIGNUP FORM:
-  1. Go to https://formspree.io — sign up (free: 50 submissions/month).
-  2. Create a form pointing to team@pagemd.ai. Copy the endpoint URL.
-  3. Replace REPLACE_WITH_FORMSPREE_URL below.
+  
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -629,6 +626,44 @@ section.blk{padding:112px 0}
   color:var(--brand-ink);margin-bottom:10px;letter-spacing:-.01em;
 }
 .sblock-desc{font-size:15px;line-height:1.65;color:var(--fg-muted)}
+.problem-sec{overflow:visible;position:relative;padding-bottom:0!important;padding-top:0!important}
+.problem-scroll{position:relative;height:190vh}
+.problem-stage{position:sticky;top:0;min-height:min(108vh,1100px);height:100vh;display:flex;align-items:center;overflow:hidden}
+.problem-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;
+  width:100%;
+}
+.problem-copy{
+  max-width:620px;position:relative;z-index:2;
+  --p:1;
+  opacity:var(--p);
+  transform:translateX(calc((1 - var(--p)) * 480px));
+  clip-path:polygon(
+    0 0,
+    calc(var(--p) * 100%) 0,
+    calc(var(--p) * 100% - (1 - var(--p)) * 70px) 100%,
+    0 100%
+  );
+  will-change:transform,opacity,clip-path;
+}
+.problem-h2{
+  font-family:var(--fd);font-weight:900;
+  font-size:clamp(36px,4.6vw,58px);line-height:1.08;
+  letter-spacing:-.03em;color:var(--brand-ink);
+  text-wrap:balance;
+}
+.problem-h2 .accent{color:var(--brand-blue)}
+.problem-phone{
+  position:absolute;left:0;right:0;bottom:0;height:min(108vh,1100px);
+  overflow:hidden;pointer-events:none;z-index:3;
+  --p:1;
+}
+.problem-phone img{
+  position:absolute;right:0;bottom:0;
+  width:auto;height:103%;max-width:none;display:block;
+  transform:translateX(calc((1 - var(--p)) * 85vw));
+  will-change:transform;
+}
 
 /* ─── HOW IT WORKS ───────────────────────────────────────── */
 .how-sec{background:var(--surface)}
@@ -1213,6 +1248,13 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
   .nav-links a:not(.btn):not(.nav-pilot-pill){display:none}
   .nav-pilot-pill{display:none}
   .stat-grid{grid-template-columns:1fr}
+  .problem-sec{padding:72px 0!important}
+  .problem-scroll{height:auto}
+  .problem-grid{grid-template-columns:1fr;gap:40px}
+  .problem-stage{position:relative;top:auto;display:block;min-height:0;height:auto;overflow:visible}
+  .problem-copy{max-width:100%;opacity:1;transform:none;clip-path:none}
+  .problem-phone{position:relative;left:auto;right:auto;bottom:auto;width:100%;height:min(50vh,360px);margin-top:36px}
+  .problem-phone img{transform:none}
   .sblock:not(:last-child){border-right:none;border-bottom:1px solid var(--line)}
   .sblock.featured{border-bottom:1px solid var(--line)}
   .steps-row{grid-template-columns:1fr;border-top:none;margin-top:32px}
@@ -1420,24 +1462,18 @@ footer .logo-tagline{color:rgba(255,255,255,.38);font-size:12px}
 
 <!-- PROBLEM -->
 <section class="blk problem-sec" id="problem">
-  <div class="container">
-    <div class="problem-header rv">
-      <div class="eyebrow">The Gap</div>
-      <h2 class="h2 h2-d">Your callers reach a recording.</h2>
-      <p class="lead-d" style="margin-top:16px">The people who call your clinic are pharmacists, hospitals, and referring providers with something your provider needs to hear. Right now they leave a message and hope.</p>
-    </div>
-    <div class="stat-grid rv">
-      <div class="sblock">
-        <div class="chip-icon"><i data-lucide="clock"></i></div>
-        <div class="sblock-n">After 5pm</div>
-        <div class="sblock-title">your line goes to voicemail</div>
-        <div class="sblock-desc">A pharmacist with a question about tonight's prescription leaves a message nobody hears until morning. PageMD answers at 8pm the same way it answers at 8am.</div>
+  <div class="problem-scroll" id="problemScroll">
+    <div class="problem-stage">
+      <div class="container">
+        <div class="problem-grid">
+          <div class="problem-copy" id="problemCopy">
+            <h2 class="problem-h2">From call to page in <span class="accent">under 60 seconds</span>.</h2>
+            <p class="lead-d" style="margin-top:22px;font-size:18.5px">Every call gets answered, triaged, and routed to the right provider — before the caller even has time to hang up.</p>
+          </div>
+        </div>
       </div>
-      <div class="sblock featured">
-        <div class="chip-icon"><i data-lucide="trending-down"></i></div>
-        <div class="sblock-n">Every caller</div>
-        <div class="sblock-title">is judging your practice</div>
-        <div class="sblock-desc">The people who send you patients reach your voicemail before they reach your clinic. For most of them, it is the only part of your practice they ever interact with.</div>
+      <div class="problem-phone" id="problemPhone">
+        <img src="iphone-hand.png" alt="Hand holding an iPhone" width="1561" height="1171"/>
       </div>
     </div>
   </div>
@@ -1720,6 +1756,67 @@ const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
 }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
 document.querySelectorAll('.rv').forEach(el => revObs.observe(el));
+
+/* Problem section — scroll-scrubbed hand + text reveal */
+(function () {
+  const scrollWrap = document.getElementById('problemScroll');
+  const hand = document.getElementById('problemPhone');
+  const copy = document.getElementById('problemCopy');
+  if (!scrollWrap || !hand || !copy) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const desktopMq = window.matchMedia('(min-width: 901px)');
+
+  const clamp01 = v => Math.max(0, Math.min(1, v));
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+  function setStatic() {
+    hand.style.removeProperty('--p');
+    copy.style.removeProperty('--p');
+  }
+
+  function update() {
+    const rect = scrollWrap.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height - vh;
+    if (total <= 0) { hand.style.setProperty('--p', 1); copy.style.setProperty('--p', 1); return; }
+
+    const raw = clamp01(-rect.top / total);
+    const handP = easeOutCubic(clamp01(raw / 0.55));           // hand slides in and parks first
+    const textP = easeOutCubic(clamp01((raw - 0.5) / 0.42));   // text then slides out from underneath it
+
+    hand.style.setProperty('--p', handP);
+    copy.style.setProperty('--p', textP);
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { update(); ticking = false; });
+  }
+
+  function activate() {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+  function deactivate() {
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onScroll);
+    setStatic();
+  }
+
+  if (reduceMotion || !desktopMq.matches) {
+    setStatic();
+  } else {
+    activate();
+  }
+  desktopMq.addEventListener('change', e => {
+    if (reduceMotion) return;
+    if (e.matches) activate(); else deactivate();
+  });
+})();
 
 /* ── Demo ── */
 const SCENARIOS = {
