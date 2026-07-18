@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FAQ — PageMD</title>
+<meta name="description" content="Frequently asked questions about PageMD — AI phone answering and clinical paging for outpatient clinics."/>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300..900;1,300..900&family=Source+Serif+4:ital,opsz,wght@1,8..60,200..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-violet:      #8B7AE8;
+  --brand-sky:         #6FA5F5;
+  --brand-blue:        #5A89F2;
+  --brand-mint:        #B6DDE6;
+  --brand-ink:         #2A3674;
+  --brand-ink-deep:    #1B2350;
+
+  --gradient-ink: linear-gradient(135deg, #2A3674 0%, #3D6BD8 100%);
+
+  --fd: 'Mulish', ui-sans-serif, system-ui, sans-serif;
+  --fs: 'Source Serif 4', Georgia, serif;
+  --r2: 14px;
+  --r3: 20px;
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --tf: 160ms;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--fd);font-size:15px;line-height:1.7;
+  color:#FFFFFF;
+  background:var(--gradient-ink);
+  background-attachment:fixed;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+/* Soft aurora glow, same treatment as the signup section */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 12% 20%, rgba(139,122,232,.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 88% 30%, rgba(111,165,245,.22) 0%, transparent 55%);
+}
+a{color:#FFFFFF;text-decoration:none}
+.container{max-width:820px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* Nav */
+nav.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(27,35,80,.55);
+  backdrop-filter:saturate(140%) blur(14px);
+  -webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0}
+.logo-lockup{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:30px;height:30px;flex-shrink:0}
+.logo-sub{display:flex;flex-direction:column;gap:1px}
+.wordmark{font-family:var(--fd);font-weight:800;font-size:20px;letter-spacing:-.03em;line-height:1;color:#FFFFFF}
+.logo-tagline{font-family:var(--fs);font-style:italic;font-weight:300;font-size:12px;color:rgba(255,255,255,.6);line-height:1}
+.nav-back{font-size:14px;font-weight:600;color:rgba(255,255,255,.75);transition:color var(--tf) var(--ease)}
+.nav-back:hover{color:#FFFFFF}
+
+/* Header */
+.faq-wrap{padding:64px 0 96px}
+.faq-header{text-align:center;margin-bottom:48px}
+.faq-label{
+  display:inline-block;margin-bottom:16px;
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brand-mint);
+}
+.faq-header h1{
+  font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1.12;margin-bottom:14px;text-wrap:balance;
+}
+.faq-header p{
+  font-size:16.5px;color:rgba(255,255,255,.72);line-height:1.65;
+  max-width:520px;margin:0 auto;text-wrap:balance;
+}
+
+/* Accordion */
+.faq-list{display:flex;flex-direction:column;gap:14px}
+.faq-item{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r3);
+  overflow:hidden;
+  transition:border-color var(--tf) var(--ease), background var(--tf) var(--ease);
+}
+.faq-item[open]{
+  background:rgba(255,255,255,.11);
+  border-color:rgba(255,255,255,.26);
+}
+.faq-item summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:22px 26px;
+  font-size:17px;font-weight:700;letter-spacing:-.01em;
+  color:#FFFFFF;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:focus-visible{outline:2px solid var(--brand-mint);outline-offset:-2px;border-radius:var(--r3)}
+.faq-icon{
+  flex-shrink:0;width:26px;height:26px;position:relative;
+  transition:transform var(--tf) var(--ease);
+}
+.faq-icon::before,.faq-icon::after{
+  content:'';position:absolute;top:50%;left:50%;
+  width:13px;height:2.5px;border-radius:2px;background:var(--brand-mint);
+  transform:translate(-50%,-50%);transition:opacity var(--tf) var(--ease);
+}
+.faq-icon::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq-item[open] .faq-icon::after{opacity:0}
+.faq-answer{
+  padding:0 26px 24px;
+  font-size:15.5px;line-height:1.72;color:rgba(255,255,255,.76);
+}
+.faq-answer p{margin-bottom:12px}
+.faq-answer p:last-child{margin-bottom:0}
+.faq-answer a{color:var(--brand-mint);text-decoration:underline;text-underline-offset:2px}
+.faq-answer strong{color:#FFFFFF;font-weight:700}
+
+/* Bottom CTA */
+.faq-foot{
+  text-align:center;margin-top:56px;padding-top:40px;
+  border-top:1px solid rgba(255,255,255,.14);
+}
+.faq-foot p{font-size:16px;color:rgba(255,255,255,.72);margin-bottom:20px}
+.btn-mint{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:999px;
+  font-family:var(--fd);font-weight:700;font-size:14.5px;
+  background:#FFFFFF;color:var(--brand-ink);
+  transition:transform var(--tf) var(--ease), box-shadow var(--tf) var(--ease);
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+}
+.btn-mint:hover{transform:translateY(-1px);box-shadow:0 14px 40px rgba(0,0,0,.28)}
+
+/* Footer */
+footer.legal-footer{
+  background:var(--brand-ink-deep);
+  padding:36px 0;text-align:center;position:relative;z-index:1;
+}
+footer.legal-footer p{font-size:13px;color:rgba(255,255,255,.35)}
+footer.legal-footer a{color:rgba(255,255,255,.55);text-decoration:none;margin:0 8px}
+footer.legal-footer a:hover{color:rgba(255,255,255,.85)}
+
+@media (max-width:600px){
+  .faq-item summary{padding:18px 20px;font-size:16px}
+  .faq-answer{padding:0 20px 20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Logo SVG symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#8B7AE8"/>
+      <stop offset="50%" stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#7FCBD8"/>
+    </linearGradient>
+    <linearGradient id="auroraSquare" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#7A6BE0"/>
+      <stop offset="100%" stop-color="#5A89F2"/>
+    </linearGradient>
+    <linearGradient id="auroraDiamond" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#9DD8E0"/>
+    </linearGradient>
+  </defs>
+  <symbol id="pagemd-mark" viewBox="0 0 200 200">
+    <rect x="0" y="0" width="200" height="200" rx="44" fill="url(#aurora)"/>
+    <g transform="translate(100 100)">
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraSquare)" opacity="0.92"/>
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraDiamond)" opacity="0.78" transform="rotate(45)"/>
+    </g>
+  </symbol>
+</svg>
+
+<nav class="top">
+  <div class="container" style="max-width:1200px">
+    <div class="nav-inner">
+      <a href="index.html" class="logo-lockup">
+        <svg class="logo-mark" viewBox="0 0 200 200"><use href="#pagemd-mark"/></svg>
+        <div class="logo-sub">
+          <span class="wordmark">PageMD</span>
+          <span class="logo-tagline">The answering service, without the hold time.</span>
+        </div>
+      </a>
+      <a href="index.html" class="nav-back">← Back to home</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="faq-wrap">
+
+      <div class="faq-header">
+        <span class="faq-label">Questions &amp; Answers</span>
+        <h1>Frequently asked questions</h1>
+        <p>Everything you need to know about how PageMD answers calls, pages your team, and keeps patient data safe.</p>
+      </div>
+
+      <div class="faq-list">
+
+        <!-- ── FAQ item template — duplicate this block per question ── -->
+        <details class="faq-item">
+          <summary>What is PageMD?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>PageMD is an AI paging line for outpatient clinics. It answers every inbound call instantly, collects a complete message, and pages the right provider in about sixty seconds. It replaces the operator and the hold queue, not your workflow.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What happens when someone calls?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>PageMD picks up on the first ring and has a natural conversation with the caller. It captures who is calling, who they need to reach, the patient involved, and the reason for the call, then sends that as a structured page to the correct provider. The caller is finished before a person would have picked up.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does PageMD triage calls or make clinical decisions?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>No. PageMD does not assess urgency, judge severity, or make any clinical decision. It records who is calling, who they need, and why, then delivers that message. Every clinical judgment stays with your providers.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Who calls into PageMD?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>The people who call your clinic all day: pharmacists verifying prescriptions, referring providers, hospitals, and nurses returning calls. PageMD answers them instead of putting them on hold or routing them through an operator.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is PageMD HIPAA compliant?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>PageMD is built with a HIPAA-conscious architecture. Calls and messages are encrypted in transit and access is limited to authorized staff. We sign a Business Associate Agreement with your clinic before any patient information is handled.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How is patient information protected?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>Data is encrypted in transit, access is restricted to authorized staff, and pages route only to the provider the caller asked for. Nothing is posted, shared, or sent outside your clinic's directory.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Will PageMD change how our clinic runs?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>No. PageMD sits on top of your current setup. Providers receive pages the same way they already get messages, so there is nothing new to learn and no system to replace.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does PageMD replace our staff?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>No. It takes the repetitive phone intake off your team so they stop relaying calls and get time back for patients. PageMD handles the message. Your team handles the care.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What happens if PageMD can't finish a call?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>If a call falls outside what PageMD handles, it captures what it has and routes to the backup you set during onboarding, so no caller is left stranded.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can PageMD handle more than one call at once?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>Yes. PageMD runs calls in parallel, so every caller is answered at the same time. No busy signals and no hold queue, even during a rush.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does the provider receive the message?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>As a structured page with the caller, the patient, the reason for the call, and a callback number in a fixed format. Providers get everything they need to respond at a glance, without replaying a voicemail.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How much does PageMD cost?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>Pricing is scoped to your practice and number of providers, and every plan includes the full feature set with no add-ons. Tell us about your clinic and we will put together pricing that fits.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do we get started?<span class="faq-icon"></span></summary>
+          <div class="faq-answer">
+            <p>Request access through the site and we will set up a short call to configure PageMD for your providers and complete onboarding, including your BAA. PageMD is currently in pilot with a limited number of clinics.</p>
+          </div>
+        </details>
+        <!-- ── end template ── -->
+
+      </div>
+
+      <div class="faq-foot">
+        <p>Still have a question we didn't cover?</p>
+        <a class="btn-mint" href="index.html#signup">Get in touch →</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="legal-footer">
+  <p>
+    &copy; <span id="year"></span> PageMD, Inc. All rights reserved.
+    &nbsp;·&nbsp;
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="faq.html">FAQ</a>
+    <a href="index.html">Home</a>
+  </p>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

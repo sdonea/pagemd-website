@@ -106,19 +106,26 @@ footer.legal-footer a:hover{color:rgba(255,255,255,.85);text-decoration:none}
 <!-- Logo SVG symbol -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="pagemd-gradient" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#8B7AE8"/>
+    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#8B7AE8"/>
       <stop offset="50%" stop-color="#6FA5F5"/>
-      <stop offset="100%" stop-color="#B6DDE6"/>
+      <stop offset="100%" stop-color="#7FCBD8"/>
+    </linearGradient>
+    <linearGradient id="auroraSquare" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#7A6BE0"/>
+      <stop offset="100%" stop-color="#5A89F2"/>
+    </linearGradient>
+    <linearGradient id="auroraDiamond" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#9DD8E0"/>
     </linearGradient>
   </defs>
   <symbol id="pagemd-mark" viewBox="0 0 200 200">
-    <rect width="200" height="200" rx="44" fill="url(#pagemd-gradient)"/>
-    <rect x="55" y="58" width="90" height="14" rx="7" fill="rgba(255,255,255,.95)"/>
-    <rect x="55" y="84" width="66" height="11" rx="5.5" fill="rgba(255,255,255,.7)"/>
-    <rect x="55" y="106" width="76" height="11" rx="5.5" fill="rgba(255,255,255,.7)"/>
-    <circle cx="148" cy="140" r="22" fill="rgba(255,255,255,.18)" stroke="rgba(255,255,255,.7)" stroke-width="2.5"/>
-    <path d="M141 140 l5 5 l9-10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <rect x="0" y="0" width="200" height="200" rx="44" fill="url(#aurora)"/>
+    <g transform="translate(100 100)">
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraSquare)" opacity="0.92"/>
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraDiamond)" opacity="0.78" transform="rotate(45)"/>
+    </g>
   </symbol>
 </svg>
 
@@ -235,6 +242,7 @@ footer.legal-footer a:hover{color:rgba(255,255,255,.85);text-decoration:none}
     &nbsp;·&nbsp;
     <a href="privacy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>
+    <a href="faq.html">FAQ</a>
     <a href="index.html">Home</a>
   </p>
 </footer>
