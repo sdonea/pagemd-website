@@ -9,3 +9,6 @@ Screenshot*.png
 
 # ShipStudio metadata
 .shipstudio/
+
+# Raw source photos (web copies live in images/)
+team photos/

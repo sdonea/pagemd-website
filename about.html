@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Our Story — PageMD</title>
+<meta name="description" content="Meet the founders of PageMD and the story behind AI paging built to give outpatient clinics their phones back."/>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300..900;1,300..900&family=Source+Serif+4:ital,opsz,wght@1,8..60,200..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-violet:      #8B7AE8;
+  --brand-sky:         #6FA5F5;
+  --brand-blue:        #5A89F2;
+  --brand-mint:        #B6DDE6;
+  --brand-ink:         #2A3674;
+  --brand-ink-deep:    #1B2350;
+
+  --gradient-ink: linear-gradient(135deg, #2A3674 0%, #3D6BD8 100%);
+
+  --fd: 'Mulish', ui-sans-serif, system-ui, sans-serif;
+  --fs: 'Source Serif 4', Georgia, serif;
+  --r2: 14px;
+  --r3: 20px;
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --tf: 160ms;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--fd);font-size:15px;line-height:1.7;
+  color:#FFFFFF;
+  background:var(--gradient-ink);
+  background-attachment:fixed;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+/* Soft aurora glow, same treatment as the signup section */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 12% 20%, rgba(139,122,232,.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 88% 30%, rgba(111,165,245,.22) 0%, transparent 55%);
+}
+a{color:#FFFFFF;text-decoration:none}
+.container{max-width:1040px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* Nav */
+nav.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(27,35,80,.55);
+  backdrop-filter:saturate(140%) blur(14px);
+  -webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0}
+.logo-lockup{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:30px;height:30px;flex-shrink:0}
+.logo-sub{display:flex;flex-direction:column;gap:1px}
+.wordmark{font-family:var(--fd);font-weight:800;font-size:20px;letter-spacing:-.03em;line-height:1;color:#FFFFFF}
+.logo-tagline{font-family:var(--fs);font-style:italic;font-weight:300;font-size:12px;color:rgba(255,255,255,.6);line-height:1}
+.nav-back{font-size:14px;font-weight:600;color:rgba(255,255,255,.75);transition:color var(--tf) var(--ease)}
+.nav-back:hover{color:#FFFFFF}
+
+/* ── Hero ── */
+.about-hero{padding:64px 0 8px;text-align:center}
+.about-label{
+  display:inline-block;margin-bottom:16px;
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brand-mint);
+}
+.about-hero h1{
+  font-size:clamp(32px,5.4vw,52px);font-weight:800;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1.1;margin-bottom:18px;text-wrap:balance;
+}
+.about-hero .lede{
+  font-size:18px;color:rgba(255,255,255,.76);line-height:1.62;
+  max-width:600px;margin:0 auto;text-wrap:balance;
+}
+.about-hero .lede em{
+  font-family:var(--fs);font-style:italic;font-weight:300;color:#FFFFFF;
+}
+
+/* ── Hero photo ── */
+.hero-photo{
+  margin:44px auto 0;max-width:960px;position:relative;
+  border-radius:24px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 30px 80px rgba(0,0,0,.36);
+}
+.hero-photo img{display:block;width:100%;height:auto}
+.hero-photo .caption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:44px 24px 18px;
+  background:linear-gradient(to top, rgba(20,26,58,.82) 0%, transparent 100%);
+  font-family:var(--fs);font-style:italic;font-weight:300;
+  font-size:14px;color:rgba(255,255,255,.82);text-align:left;
+}
+
+/* ── Story prose ── */
+.story{max-width:680px;margin:80px auto 0}
+.story h2{
+  font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brand-mint);margin-bottom:20px;text-align:center;
+}
+.story p{
+  font-size:17.5px;line-height:1.75;color:rgba(255,255,255,.82);
+  margin-bottom:20px;text-wrap:pretty;
+}
+.story p:last-child{margin-bottom:0}
+.story p strong{color:#FFFFFF;font-weight:700}
+.story .pull{
+  font-family:var(--fs);font-style:italic;font-weight:300;
+  font-size:clamp(21px,3vw,26px);line-height:1.45;color:#FFFFFF;
+  text-align:center;margin:40px auto;max-width:600px;text-wrap:balance;
+}
+.story-photo{
+  margin:8px 0 36px;position:relative;
+  border-radius:var(--r3);overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 24px 60px rgba(0,0,0,.32);
+}
+.story-photo img{display:block;width:100%;height:auto}
+.story-photo .caption{
+  position:absolute;left:0;right:0;bottom:0;padding:40px 20px 16px;
+  background:linear-gradient(to top, rgba(20,26,58,.82) 0%, transparent 100%);
+  font-family:var(--fs);font-style:italic;font-weight:300;
+  font-size:14px;color:rgba(255,255,255,.85);
+}
+
+/* ── Founders ── */
+.founders{margin:96px 0 0}
+.founders-head{text-align:center;margin-bottom:44px}
+.founders-head .about-label{margin-bottom:12px}
+.founders-head h2{
+  font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1.14;text-wrap:balance;
+}
+.founder-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+}
+.founder-card{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r3);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color var(--tf) var(--ease), transform var(--tf) var(--ease), background var(--tf) var(--ease);
+}
+.founder-card:hover{
+  border-color:rgba(255,255,255,.28);
+  background:rgba(255,255,255,.11);
+  transform:translateY(-3px);
+}
+/* Face is cropped from the group portrait via background-position.
+   To swap in an individual headshot later, replace the background-image
+   below (or set the whole .founder-photo background to a new URL). */
+.founder-photo{
+  aspect-ratio:4/5;
+  background-image:url('images/team/team-portrait.jpg');
+  background-size:315% auto;
+  background-repeat:no-repeat;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.founder-photo.sebastian{background-image:url('images/team/sebastian-solo.jpg');background-size:255% auto;background-position:52% 88%}
+.founder-photo.veronica{background-image:url('images/team/veronica-solo.jpg');background-size:cover;background-position:50% 20%}
+.founder-photo.chaz{background-image:url('images/team/chaz-solo.jpg');background-size:235% auto;background-position:53% 44%}
+.founder-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+.founder-name{font-size:19px;font-weight:800;letter-spacing:-.02em;color:#FFFFFF;line-height:1.2}
+.founder-role{
+  margin-top:4px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--brand-mint);
+}
+.founder-bio{
+  margin-top:14px;font-size:14.5px;line-height:1.65;color:rgba(255,255,255,.72);
+  flex:1;
+}
+.founder-links{display:flex;gap:10px;margin-top:auto;padding-top:18px}
+.founder-links a{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:9px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.8);
+  transition:background var(--tf) var(--ease), color var(--tf) var(--ease), border-color var(--tf) var(--ease);
+}
+.founder-links a:hover{background:#FFFFFF;color:var(--brand-ink);border-color:#FFFFFF}
+.founder-links svg{width:16px;height:16px}
+
+/* ── Moments strip (award kept subtle) ── */
+.moments{margin:96px 0 0}
+.moments-head{text-align:center;margin-bottom:36px}
+.moments-head h2{
+  font-size:clamp(24px,3.6vw,34px);font-weight:800;letter-spacing:-.03em;
+  color:#FFFFFF;line-height:1.16;text-wrap:balance;
+}
+.moments-head p{
+  margin-top:12px;font-size:16px;color:rgba(255,255,255,.7);
+  max-width:520px;margin-left:auto;margin-right:auto;text-wrap:balance;
+}
+.moments-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.moment{
+  position:relative;border-radius:var(--r3);overflow:hidden;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 20px 50px rgba(0,0,0,.28);
+}
+.moment img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:3/2}
+.moment .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:38px 20px 16px;
+  background:linear-gradient(to top, rgba(20,26,58,.8) 0%, transparent 100%);
+  font-family:var(--fs);font-style:italic;font-weight:300;
+  font-size:14px;color:rgba(255,255,255,.85);
+}
+
+/* ── Bottom CTA ── */
+.about-foot{
+  text-align:center;margin:96px 0 0;padding-top:56px;
+  border-top:1px solid rgba(255,255,255,.14);
+}
+.about-foot h2{
+  font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.03em;
+  color:#FFFFFF;margin-bottom:12px;text-wrap:balance;
+}
+.about-foot p{font-size:16.5px;color:rgba(255,255,255,.72);margin-bottom:24px;max-width:460px;margin-left:auto;margin-right:auto}
+.btn-mint{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:999px;
+  font-family:var(--fd);font-weight:700;font-size:15px;
+  background:#FFFFFF;color:var(--brand-ink);
+  transition:transform var(--tf) var(--ease), box-shadow var(--tf) var(--ease);
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+}
+.btn-mint:hover{transform:translateY(-1px);box-shadow:0 14px 40px rgba(0,0,0,.28)}
+
+.about-wrap{padding:0 0 96px}
+
+/* Footer */
+footer.legal-footer{
+  background:var(--brand-ink-deep);
+  padding:36px 0;text-align:center;position:relative;z-index:1;
+}
+footer.legal-footer p{font-size:13px;color:rgba(255,255,255,.35)}
+footer.legal-footer a{color:rgba(255,255,255,.55);text-decoration:none;margin:0 8px}
+footer.legal-footer a:hover{color:rgba(255,255,255,.85)}
+
+@media (max-width:820px){
+  .founder-grid{grid-template-columns:1fr 1fr;gap:18px}
+}
+@media (max-width:600px){
+  .founder-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}
+  .moments-grid{grid-template-columns:1fr}
+  .about-hero{padding-top:48px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Logo SVG symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="aurora" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#8B7AE8"/>
+      <stop offset="50%" stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#7FCBD8"/>
+    </linearGradient>
+    <linearGradient id="auroraSquare" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#7A6BE0"/>
+      <stop offset="100%" stop-color="#5A89F2"/>
+    </linearGradient>
+    <linearGradient id="auroraDiamond" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#6FA5F5"/>
+      <stop offset="100%" stop-color="#9DD8E0"/>
+    </linearGradient>
+  </defs>
+  <symbol id="pagemd-mark" viewBox="0 0 200 200">
+    <rect x="0" y="0" width="200" height="200" rx="44" fill="url(#aurora)"/>
+    <g transform="translate(100 100)">
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraSquare)" opacity="0.92"/>
+      <rect x="-56" y="-56" width="112" height="112" rx="5" fill="url(#auroraDiamond)" opacity="0.78" transform="rotate(45)"/>
+    </g>
+  </symbol>
+</svg>
+
+<nav class="top">
+  <div class="container" style="max-width:1200px">
+    <div class="nav-inner">
+      <a href="index.html" class="logo-lockup">
+        <svg class="logo-mark" viewBox="0 0 200 200"><use href="#pagemd-mark"/></svg>
+        <div class="logo-sub">
+          <span class="wordmark">PageMD</span>
+          <span class="logo-tagline">The answering service, without the hold time.</span>
+        </div>
+      </a>
+      <a href="index.html" class="nav-back">← Back to home</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="about-wrap">
+
+      <!-- ── Hero ── -->
+      <section class="about-hero">
+        <span class="about-label">Our Story</span>
+        <h1>We're giving clinics<br>their phones back.</h1>
+        <p class="lede">PageMD is building the AI paging line for outpatient care, so no caller waits on hold and no nurse spends their day relaying messages. <em>Fewer rings, more care.</em></p>
+      </section>
+
+      <figure class="hero-photo">
+        <img src="images/team/team-portrait.jpg" alt="The PageMD founding team: Sebastian Donea, Veronica Rodionova, and Chaz Burket" loading="eager">
+        <figcaption class="caption">The founding team: Sebastian, Veronica &amp; Chaz.</figcaption>
+      </figure>
+
+      <!-- ── Story ── -->
+      <section class="story">
+        <h2>Why we built PageMD</h2>
+        <p>Every outpatient clinic runs on the phone. Pharmacies calling to verify a refill, referring providers trying to reach a doctor, patients returning a call. All of it lands on a front desk that can only pick up one line at a time. The rest go to hold, to voicemail, or to a nurse who spends the afternoon relaying messages instead of caring for patients.</p>
+        <p class="pull">"The bottleneck was never the medicine. It was the phone."</p>
+
+        <figure class="story-photo">
+          <img src="images/team/story-stage.jpg" alt="The PageMD team presenting on stage" loading="lazy">
+          <figcaption class="caption">Sharing the PageMD story on stage.</figcaption>
+        </figure>
+
+        <p>We started PageMD to fix exactly that. Our AI answers every inbound call on the first ring, has a natural conversation, captures a complete message, and pages the right provider in about sixty seconds, <strong>without triaging, judging urgency, or making a single clinical decision.</strong> That judgment stays where it belongs: with your team.</p>
+        <p>We're a small founding team that moves fast, ships in the real world, and sits with the clinics we build for. PageMD is in pilot today, and we're just getting started.</p>
+      </section>
+
+      <!-- ── Founders ── -->
+      <section class="founders">
+        <div class="founders-head">
+          <span class="about-label">The Founders</span>
+          <h2>Three people, one mission.</h2>
+        </div>
+
+        <div class="founder-grid">
+
+          <!-- ── FOUNDER: Sebastian ── -->
+          <article class="founder-card">
+            <div class="founder-photo sebastian" role="img" aria-label="Sebastian Donea"></div>
+            <div class="founder-body">
+              <div class="founder-name">Sebastian Donea</div>
+              <div class="founder-role">Chief Executive Officer</div>
+              <!-- EDIT: replace with Sebastian's real bio -->
+              <div class="founder-links">
+                <a href="https://www.linkedin.com/in/sebastian-donea/" aria-label="Sebastian on LinkedIn" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.49 1c1.38 0 2.49 1.12 2.49 2.5zM.24 8h4.5v14.5H.24V8zm7.5 0h4.31v1.98h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9v8.96h-4.5v-7.94c0-1.9-.03-4.34-2.64-4.34-2.64 0-3.05 2.06-3.05 4.2v8.08h-4.5V8z"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── FOUNDER: Veronica ── -->
+          <article class="founder-card">
+            <div class="founder-photo veronica" role="img" aria-label="Veronica Rodionova"></div>
+            <div class="founder-body">
+              <div class="founder-name">Veronica Rodionova</div>
+              <div class="founder-role">Chief Compliance Officer</div>
+              <!-- EDIT: replace with Veronica's real bio -->
+              <div class="founder-links">
+                <a href="https://www.linkedin.com/in/veronica-rodionova-7560a9316/" aria-label="Veronica on LinkedIn" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.49 1c1.38 0 2.49 1.12 2.49 2.5zM.24 8h4.5v14.5H.24V8zm7.5 0h4.31v1.98h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9v8.96h-4.5v-7.94c0-1.9-.03-4.34-2.64-4.34-2.64 0-3.05 2.06-3.05 4.2v8.08h-4.5V8z"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── FOUNDER: Chaz ── -->
+          <article class="founder-card">
+            <div class="founder-photo chaz" role="img" aria-label="Chaz Burket"></div>
+            <div class="founder-body">
+              <div class="founder-name">Chaz Burket</div>
+              <div class="founder-role">Chief Operating Officer</div>
+              <!-- EDIT: replace with Chaz's real bio -->
+              <div class="founder-links">
+                <a href="https://www.linkedin.com/in/chaz-burkett-12588b395/" aria-label="Chaz on LinkedIn" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.49 1c1.38 0 2.49 1.12 2.49 2.5zM.24 8h4.5v14.5H.24V8zm7.5 0h4.31v1.98h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9v8.96h-4.5v-7.94c0-1.9-.03-4.34-2.64-4.34-2.64 0-3.05 2.06-3.05 4.2v8.08h-4.5V8z"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ── Moments (award kept subtle) ── -->
+      <section class="moments">
+        <div class="moments-head">
+          <h2>Building it in the real world.</h2>
+          <p>From the demo floor to clinic pilots, meeting the people PageMD is built for.</p>
+        </div>
+        <div class="moments-grid">
+          <figure class="moment">
+            <img src="images/team/team-booth.jpg" alt="The PageMD team demoing at a startup showcase" loading="lazy">
+            <figcaption class="cap">Demoing PageMD live: "AI answers every call. No hold. Ever."</figcaption>
+          </figure>
+          <figure class="moment">
+            <img src="images/team/team-stage.jpg" alt="The PageMD team on stage at the STARTed UP Challenge" loading="lazy">
+            <figcaption class="cap">PageMD at the STARTedUP Challenge.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section class="about-foot">
+        <h2>Want to bring PageMD to your clinic?</h2>
+        <p>We're onboarding a limited number of pilot clinics right now.</p>
+        <a class="btn-mint" href="index.html#signup">Request access →</a>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="legal-footer">
+  <p>
+    &copy; <span id="year"></span> PageMD, Inc. All rights reserved.
+    &nbsp;·&nbsp;
+    <a href="about.html">About / Team</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="faq.html">FAQ</a>
+    <a href="index.html">Home</a>
+  </p>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
