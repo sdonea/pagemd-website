@@ -67,9 +67,9 @@ Audio playback falls back to Web Speech API TTS if MP3 files aren't found (grace
 
 ## Signup form
 
-The form action is currently `REPLACE_WITH_FORMSPREE_URL`. To activate:
-1. Create a form at https://formspree.io pointing to `sebdonea@yahoo.com`.
-2. Replace the placeholder with the Formspree endpoint URL.
+Live and working: the form posts to `https://formspree.io/f/mpqnljda`. The
+`REPLACE_WITH_FORMSPREE_URL` string still in the submit handler is a dead guard
+against an unconfigured action, not an outstanding TODO.
 
 ## Adding a new demo scenario
 
@@ -213,6 +213,7 @@ the live role tokens rather than hardcoded hex.
 
 ## Signup form
 
-`NEXT_PUBLIC_FORM_ENDPOINT` is unset. Until it is set, the form shows an explicit
-error rather than pretending to send. Create a Formspree form pointing at
-`sebdonea@yahoo.com` and set the env var.
+`NEXT_PUBLIC_FORM_ENDPOINT` is set on all three Vercel environments to the same
+Formspree endpoint the legacy site uses, `https://formspree.io/f/mpqnljda`, and
+`.env.local` carries it for local dev. Unset, the form shows an explicit error
+rather than pretending to send; never replace that with a silent success.
