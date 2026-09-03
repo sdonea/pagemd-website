@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@usva-ui/react/cn";
 
@@ -101,14 +101,23 @@ export function RotatingText({
   useEffect(() => {
     if (!auto || texts.length < 2) return;
     const id = setInterval(() => {
-      setIndex((i) => {
-        const next = i === texts.length - 1 ? (loop ? 0 : i) : i + 1;
-        if (next !== i) onNext?.(next);
-        return next;
-      });
+      setIndex((i) => (i === texts.length - 1 ? (loop ? 0 : i) : i + 1));
     }, rotationInterval);
     return () => clearInterval(id);
-  }, [auto, loop, rotationInterval, texts.length, onNext]);
+  }, [auto, loop, rotationInterval, texts.length]);
+
+  /* Reported after the swap commits, never from inside the setIndex updater.
+     React is free to call an updater during render, and notifying the parent
+     from there is a setState on a different component mid-render — which is
+     exactly what the Hero's underline listener tripped. The ref keeps an inline
+     callback from restarting the interval on every render. */
+  const onNextRef = useRef(onNext);
+  useEffect(() => {
+    onNextRef.current = onNext;
+  }, [onNext]);
+  useEffect(() => {
+    onNextRef.current?.(index);
+  }, [index]);
 
   return (
     /* A fixed, clipped line box. The characters enter from +100% and leave at
