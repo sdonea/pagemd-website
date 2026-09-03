@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+/* Tailwind v4 skips node_modules when it scans for classes, and every usva
+   component's styling is Tailwind classes in there. Without this the whole
+   library renders unstyled and nothing errors. */
+@source "../node_modules/@usva-ui/react/dist";
+
+/* usva last, per the skill's shadcn-collision gotcha. kajo is the default
+   theme: it declares itself at :root as well as [data-theme="kajo"], so no
+   attribute is required, and being dark it is the ground the atmospheres and
+   the sula fields were drawn for. */
+@import "@usva-ui/tokens/theme.css";
+@import "@usva-ui/tokens/themes/kajo.css";
+
+/* Two moves off stock kajo, both by token, never by forking a component:
+
+   1. Fonts. kajo names Fira; next/font serves it locally under these vars.
+   2. No green. kajo's second accent is #52c989 and it is load-bearing —
+      the title accent, the live dot, the metric suffixes, the eyebrows all
+      read it. `live` and `success` follow it so nothing green survives.
+   3. PageMD blue is the primary. kajo's accent family is violet (#a78bfa /
+      #8b5cf6); the whole accent role — buttons, rings, glows, washes, the
+      PrismaticBurst gradient — derives from these four by color-mix, so
+      restating them here turns the site blue with no forked components. The
+      three stay spread light-to-deep so the burst keeps its depth. */
+:root {
+  --usva-font-sans: var(--font-fira-sans), system-ui, sans-serif;
+  --usva-font-mono: var(--font-fira-code), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --usva-accent: #5a89f2;
+  --usva-accent-2: #3b63d6;
+  --usva-accent-alt: #8fc4ff;
+  --usva-accent-tint: #1c2a52;
+  --usva-accent-ink: #e3e9f7;
+  --usva-on-accent: #06101f;
+  --usva-ring: #5a89f2;
+  --usva-live: #8fc4ff;
+  --usva-success: #6ea8fe;
+
+  /* The beam colour, its own role because nothing else in the palette is it.
+     `accent-alt` is a pale aqua: at a band's core it lands near #B6DDE6, which
+     on navy reads as white rather than as blue. This is a saturated light sky
+     blue, so the cores stay a colour. Both halves take the same value — the
+     bends only ever paint on the ink ground. */
+  --usva-beam: #5cb3f5;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* The sula canvases are painted wider than their host so the liquid can spill
+   past the bar's edge. Without this the page gets a horizontal scrollbar.
+   `clip` rather than `hidden` so it does not create a scroll container and
+   break `position: sticky` on the header. */
+html,
+body {
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background: var(--usva-bg);
+  color: var(--usva-ink);
+  font-family: var(--usva-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes orb {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--usva-accent) 45%, transparent); }
+  50%      { box-shadow: 0 0 0 16px transparent; }
+}
+
+/* ── Light theme ─────────────────────────────────────────────────────────
+   usva ships one light theme (savi) but it is clay-and-green: beige ground,
+   coffee ink, sage accent. PageMD's light half is the legacy brand's — near
+   white ground, white cards, #E1E8F4 hairlines, blue ink. So it is a role
+   block, not a forked theme file, and it sits last so it beats both kajo's
+   `:root` and the PageMD accent block above.
+
+   The accent deepens from #5a89f2 to #3562d1 here: the dark value clears only
+   3.3:1 on white and usva reads `accent` as *type* (title accents, eyebrows,
+   metric suffixes), which needs 4.5:1. The canvases that resolve tokens once
+   at mount re-resolve on the theme change; see `useTheme` in
+   components/theme-toggle.tsx. */
+[data-theme="light"] {
+  --usva-bg: #f7f9fd;
+  --usva-sunken: #e9eff9;
+  --usva-surface: #ffffff;
+  --usva-surface-2: #f0f5fd;
+  --usva-overlay: #ffffff;
+  --usva-scrim: rgba(26, 35, 80, 0.35);
+
+  --usva-ink: #1b2350;
+  --usva-muted: #4d5880;
+  --usva-faint: #8d97ba;
+  --usva-code-comment: #6b7699;
+
+  --usva-accent: #3562d1;
+  --usva-accent-2: #24449b;
+  --usva-accent-alt: #5a89f2;
+  --usva-accent-tint: #dfe9fd;
+  --usva-on-tint: #24449b;
+  --usva-accent-ink: #1b2350;
+  --usva-on-accent: #ffffff;
+  --usva-ring: #3562d1;
+
+  --usva-live: #3562d1;
+  --usva-success: #2f6fd0; /* still no green, in either half */
+  --usva-info: #2f6fd0;
+  --usva-warning: #9a6a12;
+  --usva-danger: #c0392b;
+
+  --usva-border: #e1e8f4;
+  --usva-border-strong: #c3d0e8;
+
+  /* Elevation inverts: the rim goes white, the ambient goes navy and thin.
+     kajo's black falloff reads as soot on a near-white ground. */
+  --usva-inset-hairline: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --usva-shadow-raised: 0 1px 2px rgba(26, 35, 80, 0.06),
+    0 0 0 1px rgba(26, 35, 80, 0.06);
+  --usva-shadow-floating: 0 2px 6px rgba(26, 35, 80, 0.06),
+    0 0 0 1px rgba(26, 35, 80, 0.07), 0 18px 48px -24px rgba(26, 35, 80, 0.25);
+  --usva-shadow-overlay: 0 8px 24px rgba(26, 35, 80, 0.12),
+    0 0 0 1px rgba(26, 35, 80, 0.08), 0 30px 90px rgba(26, 35, 80, 0.18);
+  --usva-rim-light: color-mix(in srgb, var(--usva-accent) 25%, rgba(255, 255, 255, 0.9));
+
+  /* The signature bloom is a dark-ground effect; on white it is grime. */
+  --usva-glow-accent: 0 0 18px -10px color-mix(in srgb, var(--usva-accent) 45%, transparent);
+  --usva-glow-accent-strong: 0 0 16px -6px color-mix(in srgb, var(--usva-accent) 55%, transparent);
+  --usva-hairline-strength: 60%;
+}
+
+/* ── Ink panel ───────────────────────────────────────────────────────────
+   A navy region inside the light page, and the answer to a problem the light
+   half kept losing to: every glow on this site is *additive* light — the FAQ
+   rays, the footer's wash — and additive light over near-white can only add
+   grey. It is not a strength you can tune down; it is the wrong ground.
+
+   So the two regions that carry light get the dark ground instead, which is
+   also what the legacy brand did: the footer was #1B2350 on an otherwise light
+   page. Everything inside reads role tokens, so the whole region flips with no
+   forked component and no per-element overrides.
+
+   It rides `data-theme` rather than a class on purpose: usva re-points every
+   `--color-*` utility var at the local `--usva-*` inside any `[data-theme]`
+   subtree. Its root `@theme` is not `inline`, so `--color-bg` resolves once at
+   :root and a plain class can restate `--usva-bg` all it likes while `bg-bg`
+   keeps painting the page ground.
+
+   Scoped under the light theme only. In kajo `data-theme="ink"` still matches
+   usva's subtree rule but nothing below re-declares it, so the region inherits
+   kajo unchanged — that half is already dark. */
+[data-theme="light"] [data-theme="ink"] {
+  color-scheme: dark;
+  /* Tokens alone are not enough: text with no explicit `text-*` class inherits
+     `color` from body, which is the light palette's near-navy ink — dark blue
+     on dark blue. The region has to set it. */
+  color: var(--usva-ink);
+
+  --usva-bg: #1b2350;
+  --usva-sunken: #161d45;
+  --usva-surface: #232c5e;
+  --usva-surface-2: #2a3470;
+  --usva-overlay: #232c5e;
+  --usva-scrim: rgba(10, 14, 38, 0.6);
+
+  --usva-ink: #eef2fb;
+  --usva-muted: #a9b4d8;
+  --usva-faint: #7b87b4;
+  --usva-code-comment: #8d97ba;
+
+  /* The accent lightens again: on navy the light theme's #3562d1 is the same
+     3:1 problem the light block deepened it to fix, in the other direction. */
+  --usva-accent: #8fb4ff;
+  --usva-accent-2: #5a89f2;
+  --usva-accent-alt: #b6dde6;
+  --usva-accent-tint: #2a3470;
+  --usva-on-tint: #dfe9fd;
+  --usva-accent-ink: #eef2fb;
+  --usva-on-accent: #0f1533;
+  --usva-ring: #8fb4ff;
+
+  --usva-live: #8fb4ff;
+  --usva-success: #6ea8fe;
+  --usva-info: #6ea8fe;
+
+  --usva-border: #2f3a72;
+  --usva-border-strong: #44508f;
+
+  /* Elevation goes back to the dark recipe: the light block's white rim and
+     navy ambient are invisible here. */
+  --usva-inset-hairline: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --usva-shadow-raised: 0 1px 2px rgba(6, 10, 30, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.04), 0 8px 24px -12px rgba(6, 10, 30, 0.5);
+  --usva-shadow-floating: 0 2px 6px rgba(6, 10, 30, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05), 0 26px 90px rgba(6, 10, 30, 0.3);
+  --usva-shadow-overlay: 0 8px 24px rgba(6, 10, 30, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.06), 0 30px 90px rgba(6, 10, 30, 0.46);
+  --usva-rim-light: color-mix(in srgb, var(--usva-accent) 45%, rgba(255, 255, 255, 0.2));
+  --usva-glow-accent: 0 0 24px -6px color-mix(in srgb, var(--usva-accent) 55%, transparent);
+  --usva-glow-accent-strong: 0 0 18px -2px color-mix(in srgb, var(--usva-accent) 70%, transparent);
+  --usva-hairline-strength: 100%;
+}
+
+/* ── Token-collision guard ───────────────────────────────────────────────
+   `border`, `accent`, `muted` and `ring` are role names in both usva and
+   shadcn. Anything shadcn writes lands as an `@theme inline` block appended
+   below the usva @imports, and the later block wins — so those four silently
+   resolve to shadcn's neutrals while the other twenty-one stay usva's. The tell
+   is an outline Button with a near-white border.
+
+   Re-asserting them here, last, makes the outcome independent of who wrote
+   what where. Do not move this block; keep it at the bottom of the file. */
+@theme inline {
+  --color-border: var(--usva-border);
+  --color-border-strong: var(--usva-border-strong);
+  --color-accent: var(--usva-accent);
+  --color-muted: var(--usva-muted);
+  --color-ring: var(--usva-ring);
+}
+
