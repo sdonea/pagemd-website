@@ -67,9 +67,9 @@ Audio playback falls back to Web Speech API TTS if MP3 files aren't found (grace
 
 ## Signup form
 
-The form action is currently `REPLACE_WITH_FORMSPREE_URL`. To activate:
-1. Create a form at https://formspree.io pointing to `sebdonea@yahoo.com`.
-2. Replace the placeholder with the Formspree endpoint URL.
+Live and working: the form posts to `https://formspree.io/f/mpqnljda`. The
+`REPLACE_WITH_FORMSPREE_URL` string still in the submit handler is a dead guard
+against an unconfigured action, not an outstanding TODO.
 
 ## Adding a new demo scenario
 
@@ -100,3 +100,120 @@ Key routing rules:
 - Save progress → invoke /context-save
 - Resume context → invoke /context-restore
 - Author a backlog-ready spec/issue → invoke /spec
+
+---
+
+# app-next/ — the usva rebuild
+
+The site is being rebuilt in `app-next/` as a Next.js 16 App Router app on the
+**usva** design system. The legacy single-file site above still lives at the repo
+root and is untouched; nothing has been cut over yet.
+
+```
+cd app-next && bun run dev     # http://localhost:3000
+cd app-next && bun run build   # all 5 routes prerender static
+```
+
+## Never hand-roll a component
+
+**Search a registry first.** Writing a component from scratch is the last resort,
+not the first move. Page-level composition and layout are fine to write directly;
+reusable widgets are not.
+
+`components.json` is wired for both registries — verified working:
+
+```bash
+npx shadcn@latest view @usva/button      # inspect before installing
+npx shadcn@latest add @usva/segmented-control
+npx shadcn@latest add accordion --dry-run   # shadcn/ui default registry
+npx shadcn@latest search <term>
+```
+
+`shadcn init` was deliberately **not** run: it rewrites `globals.css` and would
+fight the kajo theme. `components.json` is hand-written, and `lib/utils.ts`
+re-exports usva's `cn` so registry components resolve `@/lib/utils` without a
+second copy of the helper.
+
+The bottom of `globals.css` carries a **token-collision guard** re-asserting
+`border`, `border-strong`, `accent`, `muted` and `ring` from the usva vars.
+`border`/`accent`/`muted`/`ring` are role names in both systems and whichever
+`@theme inline` block lands last wins. Keep that block at the end of the file.
+
+## usva rules that bite
+
+Read `.claude/skills/usva/SKILL.md` before touching UI — it carries the library's
+own failure modes. The ones this repo has already hit:
+
+- **Tailwind must scan node_modules.** `@source "../node_modules/@usva-ui/react/dist"`
+  in `globals.css`. Without it every usva component renders unstyled and nothing errors.
+- **Import from the subpath**, never the barrel: `@usva-ui/react/primitives/button`.
+- **`HeroSplit` needs a container ancestor.** It puts `@container` and its `@5xl:`
+  variants on the same element, and an element cannot match its own container query,
+  so the split silently never happens unless a parent is a container.
+- **Sula canvases paint wider than their host.** `html, body { overflow-x: clip }`
+  guards the horizontal scrollbar. `clip`, not `hidden` — `hidden` breaks sticky.
+- **Never wrap a sula or atmosphere canvas in something that animates `transform`
+  or `clip-path`.** Chrome blanks the canvas and nothing errors.
+- **SulaNav's reveal takes ~3s.** A screenshot before that shows the bar without its
+  brand or satellites. Not a bug.
+
+## Intensity budget
+
+One sula element per region, at most. Currently: `SulaNav` owns the header,
+`SulaSegmented` owns the demo's scenario picker. Nothing else asserts.
+
+## Theme
+
+Stock **kajo** (usva's dark default), with three token moves in `globals.css` and
+no forked components:
+
+- fonts → Fira Sans / Fira Code via `next/font`
+- `--usva-accent-alt`, `--usva-live`, `--usva-success` → blue, so **nothing on the
+  site is green**
+
+Retheme by moving role tokens. Never a raw hex, never fork a component for a colour.
+
+**Light mode** is a `[data-theme="light"]` role block at the bottom of
+`globals.css` — the legacy brand's palette, not usva's `savi`. Dark's attribute
+value is `kajo`, not `dark`, because kajo declares itself at `:root`.
+`lib/theme.ts` owns the switch: `setTheme`, a `useTheme()` store, and
+`THEME_SCRIPT` (inlined in `<head>` so a stored preference does not flash).
+
+Anything that reads role tokens through `getComputedStyle` resolves them **once
+at mount** and will not re-read them — that covers every WebGL canvas here
+(`PrismaticBurst`, `LightRays`, the globe, the stretchy footer, the dithered
+404) and usva's own sula components. They all take `useTheme()` as an effect
+dep or a remount `key`. Add a new one and it needs the same, or it keeps the
+palette it was born with.
+
+They also need their **strength** halved on light. Every one of these effects
+was drawn to glow on a near-black ground: on white the same energy reads as
+grey smears. The hero burst drops `mix-blend-mode: lighten` for plain
+compositing at `opacity-30`, and `LightRays` pulls back to `opacity-25`.
+`darken` is not the fix — the burst's own highlights are neutral, so it paints
+soot.
+
+## Design constraints from the owner
+
+- **No pills.** No lozenge-shaped chips, badges, or announcement bars anywhere in
+  page content. Circles (call buttons, list bullets) are fine. The one exception is
+  SulaNav itself, whose liquid bar is inherently pill-shaped.
+- **No green.**
+- The **hero is centred**, has no phone imagery, and uses `<Aurora />` full-bleed
+  behind a rotating headline (`Medical paging, but …`).
+- The **real logo** is `components/brand.tsx` — the aurora-filled mark from the
+  legacy site's `<symbol id="pagemd-mark">`. A logo keeps its own colours; the role
+  tokens govern the UI around it, not the identity.
+
+## Ported components
+
+`components/aurora.tsx` and `components/rotating-text.tsx` are Svelte Bits
+components ported to React at the owner's request. Aurora reads its gradient from
+the live role tokens rather than hardcoded hex.
+
+## Signup form
+
+`NEXT_PUBLIC_FORM_ENDPOINT` is set on all three Vercel environments to the same
+Formspree endpoint the legacy site uses, `https://formspree.io/f/mpqnljda`, and
+`.env.local` carries it for local dev. Unset, the form shows an explicit error
+rather than pretending to send; never replace that with a silent success.
