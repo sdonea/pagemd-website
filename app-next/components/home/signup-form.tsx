@@ -8,7 +8,6 @@ import { Callout } from "@usva-ui/react/primitives/callout";
 import {
   FieldControl,
   FieldDescription,
-  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@usva-ui/react/patterns/field-group";
@@ -117,8 +116,16 @@ export function SignupForm() {
           <Textarea name="notes" autoGrow minRows={3} maxRows={8} />
         </FieldControl>
         <FieldDescription>Optional.</FieldDescription>
-        {error && <FieldError>{error}</FieldError>}
       </FieldGroup>
+
+      {/* Form-level, so it sits with the submit button. Hanging it off the
+          notes FieldGroup put a red invalid border on the one optional field
+          in the form, which is the only field the failure is never about. */}
+      {error && (
+        <Callout tone="danger" title="Not sent" role="alert">
+          {error}
+        </Callout>
+      )}
 
       <div className="flex flex-wrap items-center gap-4">
         <Button
