@@ -75,6 +75,18 @@ body {
   50%      { box-shadow: 0 0 0 16px transparent; }
 }
 
+/* Captured page fields land one at a time; without this they pop. */
+@keyframes field-in {
+  from { opacity: 0; transform: translateY(-0.375rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* The delivery receipt rises into the space the page list leaves. */
+@keyframes deliver-in {
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ── Light theme ─────────────────────────────────────────────────────────
    usva ships one light theme (savi) but it is clay-and-green: beige ground,
    coffee ink, sage accent. PageMD's light half is the legacy brand's — near

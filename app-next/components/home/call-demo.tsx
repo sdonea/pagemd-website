@@ -6,6 +6,15 @@ import { useTheme } from "@/lib/theme";
 import { Panel } from "@usva-ui/react/patterns/panel";
 import { EmptyState } from "@usva-ui/react/patterns/empty-state";
 import { Skeleton } from "@usva-ui/react/primitives/skeleton";
+import {
+  Card,
+  CardBody,
+  CardEyebrow,
+  CardHeader,
+  CardIcon,
+  CardTitle,
+} from "@usva-ui/react/primitives/card";
+import { LogLine, LogList } from "@usva-ui/react/primitives/log-line";
 import { Button } from "@usva-ui/react/primitives/button";
 import { cn } from "@usva-ui/react/cn";
 import { PhoneMockupCard } from "@/components/ui/phone-mockup";
@@ -88,6 +97,61 @@ function CallControl({
   );
 }
 
+/* The payoff, not decoration: the fields are what PageMD wrote down, this is
+   where it landed. Every piece is a usva primitive — Card as the provider's
+   lock-screen banner, LogList as the delivery trace. Nothing hand-rolled. */
+function DeliveryReceipt({
+  fields,
+  at,
+}: {
+  fields: { label: string; value: string }[];
+  at: string;
+}) {
+  const get = (label: string) =>
+    fields.find((f) => f.label === label)?.value ?? "";
+  const caller = get("Caller").split("·")[0].trim();
+  const provider = get("Routed to") || get("For");
+
+  return (
+    <div className="mt-4 space-y-3 motion-safe:animate-[deliver-in_520ms_ease-out_both]">
+      <p className="text-muted font-mono text-[0.6rem] tracking-widest uppercase">
+        To {provider}
+      </p>
+
+      <Card surface="flat">
+        <CardHeader row>
+          {/* CardIcon's own `[&_svg]:h-4` outranks a size class on the mark, so
+              the override lives here — and the mark carries its own colours, so
+              the chrome around it goes away. */}
+          <CardIcon className="border-0 bg-transparent p-0 [&_svg]:size-9">
+            <BrandMark id="delivery" className="size-9" />
+          </CardIcon>
+          <div className="min-w-0 flex-1">
+            <CardEyebrow>PageMD · now</CardEyebrow>
+            <CardTitle className="mt-1">Page from {caller}</CardTitle>
+          </div>
+        </CardHeader>
+        {/* Not the Message field again — it is already two rows up. The banner
+            carries what the provider needs to decide whether to call back. */}
+        <CardBody className="pt-3">
+          <p className="text-muted text-sm">
+            {get("Patient")} · callback {get("Call Back").split("·")[0].trim()}
+          </p>
+        </CardBody>
+      </Card>
+
+      <LogList>
+        <LogLine level="success" source="page" timestamp={at}>
+          sent to {provider}
+        </LogLine>
+        <LogLine level="success" source="device" timestamp={at}>
+          delivered
+        </LogLine>
+      </LogList>
+    </div>
+  );
+}
+
 export function CallDemo() {
   const theme = useTheme();
   const [scenario, setScenario] = useState<ScenarioId>("nurse");
@@ -105,6 +169,10 @@ export function CallDemo() {
   } = useCallPlayer(scenario);
 
   const running = phase === "playing";
+  const totalFields = SCENARIOS[scenario].turns.reduce(
+    (n, t) => n + (t.capture ? Object.keys(t.capture).length : 0),
+    0,
+  );
 
   return (
     <div className="space-y-8">
@@ -268,7 +336,11 @@ export function CallDemo() {
           </p>
         </div>
 
-        {/* The page that comes out of it */}
+        {/* The page that comes out of it. The wrapper is load-bearing: Panel's
+            root carries `h-full`, so as a direct grid child it stretched to the
+            phone's height and left dead space under the last field. Against an
+            auto-height wrapper that percentage resolves to auto. */}
+        <div className="lg:self-start">
         <Panel
           title="Structured page"
           eyebrow="Delivered to provider"
@@ -287,37 +359,21 @@ export function CallDemo() {
           surface="elevated"
           className="min-h-[22rem]"
         >
-          {fields.length === 0 ? (
-            /* Three states, not one: idle, waiting on the first capture, and
-               populated. The middle is a real wait — the AI has to hear a name
-               before it has anything to write down. */
-            running ? (
-              <div aria-live="polite" aria-busy className="space-y-4 py-2">
-                <span className="sr-only">Listening for the first capture</span>
-                {[0, 1, 2].map((i) => (
-                  <div
-                    key={i}
-                    className="grid gap-2 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-4"
-                  >
-                    <Skeleton variant="text" width="5.5rem" />
-                    <Skeleton variant="text" width={i === 1 ? "90%" : "65%"} />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <EmptyState
-                variant="dashed"
-                icon={<FileText className="size-5" />}
-                title="Nothing paged yet"
-                description="Start the call and the structured message routed to your provider builds here, field by field."
-              />
-            )
+          {fields.length === 0 && !running ? (
+            <EmptyState
+              variant="dashed"
+              icon={<FileText className="size-5" />}
+              title="Nothing paged yet"
+              description="Start the call and the structured message routed to your provider builds here, field by field."
+            />
           ) : (
             <dl className="divide-y divide-border">
               {fields.map((field, i) => (
                 <div
                   key={`${field.label}-${i}`}
-                  className="grid gap-1 py-3 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-4"
+                  /* The animation fires once, when React mounts the row — the
+                     rows already on screen keep the class but never replay. */
+                  className="grid gap-1 py-3 motion-safe:animate-[field-in_320ms_ease-out_both] sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-4"
                 >
                   <dt className="text-muted font-mono text-[0.65rem] tracking-widest uppercase">
                     {field.label}
@@ -327,9 +383,32 @@ export function CallDemo() {
                   </dd>
                 </div>
               ))}
+
+              {/* The skeleton never leaves while the call is live: it holds the
+                  slot for the next capture instead of vanishing at the first
+                  one. Three rows before anything lands, one after. */}
+              {running && fields.length < totalFields && (
+                <div aria-live="polite" aria-busy>
+                  <span className="sr-only">Listening for the next capture</span>
+                  {(fields.length === 0 ? [0, 1, 2] : [0]).map((i) => (
+                    <div
+                      key={i}
+                      className="grid gap-2 py-3 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-4"
+                    >
+                      <Skeleton variant="text" width="5.5rem" />
+                      <Skeleton variant="text" width={i === 1 ? "90%" : "65%"} />
+                    </div>
+                  ))}
+                </div>
+              )}
             </dl>
           )}
+
+          {phase === "complete" && (
+            <DeliveryReceipt fields={fields} at={clock(elapsed)} />
+          )}
         </Panel>
+        </div>
       </div>
     </div>
   );

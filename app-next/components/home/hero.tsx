@@ -4,6 +4,8 @@ import { FrameButton } from "@/components/evil-buttons/frame-button";
 import { PrismaticBurst } from "@/components/prismatic-burst";
 import { useTheme } from "@/lib/theme";
 import { RotatingText } from "@/components/rotating-text";
+import { motion } from "motion/react";
+import { useState } from "react";
 
 /* Centred hero. Not HeroSplit: that pattern is a copy column beside a visual,
    and this region has no visual — the aurora is the room, the headline is the
@@ -11,64 +13,35 @@ import { RotatingText } from "@/components/rotating-text";
    answer when the pattern does not fit.
 
    No sula element here. The nav above owns the page's one assertion. */
-/* Each line completes "Medical paging, but …".
+/* Each line completes "Medical paging, but …". Rotation order is the array
+   order — edit the list, that is the whole contract. */
+const ROTATION = [
+  "AI-Powered",
+  "nobody's on hold",
+  "efficient",
+  "it never calls in sick",
+  "automatic",
+  "no operator",
+  "at 2 AM",
+  "modern",
+  "weekends",
+];
 
-   Grouped by what the line actually claims, then interleaved rather than
-   hand-ordered: `interleave` always draws from the largest group that did not
-   supply the previous line, so two lines making the same point never land back
-   to back, including across the loop's wrap. Add a phrase to its group and the
-   order re-solves itself instead of quietly breaking the rule. */
-const THEMES = {
-  quality: ["instant", "intelligent", "automatic", "efficient", "AI", "cheap"],
-  hold: [
-    "nobody's on hold",
-    "it picks up",
-    "there's no hold music",
-    "no waiting",
-  ],
-  hours: [
-    "at 2am",
-    "after hours",
-    "weekends",
-    "it never takes lunch",
-    "it never calls in sick",
-  ],
-  capacity: ["every call at once", "it never runs out of lines"],
-  middleman: ["no operator", "no call center"],
-  deadEnd: ["no missed message", 'no "leave a message after the tone"'],
-};
+/* Average glyph width of Fira Sans italic as a fraction of the em. One
+   calibration knob, used twice: it solves the phrase's font size, and it solves
+   the rule's width from the same number so the rule tracks the text. Nudge it
+   up if a phrase ever touches the viewport edges. */
+const GLYPH_EM = 0.52;
+const MAX_PHRASE_REM = 7;
 
-function interleave(themes: Record<string, string[]>): string[] {
-  const pools = Object.entries(themes).map(([name, items]) => ({
-    name,
-    items: [...items],
-  }));
-  const out: string[] = [];
-  let last = "";
-
-  while (pools.some((p) => p.items.length > 0)) {
-    const pick = pools
-      .filter((p) => p.items.length > 0 && p.name !== last)
-      .sort((a, b) => b.items.length - a.items.length)[0];
-    // Only reachable if one group outnumbers all the others combined, which
-    // would make the no-repeats rule unsatisfiable. Fail the build rather than
-    // silently drop phrases or emit two of the same theme in a row.
-    if (!pick) {
-      throw new Error(
-        "Hero rotation: one theme is too large to interleave without repeats.",
-      );
-    }
-    out.push(pick.items.shift() as string);
-    last = pick.name;
-  }
-
-  return out;
-}
-
-const ROTATION = interleave(THEMES);
+/* The phrase's solved font size, shared by the text and the rule under it. */
+const PHRASE_SIZE = `min(${MAX_PHRASE_REM}rem, calc((100vw - 3rem) / (var(--rt-len) * ${GLYPH_EM})))`;
 
 export function Hero() {
   const theme = useTheme();
+  /* Drives the underline's wipe. RotatingText owns the index; this mirrors it
+     so the rule can be re-keyed on every swap. */
+  const [phrase, setPhrase] = useState(0);
 
   return (
     // Two things the burst needs, and both bite silently.
@@ -113,26 +86,59 @@ export function Hero() {
       />
 
       <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-5xl flex-col items-center justify-center gap-8 px-6 py-24 text-center">
-        <h1 className="text-ink text-[clamp(2.4rem,6.5vw,5rem)] leading-[1.05] font-bold">
+        {/* The setup line steps down so the rotating phrase is the subject of
+            the hero rather than its equal. Size only — no opacity change. */}
+        <h1 className="text-ink text-[clamp(1.9rem,4.4vw,3.25rem)] leading-[1.05] font-bold">
           <span className="block text-balance">Medical paging, but</span>
-          {/* Breaks out of the hero's max-w-5xl: "no \"leave a message after the
-              tone\"" cannot sit on one line inside 1024px at heading size, and
-              wrapping it overflowed the fixed line box and sliced the second
-              line in half. It gets the full viewport instead, and the size is
-              solved per phrase from `--rt-len` so every one fits on one line.
-              0.52 is the average glyph width of Fira Sans italic as a fraction
-              of the em — a calibration knob, not a derived constant. Nudge it
-              up if a phrase ever touches the edges. */}
+          {/* Breaks out of the hero's max-w-5xl: a long phrase cannot sit on one
+              line inside 1024px at heading size, and wrapping it overflowed the
+              fixed line box and sliced the second line in half. It gets the full
+              viewport instead, and the size is solved per phrase from `--rt-len`
+              against GLYPH_EM so every one fits on one line. */}
           <RotatingText
             texts={ROTATION}
             rotationInterval={2600}
             staggerDuration={0.015}
             staggerFrom="last"
             splitBy="characters"
-            mainClassName="text-accent-alt relative left-1/2 mt-3 w-screen -translate-x-1/2 px-6 italic"
+            onNext={setPhrase}
+            mainClassName="text-accent-alt relative left-1/2 mt-2 w-screen -translate-x-1/2 px-6 italic"
             style={{
-              fontSize:
-                "min(5rem, calc((100vw - 3rem) / (var(--rt-len) * 0.52)))",
+              fontSize: PHRASE_SIZE,
+              /* Additive bloom only ever adds light, so on the light ground it
+                 renders as a grey smear rather than a halo. Light mode buys the
+                 same emphasis with weight instead. */
+              ...(theme === "dark"
+                ? {
+                    textShadow:
+                      "0 0 30px color-mix(in oklab, var(--usva-accent-alt) 45%, transparent), 0 0 70px color-mix(in oklab, var(--usva-accent-alt) 22%, transparent)",
+                  }
+                : { fontWeight: 800 }),
+            }}
+          />
+
+          {/* Re-keyed on every swap so the wipe replays, and because the remount
+              happens at scaleX 0 the new width lands while the rule is invisible
+              — it never visibly resizes. Width is the phrase's own rendered
+              width, from the same solver as the font size: len * GLYPH_EM * the
+              size, which collapses to the min() below. */}
+          <motion.span
+            key={phrase}
+            aria-hidden
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto block h-[3px] origin-left rounded-full motion-reduce:transition-none"
+            style={{
+              /* RotatingText reserves a 1.42em line box, which leaves dead space
+                 under the descenders, and that space grows with the phrase size.
+                 Pull back by a fraction of the same size so the rule sits a
+                 constant hair below the text at every width. */
+              ["--rt-len" as string]: ROTATION[phrase]?.length ?? 1,
+              marginTop: `calc(${PHRASE_SIZE} * -0.22)`,
+              width: `min(${(ROTATION[phrase]?.length ?? 0) * GLYPH_EM * MAX_PHRASE_REM}rem, calc(100vw - 3rem))`,
+              backgroundImage:
+                "linear-gradient(to right, transparent, var(--usva-accent-alt) 25%, var(--usva-accent-alt) 75%, transparent)",
             }}
           />
         </h1>
