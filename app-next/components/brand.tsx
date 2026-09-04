@@ -79,9 +79,16 @@ export function BrandLockup({
           droplet edge to edge and spilled past the curve. */}
       <BrandMark id={id} className={tagline ? "size-9" : "size-7"} />
       <span className="flex flex-col justify-center leading-none">
-        <span className="text-ink text-[1.05rem] leading-none font-bold tracking-[-0.01em]">
-          PageMD
-        </span>
+        {/* The aurora wordmark, not live text — it carries the gradient the
+            identity owns. Its own <text> falls back to Arial here — Mulish is
+            not loaded in this app — so it is sized by height, not by width. */}
+        <img
+          src="/wordmark-aurora-download.svg"
+          alt="PageMD"
+          // self-start, or the flex column stretches it to the tagline's
+          // width and preserveAspectRatio letterboxes the glyph.
+          className={cn("w-auto self-start", tagline ? "h-[26px]" : "h-[22px]")}
+        />
         {tagline && (
           <span className="text-muted mt-1.5 text-[0.72rem] leading-none font-medium">
             The answering service, without the hold time.
