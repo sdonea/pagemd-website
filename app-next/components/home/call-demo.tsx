@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SulaSegmented } from "@usva-ui/react/sula/sula-segmented";
+import { ThinkingOrb } from "thinking-orbs";
 import { useTheme } from "@/lib/theme";
 import { Panel } from "@usva-ui/react/patterns/panel";
 import { EmptyState } from "@usva-ui/react/patterns/empty-state";
@@ -19,7 +20,6 @@ import { Button } from "@usva-ui/react/primitives/button";
 import { cn } from "@usva-ui/react/cn";
 import { PhoneMockupCard } from "@/components/ui/phone-mockup";
 import { BrandMark } from "@/components/brand";
-import { BrailleLoader } from "@/components/ui/braille-loader";
 import {
   FileText,
   Grid3x3,
@@ -40,30 +40,18 @@ const clock = (s: number) =>
 
 
 function Waveform({ active, caller }: { active: boolean; caller: boolean }) {
+  const theme = useTheme();
   return (
-    // Colour lives here, not on the loader: BrailleLoader hardcodes
-    // `text-current`, which wins over any `text-*` passed in via className, so
-    // the only way to tint it is to set the inherited colour on an ancestor.
-    <div
-      className={cn(
-        "flex h-8 items-center justify-center transition-colors duration-base",
-        active
-          ? caller
-            ? "text-accent"
-            : "text-accent-alt"
-          : "text-border-strong",
-      )}
-      aria-hidden
-    >
-      {active ? (
-        <BrailleLoader variant="equalizer" fontSize={24} />
-      ) : (
-        // The loader has no paused state, so idle renders a flat row of the same
-        // five braille cells rather than bars bouncing with no call running.
-        <span className="font-mono text-[24px] leading-none">
-          {"\u28C0\u28C0\u28C0\u28C0\u28C0"}
-        </span>
-      )}
+    // The orb is a canvas that inks itself from the resolved theme, so it takes
+    // `theme` explicitly: its `auto` mode looks for data-theme="dark|light" and
+    // this app's dark attribute value is "kajo", which auto would not recognise.
+    <div className="flex h-16 items-center justify-center" aria-hidden>
+      <ThinkingOrb
+        state={caller ? "searching" : "connecting"}
+        size={64}
+        theme={theme}
+        paused={!active}
+      />
     </div>
   );
 }
