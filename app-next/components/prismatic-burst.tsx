@@ -74,6 +74,7 @@ uniform vec2 uOffset;
 uniform sampler2D uGradient;
 uniform float uNoiseAmount;
 uniform int uRayCount;
+uniform int uLight;
 float hash21(vec2 p) { p = floor(p); float f = 52.9829189 * fract(dot(p, vec2(0.065, 0.005))); return fract(f); }
 mat2 rot30() { return mat2(0.8, -0.5, 0.5, 0.8); }
 float layeredNoise(vec2 fragPx) {
@@ -157,6 +158,14 @@ void main() {
   }
   col *= edgeFade(frag, uResolution, uOffset);
   col *= uIntensity;
+  float peak = max(max(col.r, col.g), col.b);
+  if (uLight == 1) {
+    // Light ground: brightness becomes coverage and the colour stays at full
+    // chroma. Dim light was a dark colour, which over white is grey; and the
+    // core clipped to white, which over white is nothing.
+    fragColor = vec4(col / max(peak, 1e-4), clamp(peak, 0.0, 1.0));
+    return;
+  }
   vec3 outCol = clamp(col, 0.0, 1.0);
   fragColor = vec4(outCol, max(max(outCol.r, outCol.g), outCol.b));
 }`;
@@ -277,8 +286,10 @@ export function PrismaticBurst({
         uDistort: { value: 0 },
         uOffset: { value: [0, 0] },
         uGradient: { value: gradient },
-        uNoiseAmount: { value: 0.8 },
+        // The step jitter reads as film grain on white; dark hides it.
+        uNoiseAmount: { value: theme === "light" ? 0.15 : 0.8 },
         uRayCount: { value: 0 },
+        uLight: { value: theme === "light" ? 1 : 0 },
       },
     });
     const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });

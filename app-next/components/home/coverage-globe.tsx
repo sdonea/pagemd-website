@@ -9,9 +9,8 @@ import { useTheme } from "@/lib/theme";
 
    It spins, as the block intended. What changed is the markers: stock they sit
    on San Francisco and New York, read as a coast-to-coast footprint, and PageMD
-   is a pilot-stage clinic product in Evansville. These are the places a clinic's
-   inbound calls dial from instead, which is the claim the FAQ already makes —
-   the people calling a clinic are outside its building.
+   is a pilot-stage clinic product in Evansville. So there is one mark, a
+   glowing X on Evansville.
 
    Two things the block did not do and this page needs:
      · Colour comes from the accent role token, not cobe's hardcoded cyan.
@@ -30,15 +29,29 @@ const SPIN = 0.01; // radians per frame — a full turn in roughly ten seconds
 const GLOBE_PX = 560;
 const HALF_PX = GLOBE_PX / 2;
 
-// Where a clinic's inbound calls come from: regional hospitals, pharmacies and
-// referring providers. Illustrative of the caller mix, not a customer map.
-const CALLERS: { location: [number, number]; size: number }[] = [
-  { location: [37.9716, -87.5711], size: 0.05 }, // Evansville
-  { location: [38.2527, -85.7585], size: 0.03 }, // Louisville
-  { location: [39.7684, -86.1581], size: 0.03 }, // Indianapolis
-  { location: [36.1627, -86.7816], size: 0.028 }, // Nashville
-  { location: [38.627, -90.1994], size: 0.028 }, // St. Louis
-];
+// Evansville, marked with the glowing X. It is drawn in HTML over the canvas
+// because cobe markers are flat single-colour discs. The regional caller dots
+// that used to ring it are gone: at this scale Louisville, Indianapolis,
+// Nashville and St. Louis are all within a few dots of each other and merged
+// into one blob sitting on top of the city.
+const EVANSVILLE: [number, number] = [37.9716, -87.5711];
+
+/* cobe's own marker projection (the `O` + `U` pair in its dist), checked
+   against cobe's anchor output, so the X lands exactly where a surface marker
+   would. Returns canvas fractions and z, positive on the visible hemisphere. */
+function project([lat, lon]: [number, number], phi: number, theta: number) {
+  const R = 0.8; // cobe's sphere radius in clip space
+  const la = (lat * Math.PI) / 180;
+  const lo = (lon * Math.PI) / 180 - Math.PI;
+  const px = -Math.cos(la) * Math.cos(lo) * R;
+  const py = Math.sin(la) * R;
+  const pz = Math.cos(la) * Math.sin(lo) * R;
+  const [cp, sp, ct, st] = [Math.cos(phi), Math.sin(phi), Math.cos(theta), Math.sin(theta)];
+  const x = cp * px + sp * pz;
+  const y = sp * st * px + ct * py - cp * st * pz;
+  const z = -sp * ct * px + st * py + cp * ct * pz;
+  return { x: (x + 1) / 2, y: (1 - y) / 2, z: z / R };
+}
 
 export function CoverageGlobe({
   className,
@@ -48,6 +61,7 @@ export function CoverageGlobe({
   style?: React.CSSProperties;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const markRef = useRef<HTMLSpanElement>(null);
   const theme = useTheme();
 
   useEffect(() => {
@@ -91,7 +105,7 @@ export function CoverageGlobe({
         baseColor: light ? token("--usva-accent-tint") : token("--usva-muted"),
         markerColor: token("--usva-accent"),
         glowColor: light ? token("--usva-bg") : token("--usva-accent-2"),
-        markers: CALLERS,
+        markers: [],
       });
       start();
     };
@@ -102,6 +116,13 @@ export function CoverageGlobe({
       let frames = 0;
       const loop = () => {
         globe?.update({ phi: BASE_PHI + t, theta: THETA });
+        const mark = markRef.current;
+        if (mark) {
+          const p = project(EVANSVILLE, BASE_PHI + t, THETA);
+          mark.style.transform = `translate(${p.x * GLOBE_PX}px, ${p.y * GLOBE_PX}px) translate(-50%, -50%)`;
+          // Fades out over the limb instead of popping when it rotates away.
+          mark.style.opacity = String(Math.min(Math.max(p.z * 6, 0), 1));
+        }
         // Reduced motion still needs a few frames to get the dot map on screen,
         // then it holds that single still image instead of animating.
         if (reduced.matches) {
@@ -152,16 +173,31 @@ export function CoverageGlobe({
     // the dome; the canvas hangs out of it in every other direction and is
     // cropped only by the card's own `overflow-hidden`.
     <div className={`relative ${className ?? ""}`} style={{ height: HALF_PX }}>
-      <canvas
-        aria-hidden="true"
+      {/* The canvas and the X share this box so the projection's fractions
+          map straight onto it. */}
+      <div
         className="-translate-x-1/2 pointer-events-none absolute left-1/2 sm:-right-14 sm:translate-x-0 sm:left-auto"
-        ref={canvasRef}
         // Deliberately larger than the cell it sits in: `maxWidth: 100%` would
         // shrink the sphere instead of cutting it. Sitting half a sphere below
         // the wrapper puts the equator on the card's bottom edge. cobe reads
-        // this width once at init to size its buffer.
+        // the canvas width once at init to size its buffer.
         style={{ width: GLOBE_PX, height: GLOBE_PX, bottom: -HALF_PX }}
-      />
+      >
+        <canvas aria-hidden="true" className="absolute inset-0 size-full" ref={canvasRef} />
+        <span
+          ref={markRef}
+          aria-hidden="true"
+          className="absolute top-0 left-0 size-5 opacity-0"
+          style={{
+            // One tight glow that follows the strokes. A wider second layer
+            // blurred into a round disc behind the X.
+            filter: "drop-shadow(0 0 2px var(--usva-accent))",
+          }}
+        >
+          <span className="bg-accent absolute top-1/2 left-0 h-[3px] w-full -translate-y-1/2 rotate-45 rounded-full" />
+          <span className="bg-accent absolute top-1/2 left-0 h-[3px] w-full -translate-y-1/2 -rotate-45 rounded-full" />
+        </span>
+      </div>
     </div>
   );
 }

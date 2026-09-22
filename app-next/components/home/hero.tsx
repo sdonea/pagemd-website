@@ -52,23 +52,16 @@ export function Hero() {
     //   background, so `bg-bg` would then cover the canvas it just enabled.
     <section className="bg-bg relative isolate overflow-hidden border-b border-border">
       <PrismaticBurst
-        /* Light needs the saturate as much as the opacity: at 30% over white
-           the burst was there, it just had no colour left, so it read as a
-           grey haze. Pushing chroma up and the veil down gives a blue that is
-           actually visible without turning the headline's ground busy. */
-        className={`pointer-events-none absolute inset-0 z-0 overflow-hidden ${
-          theme === "dark" ? "" : "opacity-55 saturate-[1.7]"
-        }`}
+        /* On light the shader switches to an ink mode (see `uLight`): the
+           burst paints as blue coverage instead of added light. */
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
         animationType="rotate3d"
         intensity={4}
         speed={0.28}
         distort={1.6}
         rayCount={0}
-        /* `lighten` only shows where the burst is brighter than the ground,
-           and on a near-white ground nothing is, so the aurora vanishes. Its
-           mirror, `darken`, does show — as grey soot, because the burst's own
-           highlights are neutral. On light the canvas composites normally at
-           low opacity instead: a soft blue wash, no grime. */
+        /* `lighten` needs a dark ground. Light composites normally, and
+           the shader's ink mode does the rest. */
         mixBlendMode={theme === "dark" ? "lighten" : "normal"}
       />
       <div
@@ -102,7 +95,7 @@ export function Hero() {
             staggerFrom="last"
             splitBy="characters"
             onNext={setPhrase}
-            mainClassName="text-accent-alt relative left-1/2 mt-2 w-screen -translate-x-1/2 px-6 italic"
+            mainClassName={`${theme === "dark" ? "text-accent-alt" : "text-accent"} relative left-1/2 mt-2 w-screen -translate-x-1/2 px-6 italic`}
             style={{
               fontSize: PHRASE_SIZE,
               /* Additive bloom only ever adds light, so on the light ground it

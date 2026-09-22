@@ -82,9 +82,12 @@ function FeatureCard({
   className?: string;
 }) {
   return (
+    // `clip`, not `hidden`: the globe hangs out of its card, and a `hidden` box
+    // is still a scroll container, so scrolling the globe into view slid the
+    // card's contents and cut the copy off at the left and top.
     <div
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-border bg-surface px-8 pt-8 pb-6",
+        "group relative overflow-clip rounded-2xl border border-border bg-surface px-8 pt-8 pb-6",
         className,
       )}
     >
